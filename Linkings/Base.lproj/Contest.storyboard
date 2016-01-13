@@ -4,13 +4,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="ITCAvantGardeGothicPro-Bold.otf">
             <string>ITCAvantGardeGothicPro-Bold</string>
+            <string>ITCAvantGardeGothicPro-Bold</string>
         </mutableArray>
         <mutableArray key="ITCAvantGardeGothicPro-Medium.otf">
-            <string>ITCAvantGardeGothicPro-Medium</string>
             <string>ITCAvantGardeGothicPro-Medium</string>
         </mutableArray>
     </customFonts>
@@ -19,64 +20,82 @@
         <scene sceneID="GcB-dv-qQQ">
             <objects>
                 <tableViewController id="9aI-qf-2X6" customClass="ContestTVC" customModule="Linkings" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="G2c-us-c72">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" id="G2c-us-c72">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="88" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="88"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="86" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="414" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNP-CT-zQx" id="iG2-Mw-JRT">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B7L-5h-il1">
-                                            <rect key="frame" x="20" y="10" width="48" height="68"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGm-dm-9q7">
+                                            <rect key="frame" x="20" y="6" width="62" height="62"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGm-dm-9q7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvE-II-pug">
-                                                            <rect key="frame" x="0.0" y="0.0" width="47.5" height="47.5"/>
-                                                        </button>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote" translatesAutoresizingMaskIntoConstraints="NO" id="KGB-yC-Bze">
-                                                            <rect key="frame" x="0.0" y="0.0" width="47.5" height="47.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="U9s-Bv-yeN"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvE-II-pug" customClass="IndexedButton" customModule="Linkings" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+                                                    <connections>
+                                                        <action selector="upvotePressed:" destination="9aI-qf-2X6" eventType="touchUpInside" id="jEG-VH-Mri"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote Large" translatesAutoresizingMaskIntoConstraints="NO" id="KGB-yC-Bze">
+                                                    <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="KGB-yC-Bze" secondAttribute="trailing" id="2b7-y8-moK"/>
-                                                        <constraint firstAttribute="bottom" secondItem="TvE-II-pug" secondAttribute="bottom" id="A9W-BB-P3Q"/>
-                                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="QAK-4r-wKM"/>
-                                                        <constraint firstItem="TvE-II-pug" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="QsY-Tr-uQL"/>
-                                                        <constraint firstAttribute="bottom" secondItem="KGB-yC-Bze" secondAttribute="bottom" id="ZDh-Wo-pZF"/>
-                                                        <constraint firstItem="TvE-II-pug" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="mW4-HI-PkL"/>
-                                                        <constraint firstAttribute="trailing" secondItem="TvE-II-pug" secondAttribute="trailing" id="me2-Ql-ogp"/>
-                                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="yZm-j8-w6c"/>
+                                                        <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="U9s-Bv-yeN"/>
                                                     </constraints>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="402" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
-                                                    <rect key="frame" x="0.0" y="48" width="48" height="21"/>
-                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="U9s-Bv-yeN"/>
+                                                        </mask>
+                                                    </variation>
+                                                </imageView>
                                             </subviews>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-B3-bur">
-                                            <rect key="frame" x="88" y="16" width="489" height="56"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="KGB-yC-Bze" secondAttribute="trailing" id="2b7-y8-moK"/>
+                                                <constraint firstAttribute="bottom" secondItem="TvE-II-pug" secondAttribute="bottom" id="A9W-BB-P3Q"/>
+                                                <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="QAK-4r-wKM"/>
+                                                <constraint firstItem="TvE-II-pug" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="QsY-Tr-uQL"/>
+                                                <constraint firstAttribute="bottom" secondItem="KGB-yC-Bze" secondAttribute="bottom" id="ZDh-Wo-pZF"/>
+                                                <constraint firstAttribute="height" constant="44" id="l2g-S1-0WS"/>
+                                                <constraint firstItem="TvE-II-pug" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="mW4-HI-PkL"/>
+                                                <constraint firstAttribute="trailing" secondItem="TvE-II-pug" secondAttribute="trailing" id="me2-Ql-ogp"/>
+                                                <constraint firstAttribute="width" secondItem="uGm-dm-9q7" secondAttribute="height" multiplier="1:1" id="xEx-US-I6U"/>
+                                                <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="yZm-j8-w6c"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="l2g-S1-0WS"/>
+                                                </mask>
+                                            </variation>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="402" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
+                                            <rect key="frame" x="20" y="56" width="62" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="AUi-2V-yFp"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="17"/>
+                                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="AUi-2V-yFp"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-B3-bur">
+                                            <rect key="frame" x="102" y="20" width="292" height="58"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTHING'S GONNA CHANGE MY WORLD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG3-JK-4Gw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="489" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="20"/>
                                                     <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-lR-Dph">
-                                                    <rect key="frame" x="0.0" y="22" width="489" height="34"/>
+                                                    <rect key="frame" x="0.0" y="24" width="292" height="34"/>
                                                     <string key="text">Always looking for the most exciting things to talk abt here @onUnmute but this one hurts. RIP  David Bowie 🙏 #😢 Ok,so no making fun for being so late here but can we #unmute about #MakingAMurderer?? Not a shred of DNA in the garage or trailer?? #crazy</string>
                                                     <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="14"/>
                                                     <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,21 +105,46 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="leading" secondItem="B7L-5h-il1" secondAttribute="trailing" constant="20" id="2FY-5k-nkK"/>
-                                        <constraint firstAttribute="bottom" secondItem="B7L-5h-il1" secondAttribute="bottom" constant="10" id="80Y-Np-A0y"/>
-                                        <constraint firstItem="B7L-5h-il1" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="10" id="JcU-kl-rcd"/>
-                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="top" secondItem="B7L-5h-il1" secondAttribute="top" constant="6" id="LF1-O8-3pW"/>
-                                        <constraint firstItem="B7L-5h-il1" firstAttribute="leading" secondItem="iG2-Mw-JRT" secondAttribute="leading" constant="20" id="M3z-x4-KB0"/>
+                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="trailing" constant="20" id="5Aq-eZ-f9V"/>
+                                        <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="9" id="5qZ-ea-3UK"/>
+                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" constant="14" id="8lZ-wb-jzr"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="AZa-Kk-xV9"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="trailing" secondItem="uGm-dm-9q7" secondAttribute="trailing" id="Foz-Ua-iaf"/>
+                                        <constraint firstItem="uGm-dm-9q7" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="6" id="Un6-eP-veX"/>
+                                        <constraint firstItem="uGm-dm-9q7" firstAttribute="leading" secondItem="iG2-Mw-JRT" secondAttribute="leading" constant="20" id="XgU-um-Lfl"/>
+                                        <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="mx1-Wz-oK3"/>
+                                        <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="pTu-me-hlJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="15" id="rqQ-Cg-nBM"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="bottom" constant="-12" id="sew-o9-Ift"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="mx1-Wz-oK3"/>
+                                            <exclude reference="pTu-me-hlJ"/>
+                                            <exclude reference="rqQ-Cg-nBM"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="uGm-dm-9q7" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="48:320" id="TjF-3d-gRX"/>
+                                    <constraint firstItem="uGm-dm-9q7" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="88:320" id="aja-Z1-fez"/>
+                                    <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="10" id="b9N-1G-jqb"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ey4-B3-bur" secondAttribute="trailing" constant="20" id="cMf-Pl-42o"/>
+                                    <constraint firstItem="KGB-yC-Bze" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="44:320" id="h43-jE-GSR"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="h43-jE-GSR"/>
+                                        <exclude reference="aja-Z1-fez"/>
+                                        <exclude reference="b9N-1G-jqb"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="mainImageView" destination="KGB-yC-Bze" id="qqS-re-V2q"/>
                                     <outlet property="subtitle" destination="gT4-lR-Dph" id="x1x-ck-sXh"/>
                                     <outlet property="title" destination="bG3-JK-4Gw" id="ttN-7g-kd5"/>
+                                    <outlet property="upvoteButton" destination="TvE-II-pug" id="160-Ui-BIH"/>
                                     <outlet property="upvoteCountLabel" destination="deZ-xo-F2x" id="vlm-cW-m76"/>
                                 </connections>
                             </tableViewCell>
@@ -110,11 +154,26 @@
                             <outlet property="delegate" destination="9aI-qf-2X6" id="Wj8-QS-H11"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Gtg-ik-vHH"/>
+                    <navigationItem key="navigationItem" id="Gtg-ik-vHH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="pEj-EP-lz4">
+                            <connections>
+                                <segue destination="lGV-fA-7kK" kind="presentation" id="n1c-aF-Kks"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OqV-8I-itd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1318" y="-224"/>
+            <point key="canvasLocation" x="1238" y="-224"/>
+        </scene>
+        <!--Compose-->
+        <scene sceneID="bel-6C-AQY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Compose" id="lGV-fA-7kK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nrr-R1-BTF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1717.5" y="-454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Pgn-FJ-fbS">
@@ -138,6 +197,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Upvote" width="203" height="203"/>
+        <image name="Upvote Large" width="78" height="78"/>
     </resources>
 </document>

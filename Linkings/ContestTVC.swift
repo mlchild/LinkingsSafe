@@ -7,24 +7,24 @@
 //
 
 import Foundation
+import SafariServices
 
-class ContestTVC: UITableViewController {
+class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     var posts = [PFPost]()
     
-    var shouldReloadOnAppear = false
+    var disabledUpvotePaths = Set([NSIndexPath]())
+    
+    var shouldReloadOnAppear = true //resize first time
     var shouldRefreshOnAppear = false
 
     enum Section: Int {
         case Posts
     }
     
-    
     //MARK: - Basics
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let test = "http://volleythat.com".validURL(httpOnly: true)
         
         title = "LINKINGS"
         
@@ -85,20 +85,50 @@ class ContestTVC: UITableViewController {
     }
     
     func configurePostCell(postCell: PostTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        guard posts.count > indexPath.row else {
-            log.error("No post for index path \(indexPath)")
+        
+        guard let post = postForIndexPath(indexPath) else {
             return
         }
         
-        let post = posts[indexPath.row]
-        
         postCell.title.text = post.title
         postCell.subtitle.text = post.subtitle
-        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes)" : nil
+        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : "XXX"
         
+        postCell.upvoteButton.indexPath = indexPath
         postCell.mainImageView.setTemplateColor(UIColor.darkGrayShoebox())
+        
+        if CacheManager.sharedCache.iUpvoted(post: post) {
+            postCell.mainImageView.image = R.image.upvoted
+        } else {
+            postCell.mainImageView.image = R.image.upvoteLarge
+        }
     }
     
+    //MARK: - UITableViewDelegate
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let post = postForIndexPath(indexPath), let postURL = post.postURL else {
+            log.error("No post at index path \(indexPath) or missing/invalid url \(postForIndexPath(indexPath))")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(URL: postURL)
+        safariVC.delegate = self
+        presentViewController(safariVC, animated: true, completion: nil)
+    }
+    
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: - Helper
+    func postForIndexPath(indexPath: NSIndexPath) -> PFPost? {
+        guard posts.count > indexPath.row else {
+            log.error("No post for index path \(indexPath)")
+            return nil
+        }
+        return posts[indexPath.row]
+    }
     
     //MARK: - Fetch Data
     func fetchPosts() {
@@ -109,11 +139,33 @@ class ContestTVC: UITableViewController {
                 return
             }
             
-            let newPosts = postActivity.flatMap({ $0.post })
+            let newPosts = postActivity.flatMap({ $0.post }).sort({ $0.postScore > $1.postScore })
             if self.posts != newPosts {
                 self.posts = newPosts
                 self.reloadDataSoftly()
             }
         }
+    }
+    
+    //MARK: - Presses
+    @IBAction func upvotePressed(sender: IndexedButton) {
+        guard let ip = sender.indexPath,
+            let postCell = tableView.cellForRowAtIndexPath(ip) as? PostTableCell,
+            let post = postForIndexPath(ip) else {
+                log.error("Missing info for upvote from indexed button \(sender), or row too high for posts \(posts)")
+                return
+        }
+        guard !disabledUpvotePaths.contains(ip) else {
+            log.debug("upvote at path currently disabled \(ip)")
+            return
+        }
+        disabledUpvotePaths.insert(ip)
+        
+        post.upvotePressed({ (success, error) -> Void in
+            self.configurePostCell(postCell, forRowAtIndexPath: ip)
+            self.disabledUpvotePaths.remove(ip)
+        })
+        configurePostCell(postCell, forRowAtIndexPath: ip) //synchronous update before async update
+        
     }
 }

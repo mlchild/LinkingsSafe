@@ -17,5 +17,6 @@ class ImageTableCell: TextTableCell {
 
 class PostTableCell: ImageTableCell {
     @IBOutlet weak var upvoteCountLabel: UILabel!
+    @IBOutlet weak var upvoteButton: IndexedButton!
 }
 

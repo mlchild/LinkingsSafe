@@ -92,6 +92,9 @@
 		B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DBC1C4662A200CDC8DD /* NSString+ValidURL.m */; };
 		B0D40DC01C46646900CDC8DD /* IndexPathable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DBF1C46646900CDC8DD /* IndexPathable.swift */; };
 		B0D40DC21C46671500CDC8DD /* MultilineTextInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DC11C46671500CDC8DD /* MultilineTextInputTableCell.swift */; };
+		B0D40DC41C467B1300CDC8DD /* ProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */; };
+		B0D40DC61C4680B600CDC8DD /* ComposeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */; };
+		B0DEBB9A1C46952100390317 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBB991C46952100390317 /* CacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +227,9 @@
 		B0D40DBC1C4662A200CDC8DD /* NSString+ValidURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidURL.m"; sourceTree = "<group>"; };
 		B0D40DBF1C46646900CDC8DD /* IndexPathable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexPathable.swift; sourceTree = "<group>"; };
 		B0D40DC11C46671500CDC8DD /* MultilineTextInputTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineTextInputTableCell.swift; sourceTree = "<group>"; };
+		B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTVC.swift; sourceTree = "<group>"; };
+		B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTVC.swift; sourceTree = "<group>"; };
+		B0DEBB991C46952100390317 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +380,8 @@
 		B0217FB81C45D1EC0041FD51 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */,
+				B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */,
 				B02180261C45EFCA0041FD51 /* RootViewController.swift */,
 				B02180321C45F78B0041FD51 /* TitleImageButtonVC.swift */,
 				B02180341C45F7BD0041FD51 /* LoginVC.swift */,
@@ -413,6 +421,7 @@
 				B021803E1C46273D0041FD51 /* AnalyticsManager.swift */,
 				B021808D1C463FB20041FD51 /* ConstantsLinkings.swift */,
 				B021808F1C4645210041FD51 /* FetchManager.swift */,
+				B0DEBB991C46952100390317 /* CacheManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -748,11 +757,13 @@
 				B021806C1C4628C50041FD51 /* MRMethodCopier.m in Sources */,
 				B021808C1C463E130041FD51 /* ContestTVC.swift in Sources */,
 				B0D40DC21C46671500CDC8DD /* MultilineTextInputTableCell.swift in Sources */,
+				B0D40DC61C4680B600CDC8DD /* ComposeTVC.swift in Sources */,
 				B02180031C45E5DF0041FD51 /* UIView+SwiftAppearance.m in Sources */,
 				B021808A1C463D140041FD51 /* TextTableCell.swift in Sources */,
 				B0217FC81C45DDCB0041FD51 /* Extensions.swift in Sources */,
 				B02180271C45EFCA0041FD51 /* RootViewController.swift in Sources */,
 				B02180871C463A640041FD51 /* ImageTableCell.swift in Sources */,
+				B0D40DC41C467B1300CDC8DD /* ProfileTVC.swift in Sources */,
 				B0217FCB1C45DF3F0041FD51 /* AppearanceManager.swift in Sources */,
 				B0217FF71C45E3310041FD51 /* AddressExtensions.swift in Sources */,
 				B021805A1C4628670041FD51 /* MRIconView.m in Sources */,
@@ -778,6 +789,7 @@
 				B02180621C4628A20041FD51 /* MRProgressOverlayView+Shortcuts.m in Sources */,
 				B0217FFB1C45E3310041FD51 /* Currency.swift in Sources */,
 				B0217FC21C45D6200041FD51 /* PFPost.swift in Sources */,
+				B0DEBB9A1C46952100390317 /* CacheManager.swift in Sources */,
 				B02180331C45F78B0041FD51 /* TitleImageButtonVC.swift in Sources */,
 				B02180251C45EE5E0041FD51 /* HexColor.swift in Sources */,
 				B0217FF91C45E3310041FD51 /* ColorFormatter.swift in Sources */,

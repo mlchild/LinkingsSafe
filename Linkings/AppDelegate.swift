@@ -20,11 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        FontBlaster.blast() //must be first!
         AppearanceManager.setupAppearance(window)
-        FontBlaster.blast()
         
         Fabric.with([Crashlytics.self, STPAPIClient.self])
         
+        PFActivity.registerSubclass()
         Parse.enableLocalDatastore() //for object equality (for now, can use "sameObjects" fxn from GramCracker)
         Parse.setApplicationId("lXXAbTzGOW0T6vkwjig2MQzGzoJ8c0jZcYxL3xWz",
             clientKey: "CrQksfiEqRMYRh6JRpkAkjTY3tuSATZwKeiw2hJ0")
