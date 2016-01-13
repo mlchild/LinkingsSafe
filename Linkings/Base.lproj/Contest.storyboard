@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pmp-d2-YDh">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="ITCAvantGardeGothicPro-Bold.otf">
+            <string>ITCAvantGardeGothicPro-Bold</string>
+        </mutableArray>
+        <mutableArray key="ITCAvantGardeGothicPro-Medium.otf">
+            <string>ITCAvantGardeGothicPro-Medium</string>
+            <string>ITCAvantGardeGothicPro-Medium</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--ContestTVC-->
+        <scene sceneID="GcB-dv-qQQ">
+            <objects>
+                <tableViewController id="9aI-qf-2X6" customClass="ContestTVC" customModule="Linkings" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="G2c-us-c72">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="88" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNP-CT-zQx" id="iG2-Mw-JRT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B7L-5h-il1">
+                                            <rect key="frame" x="20" y="10" width="48" height="68"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGm-dm-9q7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvE-II-pug">
+                                                            <rect key="frame" x="0.0" y="0.0" width="47.5" height="47.5"/>
+                                                        </button>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote" translatesAutoresizingMaskIntoConstraints="NO" id="KGB-yC-Bze">
+                                                            <rect key="frame" x="0.0" y="0.0" width="47.5" height="47.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="U9s-Bv-yeN"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="KGB-yC-Bze" secondAttribute="trailing" id="2b7-y8-moK"/>
+                                                        <constraint firstAttribute="bottom" secondItem="TvE-II-pug" secondAttribute="bottom" id="A9W-BB-P3Q"/>
+                                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="QAK-4r-wKM"/>
+                                                        <constraint firstItem="TvE-II-pug" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="QsY-Tr-uQL"/>
+                                                        <constraint firstAttribute="bottom" secondItem="KGB-yC-Bze" secondAttribute="bottom" id="ZDh-Wo-pZF"/>
+                                                        <constraint firstItem="TvE-II-pug" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="mW4-HI-PkL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="TvE-II-pug" secondAttribute="trailing" id="me2-Ql-ogp"/>
+                                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="yZm-j8-w6c"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="402" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
+                                                    <rect key="frame" x="0.0" y="48" width="48" height="21"/>
+                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-B3-bur">
+                                            <rect key="frame" x="88" y="16" width="489" height="56"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTHING'S GONNA CHANGE MY WORLD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG3-JK-4Gw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="489" height="20"/>
+                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="16"/>
+                                                    <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-lR-Dph">
+                                                    <rect key="frame" x="0.0" y="22" width="489" height="34"/>
+                                                    <string key="text">Always looking for the most exciting things to talk abt here @onUnmute but this one hurts. RIP  David Bowie 🙏 #😢 Ok,so no making fun for being so late here but can we #unmute about #MakingAMurderer?? Not a shred of DNA in the garage or trailer?? #crazy</string>
+                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="14"/>
+                                                    <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="leading" secondItem="B7L-5h-il1" secondAttribute="trailing" constant="20" id="2FY-5k-nkK"/>
+                                        <constraint firstAttribute="bottom" secondItem="B7L-5h-il1" secondAttribute="bottom" constant="10" id="80Y-Np-A0y"/>
+                                        <constraint firstItem="B7L-5h-il1" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="10" id="JcU-kl-rcd"/>
+                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="top" secondItem="B7L-5h-il1" secondAttribute="top" constant="6" id="LF1-O8-3pW"/>
+                                        <constraint firstItem="B7L-5h-il1" firstAttribute="leading" secondItem="iG2-Mw-JRT" secondAttribute="leading" constant="20" id="M3z-x4-KB0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ey4-B3-bur" secondAttribute="trailing" constant="20" id="cMf-Pl-42o"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="mainImageView" destination="KGB-yC-Bze" id="qqS-re-V2q"/>
+                                    <outlet property="subtitle" destination="gT4-lR-Dph" id="x1x-ck-sXh"/>
+                                    <outlet property="title" destination="bG3-JK-4Gw" id="ttN-7g-kd5"/>
+                                    <outlet property="upvoteCountLabel" destination="deZ-xo-F2x" id="vlm-cW-m76"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9aI-qf-2X6" id="GD4-y2-1OY"/>
+                            <outlet property="delegate" destination="9aI-qf-2X6" id="Wj8-QS-H11"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Gtg-ik-vHH"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OqV-8I-itd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1318" y="-224"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Pgn-FJ-fbS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pmp-d2-YDh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="featured" id="HB3-r4-eQ0"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mbp-Ay-u3w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9aI-qf-2X6" kind="relationship" relationship="rootViewController" id="fpt-kj-5hW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q4C-yQ-uVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="506" y="-224"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Upvote" width="203" height="203"/>
+    </resources>
+</document>

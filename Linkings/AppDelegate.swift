@@ -6,7 +6,11 @@
 //  Copyright © 2016 Volley Inc. All rights reserved.
 //
 
-import UIKit
+import Fabric
+import Crashlytics
+import Stripe
+
+let log = XCGLogger.defaultInstance()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +19,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        AppearanceManager.setupAppearance(window)
+        FontBlaster.blast()
+        
+        Fabric.with([Crashlytics.self, STPAPIClient.self])
+        
+        Parse.enableLocalDatastore() //for object equality (for now, can use "sameObjects" fxn from GramCracker)
+        Parse.setApplicationId("lXXAbTzGOW0T6vkwjig2MQzGzoJ8c0jZcYxL3xWz",
+            clientKey: "CrQksfiEqRMYRh6JRpkAkjTY3tuSATZwKeiw2hJ0")
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+            if error != nil || user == nil {
+                log.debug("Error fetching current user \(error)")
+            }
+            PFUser.setup()
+        })
+        
+        //Logger
+        log.setup(.Debug, showLogIdentifier: false, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: true, showLineNumbers: true, showDate: true, writeToFile: nil, fileLogLevel: .Debug)
+
         return true
     }
 
@@ -42,5 +65,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    //MARK: - URL Routing
+
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(app, openURL: url, sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String, annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
+    }
 }
 
