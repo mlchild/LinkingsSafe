@@ -86,16 +86,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linkings/ContestTVC.swift"
-            timestampString = "474376046.106384"
+            filePath = "Linkings/PFPost.swift"
+            timestampString = "474390371.730339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "upvoteOrRemoveUpvote(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

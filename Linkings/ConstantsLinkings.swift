@@ -19,6 +19,7 @@ struct Constants {
 
 enum Error: ErrorType {
     case NoCurrentUser
+    case NoObjectId
     case NoNetworkConnection
     case NoPFQuery
     case NoLocalDatastore

@@ -14,13 +14,21 @@ class FetchManager {
     typealias PFContestResultBlock = (contest: PFContest?, error: NSError?) -> ()
     
     //MARK: - Higher level functions
-    class func fetchPosts(completion:PFActivityArrayResultBlock) {
-        postActivityQuery().findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            if let postActivity = objects as? [PFActivity] where error == nil {
-                completion(activity: postActivity, error: nil)
-            } else {
+    static let pageLength = 100
+    class func fetchPosts(page: Int = 0, completion:PFActivityArrayResultBlock) {
+        
+        var params = [String: AnyObject]()
+        params["skip"] = page * pageLength
+        params["limit"] = pageLength
+        
+        PFCloud.callFunctionInBackground("fetchPostActivityForCurrentContest", withParameters: params) { (result, error) -> Void in
+            log.debug("fetch result \(result)")
+            guard let postActivity = result as? [PFActivity] where error == nil else {
+                log.error("Error fetching post activity for current contest \(error)")
                 completion(activity: nil, error: error)
+                return
             }
+            completion(activity: postActivity, error: nil)
         }
     }
     

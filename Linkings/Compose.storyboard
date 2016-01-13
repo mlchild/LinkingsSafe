@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kND-ct-bwm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fKz-8Z-qUf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -13,17 +13,17 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Table View Controller-->
+        <!--ComposeTVC-->
         <scene sceneID="HM5-Qd-BPV">
             <objects>
-                <tableViewController id="kND-ct-bwm" sceneMemberID="viewController">
+                <tableViewController id="kND-ct-bwm" customClass="ComposeTVC" customModule="Linkings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aJ3-cU-vbe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Text Field Cell" rowHeight="52" id="mdu-jT-O9j" customClass="TextFieldTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="49.5" width="600" height="52"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdu-jT-O9j" id="smT-RY-bcq">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="51.5"/>
@@ -31,7 +31,7 @@
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Website" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GI1-Yx-47r" customClass="IndexedTextField" customModule="Linkings" customModuleProvider="target">
                                             <rect key="frame" x="20" y="12" width="570" height="29"/>
-                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         </textField>
@@ -49,7 +49,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Multiline Text Cell" rowHeight="66" id="70p-lO-8g0" customClass="MultilineTextInputTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="101.5" width="600" height="66"/>
+                                <rect key="frame" x="0.0" y="165.5" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="70p-lO-8g0" id="ckq-XZ-ZiG">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
@@ -57,6 +57,7 @@
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor " translatesAutoresizingMaskIntoConstraints="NO" id="tDn-2Y-OvC">
                                             <rect key="frame" x="15" y="4" width="577" height="58"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
@@ -79,8 +80,27 @@
                             <outlet property="delegate" destination="kND-ct-bwm" id="ptv-6c-MzJ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="jsy-rJ-aNE"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ega-RH-Ncj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1027" y="279"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1jp-aa-Vc1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fKz-8Z-qUf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZN8-IA-k2f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kND-ct-bwm" kind="relationship" relationship="rootViewController" id="gHa-gM-wZS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHu-oQ-9yR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="215" y="279"/>
         </scene>

@@ -59,6 +59,18 @@ extension PFUser {
     }
 }
 
+extension PFObject {
+    func decrementKey(key: String, stayPositive: Bool) {
+        if let numberValue = self[key] as? NSNumber {
+            if stayPositive && numberValue.integerValue <= 0 {
+                log.debug("Error: trying to decrement zero or negative value \(numberValue) for key \(key)")
+                return
+            }
+            self.incrementKey(key, byAmount: -1)
+        }
+    }
+}
+
 //MARK: - UIKit
 extension UIView {
     
@@ -176,6 +188,7 @@ extension UIFont {
     class func avenirNextUltraLight(size size: CGFloat) -> UIFont {
         return UIFont(name: "AvenirNext-UltraLight", size: size)!
     }
+    
 }
 
 extension UIColor {
@@ -225,6 +238,20 @@ extension UITableViewController {
     }
 }
 
+extension UITableViewCell {
+    /// Search up the view hierarchy of the table view cell to find the containing table view
+    var tableSuperview: UITableView? {
+        get {
+            var table: UIView? = superview
+            while !(table is UITableView) && table != nil {
+                table = table?.superview
+            }
+            
+            return table as? UITableView
+        }
+    }
+}
+
 //MARK: - Foundation
 extension String {
     
@@ -237,7 +264,7 @@ extension String {
         }
         
         if httpOnly {
-            guard url.host == "http" || url.host == "https" else {
+            guard url.scheme == "http" || url.scheme == "https" || url.scheme == "" else {
                 return nil
             }
         }

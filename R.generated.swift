@@ -77,6 +77,8 @@ struct R {
   
   struct image {
     static var facebook: UIImage? { return UIImage(named: "Facebook", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var profile: UIImage? { return UIImage(named: "Profile", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var profileTab: UIImage? { return UIImage(named: "Profile Tab", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvote: UIImage? { return UIImage(named: "Upvote", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoteLarge: UIImage? { return UIImage(named: "Upvote Large", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoted: UIImage? { return UIImage(named: "Upvoted", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
@@ -87,6 +89,7 @@ struct R {
   }
   
   struct reuseIdentifier {
+    static var basicCell: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "Basic Cell") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
@@ -105,7 +108,7 @@ struct R {
   
   struct storyboard {
     struct compose {
-      static var initialViewController: UITableViewController? { return instance.instantiateInitialViewController() as? UITableViewController }
+      static var initialViewController: UINavigationController? { return instance.instantiateInitialViewController() as? UINavigationController }
       static var instance: UIStoryboard { return UIStoryboard(name: "Compose", bundle: _R.hostingBundle) }
       
       static func validateImages() {
@@ -122,7 +125,7 @@ struct R {
       static var instance: UIStoryboard { return UIStoryboard(name: "Contest", bundle: _R.hostingBundle) }
       
       static func validateImages() {
-        assert(UIImage(named: "Upvote") != nil, "[R.swift] Image named 'Upvote' is used in storyboard 'Contest', but couldn't be loaded.")
+        assert(UIImage(named: "Upvote Large") != nil, "[R.swift] Image named 'Upvote Large' is used in storyboard 'Contest', but couldn't be loaded.")
       }
       
       static func validateViewControllers() {
@@ -162,7 +165,7 @@ struct R {
       static var instance: UIStoryboard { return UIStoryboard(name: "Profile", bundle: _R.hostingBundle) }
       
       static func validateImages() {
-        
+        assert(UIImage(named: "Profile Tab") != nil, "[R.swift] Image named 'Profile Tab' is used in storyboard 'Profile', but couldn't be loaded.")
       }
       
       static func validateViewControllers() {

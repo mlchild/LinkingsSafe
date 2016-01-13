@@ -43,7 +43,26 @@ class PFActivity: PFObject, PFSubclassing {
     }
     
     //MARK: - High Level Convenience
-    func newPost(urlString: String, title: String, subtitle: String?, inContest contest: PFContest, completion: PFBooleanResultBlock) {
+    class func newPostInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFBooleanResultBlock) {
+        
+        guard urlString.validURL(httpOnly: true) != nil else {
+            completion(false, Error.InvalidURL as NSError)
+            return
+        }
+        
+        var params = ["url" : urlString, "title" : title]
+        params["subtitle"] = subtitle
+        
+        PFCloud.callFunctionInBackground("newPostInCurrentContest", withParameters: params) { (object, error) -> Void in
+            if let postError = error {
+                log.error("Error posting params \(params): \(postError)")
+            }
+            completion(error == nil, error)
+        }
+    }
+    
+    //don't use this for now (james posts)
+    private class func newPost(urlString: String, title: String, subtitle: String?, inContest contest: PFContest, completion: PFBooleanResultBlock) {
         do {
             let post = try PFPost(urlString: urlString, title: title, subtitle: subtitle)
             let postActivity = try PFActivity(type: .Post, post: post, contest: contest)
