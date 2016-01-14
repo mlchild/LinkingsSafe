@@ -31,8 +31,9 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         fetchPosts()
         refreshControl?.addTarget(self, action: "fetchPosts", forControlEvents: .ValueChanged)
         
-        tableView.estimatedRowHeight = 88
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = 96
+//        tableView.estimatedRowHeight = 88
+//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchDataChanged", name: Constants.NSNotification.FetchDataChanged, object: nil)
@@ -95,13 +96,13 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : "XXX"
         
         postCell.upvoteButton.indexPath = indexPath
-        postCell.mainImageView.setTemplateColor(UIColor.darkGrayShoebox())
         
         if CacheManager.sharedCache.iUpvoted(post: post) {
             postCell.mainImageView.image = R.image.upvoted
         } else {
             postCell.mainImageView.image = R.image.upvoteLarge
         }
+        postCell.mainImageView.setTemplateColor(UIColor.darkGrayShoebox()) //has to be after setting image
     }
     
     //MARK: - UITableViewDelegate
@@ -114,7 +115,8 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         
         let safariVC = SFSafariViewController(URL: postURL)
         safariVC.delegate = self
-        presentViewController(safariVC, animated: true, completion: nil)
+        presentViewController(safariVC, animated: true, completion: { log.debug("trying to present safari vc \(safariVC)") })
+        //radar: issue with swiping https://openradar.appspot.com/24011284
     }
     
     func safariViewControllerDidFinish(controller: SFSafariViewController) {
@@ -132,10 +134,11 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     //MARK: - Fetch Data
     func fetchPosts() {
-        FetchManager.fetchPosts { (activity, error) -> () in
+        FetchManager.fetchPostsOnCurrentContest { (activity, error) -> () in
             guard let postActivity = activity where error == nil else {
                 log.error("Error fetching post activity \(error)")
                 MRProgressOverlayView.showErrorWithStatus("Error fetching posts")
+                self.refreshControl?.endRefreshing()
                 return
             }
             
@@ -143,6 +146,27 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
             if self.posts != newPosts {
                 self.posts = newPosts
                 self.reloadDataSoftly()
+            }
+            
+            self.fetchMyUpvotes()
+        }
+    }
+    
+    func fetchMyUpvotes() {
+        FetchManager.fetchMyUpvotesOnCurrentContest { (activity, error) -> () in
+            self.refreshControl?.endRefreshing()
+            guard let upvoteActivity = activity where error == nil else {
+                log.error("Error fetching my upvote activity \(error)")
+                MRProgressOverlayView.showErrorWithStatus("Error fetching upvotes")
+                return
+            }
+            
+            let changedPosts = CacheManager.sharedCache.cacheMyActivity(upvoteActivity)
+            for post in changedPosts {
+                if let postIndex = self.posts.indexOf(post),
+                    let postCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue)) as? PostTableCell {
+                        self.configurePostCell(postCell, forRowAtIndexPath: NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue))
+                }
             }
         }
     }

@@ -118,10 +118,14 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
             cell.textField.text = newPostInfo[.URL]
             cell.textField.attributedPlaceholder = NSAttributedString(string: "Link to share", attributes: placeholderAttributes)
             cell.textField.keyboardType = UIKeyboardType.URL
+            cell.textField.autocorrectionType = .No
+            cell.textField.autocapitalizationType = .None
         case .Title:
             cell.textField.text = newPostInfo[.Title]
             cell.textField.attributedPlaceholder = NSAttributedString(string: "Post title", attributes: placeholderAttributes)
             cell.textField.keyboardType = UIKeyboardType.Default
+            cell.textField.autocorrectionType = .Default
+            cell.textField.autocapitalizationType = .Words
         default: break
         }
 
@@ -133,7 +137,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         if let subtitle = newPostInfo[.Subtitle] where subtitle.characters.count > 0 && cell.trueText == nil {
             cell.trueText = subtitle
         }
-        cell.placeholder = "Add some additional context for your avid readers out there..."
+        cell.placeholder = "Add some context..."
         cell.setupText()
     }
     
@@ -196,12 +200,13 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     }
     
     func donePressed() {
-        view.endEditing(true)
         guard let urlString = newPostInfo[.URL], let title = newPostInfo[.Title] else {
             log.error("Missing new post info \(newPostInfo)")
             MRProgressOverlayView.showErrorWithStatus("Missing post info")
             return
         }
+        
+        view.endEditing(true)
         PFActivity.newPostInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (success, error) -> Void in
             if success && error == nil {
                 MRProgressOverlayView.showSuccessWithStatus("Posted new hotness!")

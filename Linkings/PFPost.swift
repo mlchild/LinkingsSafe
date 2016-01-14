@@ -19,13 +19,18 @@ class PFPost: PFObject, PFSubclassing {
     @NSManaged private var score: NSNumber?
     
     var upvotes: Int? {
-        return upvoteCount as? Int
+        if let adjustedUpvotes = upvoteCount as? Int {
+            return adjustedUpvotes + tempUpvoteAdjustment
+        }
+        return nil
     }
+    var tempUpvoteAdjustment = 0
+    
     var postScore: Int? {
         return score as? Int
     }
     var postURL: NSURL? {
-        guard let urlString = url, let validURL = NSURL(string: urlString) else {
+        guard let urlString = url, let validURL = urlString.validURL(httpOnly: true) else {
             log.error("invalid url for post \(url)")
             return nil
         }
@@ -40,22 +45,28 @@ class PFPost: PFObject, PFSubclassing {
     func upvotePressed(completion: PFBooleanResultBlock) {
         if !CacheManager.sharedCache.iUpvoted(post: self) {
             upvoteOrRemoveUpvote(true) { (success, error) -> Void in
-                if error as? Error == Error.NoNetworkConnection {
-                    MRProgressOverlayView.showErrorWithStatus("No network connection")
-                } else if let errorName = error?.userInfo["error"] as? String,
-                    let _ = errorName.rangeOfString("already upvoted") {
-                        MRProgressOverlayView.showSuccessWithStatus("Already upvoted")
-                } else {
-                    MRProgressOverlayView.showErrorWithStatus("Error upvoting")
+                if let upvoteError = error {
+                    log.error("Error upvoting \(upvoteError)")
+                    if upvoteError as? Error == Error.NoNetworkConnection {
+                        MRProgressOverlayView.showErrorWithStatus("No network connection")
+                    } else if let errorName = upvoteError.userInfo["error"] as? String,
+                        let _ = errorName.rangeOfString("already upvoted") {
+                            MRProgressOverlayView.showSuccessWithStatus("Already upvoted")
+                    } else  {
+                        MRProgressOverlayView.showErrorWithStatus("Error upvoting")
+                    }
                 }
                 completion(success, error)
             }
         } else {
             upvoteOrRemoveUpvote(false) { (success, error) -> Void in
-                if error as? Error == Error.NoNetworkConnection {
-                    MRProgressOverlayView.showErrorWithStatus("No network connection")
-                } else {
-                    MRProgressOverlayView.showErrorWithStatus("Error removing upvote")
+                if let upvoteError = error {
+                    log.error("Error removing upvote \(upvoteError)")
+                    if error as? Error == Error.NoNetworkConnection {
+                        MRProgressOverlayView.showErrorWithStatus("No network connection")
+                    } else {
+                        MRProgressOverlayView.showErrorWithStatus("Error removing upvote")
+                    }
                 }
                 completion(success, error)
             }
@@ -71,12 +82,18 @@ class PFPost: PFObject, PFSubclassing {
         let params = ["postId" : postId]
         
         CacheManager.sharedCache.iUpvoteOrDeleteMyUpvote(post: self, upvote: upvote)
-//        incrementKey(Property.upvoteCount, byAmount: upvote ? 1 : -1) //gets double-counted
+        tempUpvoteAdjustment = (upvote ? 1 : -1)
         
-        PFCloud.callFunctionInBackground(upvote ? "upvotePost" : "deleteUpvote", withParameters: params) { (object, error) -> Void in
+        PFCloud.callFunctionInBackground(upvote ? "upvotePost" : "deleteUpvotesByUserOnPost", withParameters: params) { (object, error) -> Void in
+            if let activity = object as? PFActivity {
+                log.debug("tried to upvote \(upvote), received upvoted post \(activity.post), local post \(self)")
+            } else {
+                log.debug("tried to upvote \(upvote), local post is now \(self)")
+            }
+            
+            self.tempUpvoteAdjustment = 0
             if let upvoteError = error {
                 CacheManager.sharedCache.iUpvoteOrDeleteMyUpvote(post: self, upvote: !upvote)
-//                self.incrementKey(Property.upvoteCount, byAmount: upvote ? -1 : 1)
                 log.error("Error upvoting or removing upvote \(upvote) post \(self): \(upvoteError)")
             }
             completion(error == nil, error)

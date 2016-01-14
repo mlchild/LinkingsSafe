@@ -42,6 +42,10 @@ extension PFUser {
         static let isDebugUser = "isDebugUser"
     }
     
+    var facebookName: String? {
+        return self[Property.facebookName] as? String
+    }
+    
     
     //user setup
     class func setup() {
@@ -264,7 +268,11 @@ extension String {
         }
         
         if httpOnly {
-            guard url.scheme == "http" || url.scheme == "https" || url.scheme == "" else {
+            if url.scheme == "" {
+                let newURLString = "http://" + url.absoluteString
+                return newURLString.validURL(httpOnly: httpOnly) //recursion with http added on
+            }
+            guard url.scheme == "http" || url.scheme == "https" else {
                 return nil
             }
         }
