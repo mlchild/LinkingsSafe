@@ -31,7 +31,7 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         fetchPosts()
         refreshControl?.addTarget(self, action: "fetchPosts", forControlEvents: .ValueChanged)
         
-        tableView.rowHeight = 96
+        tableView.rowHeight = 102
 //        tableView.estimatedRowHeight = 88
 //        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
@@ -93,8 +93,14 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         
         postCell.title.text = post.title
         postCell.subtitle.text = post.subtitle
-        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : "XXX"
         
+        var hostName = post.postURL?.host
+        if let host = hostName where host.hasPrefix("www.") {
+            hostName = (host as NSString).substringFromIndex(4)
+        }
+        postCell.urlHostSlugLabel.text = hostName
+        
+        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : "XXX"
         postCell.upvoteButton.indexPath = indexPath
         
         if CacheManager.sharedCache.iUpvoted(post: post) {

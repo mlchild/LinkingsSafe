@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self, STPAPIClient.self])
         
         PFActivity.registerSubclass()
+        PFPrivateUser.registerSubclass()
+        PFPost.registerSubclass()
+        PFContest.registerSubclass()
         Parse.enableLocalDatastore() //for object equality (for now, can use "sameObjects" fxn from GramCracker)
         Parse.setApplicationId("lXXAbTzGOW0T6vkwjig2MQzGzoJ8c0jZcYxL3xWz",
             clientKey: "CrQksfiEqRMYRh6JRpkAkjTY3tuSATZwKeiw2hJ0")

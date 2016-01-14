@@ -12,7 +12,7 @@ class PFPost: PFObject, PFSubclassing {
     
     //MARK: - Parse Properties
     @NSManaged private(set) var user: PFUser?
-    @NSManaged private(set) var url: String?
+    @NSManaged private var url: String?
     @NSManaged private(set) var title: String?
     @NSManaged private(set) var subtitle: String?
     @NSManaged private var upvoteCount: NSNumber?

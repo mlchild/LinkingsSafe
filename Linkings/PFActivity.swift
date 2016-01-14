@@ -20,12 +20,18 @@ class PFActivity: PFObject, PFSubclassing {
     @NSManaged private(set) var text: String?
     @NSManaged private(set) var toUser: PFUser?
     
+    @NSManaged private var cost: NSNumber?
+    
     //MARK: - Local Properties
     var activityType: PFActivity.ActivityType? {
         guard let typeString = type, let myType = ActivityType(rawValue: typeString) else {
             return nil
         }
         return myType
+    }
+    
+    var activityCost: Double? {
+        return cost as? Double
     }
     
     //MARK: - Data Types
@@ -38,12 +44,13 @@ class PFActivity: PFObject, PFSubclassing {
     }
     
     enum ActivityType: String {
-        case Post = "post"
+        case Entry = "entry"
         case Upvote = "upvote"
+        case Deposit = "deposit"
     }
     
     //MARK: - High Level Convenience
-    class func newPostInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFBooleanResultBlock) {
+    class func newEntryInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFBooleanResultBlock) {
         
         guard urlString.validURL(httpOnly: true) != nil else {
             completion(false, Error.InvalidURL as NSError)
@@ -53,7 +60,7 @@ class PFActivity: PFObject, PFSubclassing {
         var params = ["url" : urlString, "title" : title]
         params["subtitle"] = subtitle
         
-        PFCloud.callFunctionInBackground("newPostInCurrentContest", withParameters: params) { (object, error) -> Void in
+        PFCloud.callFunctionInBackground("newEntryInCurrentContest", withParameters: params) { (object, error) -> Void in
             if let postError = error {
                 log.error("Error posting params \(params): \(postError)")
             }
@@ -65,7 +72,7 @@ class PFActivity: PFObject, PFSubclassing {
     private class func newPost(urlString: String, title: String, subtitle: String?, inContest contest: PFContest, completion: PFBooleanResultBlock) {
         do {
             let post = try PFPost(urlString: urlString, title: title, subtitle: subtitle)
-            let postActivity = try PFActivity(type: .Post, post: post, contest: contest)
+            let postActivity = try PFActivity(type: .Entry, post: post, contest: contest)
             postActivity.saveInBackgroundWithBlock(completion)
         } catch {
             completion(false, error as NSError)

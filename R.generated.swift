@@ -5,18 +5,20 @@ import UIKit
 
 struct R {
   static func validate() {
+    storyboard.deposit.validateImages()
+    storyboard.deposit.validateViewControllers()
+    storyboard.contest.validateImages()
+    storyboard.contest.validateViewControllers()
+    storyboard.profile.validateImages()
+    storyboard.profile.validateViewControllers()
     storyboard.login.validateImages()
     storyboard.login.validateViewControllers()
     storyboard.compose.validateImages()
     storyboard.compose.validateViewControllers()
     storyboard.root.validateImages()
     storyboard.root.validateViewControllers()
-    storyboard.contest.validateImages()
-    storyboard.contest.validateViewControllers()
     storyboard.main.validateImages()
     storyboard.main.validateViewControllers()
-    storyboard.profile.validateImages()
-    storyboard.profile.validateViewControllers()
   }
   
   struct file {
@@ -89,16 +91,21 @@ struct R {
   }
   
   struct reuseIdentifier {
+    static var depositTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Text Cell Simple") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
+    static var profileTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
     static var userInfoCellComplex: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "User Info Cell Complex") }
-    static var usernameCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Username Cell Simple") }
   }
   
   struct segue {
     struct loginVC {
       static var showMain: StoryboardSegueIdentifier<UIStoryboardSegue, LoginVC, UIViewController> { return StoryboardSegueIdentifier(identifier: "showMain") }
+    }
+    
+    struct profileTVC {
+      static var showDeposit: StoryboardSegueIdentifier<UIStoryboardSegue, ProfileTVC, UIViewController> { return StoryboardSegueIdentifier(identifier: "showDeposit") }
     }
     
     struct rootViewController {
@@ -127,6 +134,19 @@ struct R {
       
       static func validateImages() {
         assert(UIImage(named: "Upvote Large") != nil, "[R.swift] Image named 'Upvote Large' is used in storyboard 'Contest', but couldn't be loaded.")
+      }
+      
+      static func validateViewControllers() {
+        
+      }
+    }
+    
+    struct deposit {
+      static var initialViewController: UINavigationController? { return instance.instantiateInitialViewController() as? UINavigationController }
+      static var instance: UIStoryboard { return UIStoryboard(name: "Deposit", bundle: _R.hostingBundle) }
+      
+      static func validateImages() {
+        
       }
       
       static func validateViewControllers() {
