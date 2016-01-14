@@ -140,10 +140,12 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         PKPaymentAuthorizationViewController knows when and how to update its UI.
         */
         PaymentManager.handlePaymentAuthorizationWithPayment(payment, amount: depositAmount) { (authStatus) -> () in
+            self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
             switch authStatus {
             case .Success:
                 MRProgressOverlayView.showSuccessWithStatus("Made deposit!")
                 self.dismissViewControllerAnimated(true, completion: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(Constants.NSNotification.FetchDataChanged, object: self)
             default:
                 log.error("deposit error: \(authStatus)")
                 MRProgressOverlayView.showErrorWithStatus("Error making deposit")
