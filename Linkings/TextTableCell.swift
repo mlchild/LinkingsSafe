@@ -10,5 +10,8 @@ import Foundation
 
 class TextTableCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
+}
+
+class DetailTextTableCell: TextTableCell {
     @IBOutlet weak var subtitle: UILabel!
 }

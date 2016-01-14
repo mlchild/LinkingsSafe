@@ -89,10 +89,11 @@ struct R {
   }
   
   struct reuseIdentifier {
-    static var basicCell: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "Basic Cell") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
+    static var userInfoCellComplex: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "User Info Cell Complex") }
+    static var usernameCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Username Cell Simple") }
   }
   
   struct segue {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageTableCell: TextTableCell {
+class ImageTableCell: DetailTextTableCell {
     @IBOutlet weak var mainImageView: UIImageView!
 //    var parseMainImageView: PFImageView? {
 //        return imageLargeView as? PFImageView

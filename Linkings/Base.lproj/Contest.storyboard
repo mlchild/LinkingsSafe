@@ -25,11 +25,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="86" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="414" height="86"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="96" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="414" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNP-CT-zQx" id="iG2-Mw-JRT">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="85.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGm-dm-9q7">
@@ -72,7 +72,7 @@
                                             </variation>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="402" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
-                                            <rect key="frame" x="20" y="56" width="62" height="20.5"/>
+                                            <rect key="frame" x="20" y="62" width="62" height="20.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="AUi-2V-yFp"/>
                                             </constraints>
@@ -86,16 +86,16 @@
                                             </variation>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-B3-bur">
-                                            <rect key="frame" x="102" y="20" width="292" height="58"/>
+                                            <rect key="frame" x="102" y="20" width="292" height="57.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTHING'S GONNA CHANGE MY WORLD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG3-JK-4Gw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-lR-Dph">
-                                                    <rect key="frame" x="0.0" y="24" width="292" height="34"/>
+                                                    <rect key="frame" x="0.0" y="23" width="292" height="34"/>
                                                     <string key="text">Always looking for the most exciting things to talk abt here @onUnmute but this one hurts. RIP  David Bowie 🙏 #😢 Ok,so no making fun for being so late here but can we #unmute about #MakingAMurderer?? Not a shred of DNA in the garage or trailer?? #crazy</string>
                                                     <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="14"/>
                                                     <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,10 +115,11 @@
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="mx1-Wz-oK3"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="pTu-me-hlJ"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="15" id="rqQ-Cg-nBM"/>
-                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="bottom" constant="-12" id="sew-o9-Ift"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="bottom" constant="-6" id="sew-o9-Ift"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="5qZ-ea-3UK"/>
                                             <exclude reference="mx1-Wz-oK3"/>
                                             <exclude reference="pTu-me-hlJ"/>
                                             <exclude reference="rqQ-Cg-nBM"/>
@@ -162,6 +163,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Eio-4R-mwB">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OqV-8I-itd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
