@@ -17,6 +17,8 @@ extension PFUser {
         static let username = "username"
         static let setUsername = "setUsername"
         
+        static let privateUser = "privateUser"
+        
         static let profilePhoto = "profilePhoto"
         static let bio = "bio"
         static let website = "website"
@@ -46,6 +48,9 @@ extension PFUser {
         return self[Property.facebookName] as? String
     }
     
+    var privateUser: PFPrivateUser? {
+        return self[Property.privateUser] as? PFPrivateUser
+    }
     
     //user setup
     class func setup() {

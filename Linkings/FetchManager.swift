@@ -16,10 +16,10 @@ class FetchManager {
     //MARK: - Higher level functions
     
     class func fetchPostsOnCurrentContest(page: Int = 0, completion: PFActivityArrayResultBlock) {
-        fetchActivityOnContest(.Posts, contestCategory: .Current, page: page, completion: completion)
+        fetchActivityOnContest(.Entries, contestCategory: .Current, page: page, completion: completion)
     }
     class func fetchPostsOnContest(contestId: String, page: Int = 0, completion: PFActivityArrayResultBlock) {
-        fetchActivityOnContest(.Posts, contestCategory: .ContestId(id: contestId), page: page, completion: completion)
+        fetchActivityOnContest(.Entries, contestCategory: .ContestId(id: contestId), page: page, completion: completion)
     }
     
     class func fetchMyUpvotesOnCurrentContest(completion: PFActivityArrayResultBlock) {
@@ -32,7 +32,7 @@ class FetchManager {
     //MARK: - All activity fetch function
     enum ActivityCategory {
         case MyUpvotes
-        case Posts
+        case Entries
     }
     enum ContestCategory {
         case Current
@@ -49,8 +49,8 @@ class FetchManager {
         switch activityCategory {
         case .MyUpvotes:
             functionName = "fetchUpvotesByUserFor"
-        case .Posts:
-            functionName = "fetchPostActivityFor"
+        case .Entries:
+            functionName = "fetchEntryActivityFor"
             params["skip"] = page * pageLength
             params["limit"] = pageLength
         }
@@ -87,7 +87,7 @@ class FetchManager {
     
     //MARK: - Queries
     class func postActivityQuery() -> PFQuery {
-        let postActivityQuery = activityQuery([.Post])
+        let postActivityQuery = activityQuery([.Entry])
         return postActivityQuery
     }
     

@@ -219,7 +219,7 @@
                                     <outlet property="usernameLabel" destination="LVI-QH-noj" id="44H-bQ-Kbw"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Username Cell Simple" rowHeight="100" id="2km-LG-Nhf" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Profile Text Cell Simple" rowHeight="100" id="2km-LG-Nhf" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="252" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2km-LG-Nhf" id="d9D-Qg-Nc8">
@@ -256,10 +256,21 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="xhO-bQ-IYw">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <segue destination="UdY-hn-IQ8" kind="presentation" identifier="showDeposit" id="h19-89-Rgk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQi-iy-RcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1246" y="537"/>
+        </scene>
+        <!--Deposit-->
+        <scene sceneID="14F-4a-fXb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Deposit" id="UdY-hn-IQ8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AyI-NA-4jf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765.5" y="537"/>
         </scene>
         <!--Profile-->
         <scene sceneID="LAq-zx-RKF">

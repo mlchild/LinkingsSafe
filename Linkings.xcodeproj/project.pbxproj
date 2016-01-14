@@ -95,6 +95,10 @@
 		B0D40DC41C467B1300CDC8DD /* ProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */; };
 		B0D40DC61C4680B600CDC8DD /* ComposeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */; };
 		B0DEBB9A1C46952100390317 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBB991C46952100390317 /* CacheManager.swift */; };
+		B0DEBB9C1C477C5100390317 /* PFPrivateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBB9B1C477C5100390317 /* PFPrivateUser.swift */; };
+		B0DEBB9E1C47959200390317 /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBB9D1C47959200390317 /* PaymentManager.swift */; };
+		B0DEBBA01C47980D00390317 /* Deposit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DEBB9F1C47980D00390317 /* Deposit.storyboard */; };
+		B0DEBBA21C47997D00390317 /* DepositTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBBA11C47997D00390317 /* DepositTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,6 +234,10 @@
 		B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTVC.swift; sourceTree = "<group>"; };
 		B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTVC.swift; sourceTree = "<group>"; };
 		B0DEBB991C46952100390317 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		B0DEBB9B1C477C5100390317 /* PFPrivateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFPrivateUser.swift; sourceTree = "<group>"; };
+		B0DEBB9D1C47959200390317 /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
+		B0DEBB9F1C47980D00390317 /* Deposit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deposit.storyboard; sourceTree = "<group>"; };
+		B0DEBBA11C47997D00390317 /* DepositTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepositTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +388,7 @@
 		B0217FB81C45D1EC0041FD51 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				B0DEBBA11C47997D00390317 /* DepositTVC.swift */,
 				B0D40DC31C467B1300CDC8DD /* ProfileTVC.swift */,
 				B0D40DC51C4680B600CDC8DD /* ComposeTVC.swift */,
 				B02180261C45EFCA0041FD51 /* RootViewController.swift */,
@@ -396,6 +405,7 @@
 				B02180301C45F66D0041FD51 /* Login.storyboard */,
 				B0217F651C45CB610041FD51 /* Main.storyboard */,
 				B02180711C462EC00041FD51 /* Profile.storyboard */,
+				B0DEBB9F1C47980D00390317 /* Deposit.storyboard */,
 				B021806E1C462E1F0041FD51 /* Contest.storyboard */,
 				B021802D1C45F5FB0041FD51 /* Root.storyboard */,
 				B0D40DB61C465C6400CDC8DD /* Compose.storyboard */,
@@ -406,6 +416,7 @@
 		B0217FC01C45D60C0041FD51 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				B0DEBB9B1C477C5100390317 /* PFPrivateUser.swift */,
 				B0217FC11C45D6200041FD51 /* PFPost.swift */,
 				B0217FC31C45D6690041FD51 /* PFActivity.swift */,
 				B0217FC51C45D6710041FD51 /* PFContest.swift */,
@@ -416,6 +427,7 @@
 		B0217FC91C45DF100041FD51 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B0DEBB9D1C47959200390317 /* PaymentManager.swift */,
 				B0217FCA1C45DF3F0041FD51 /* AppearanceManager.swift */,
 				B021803C1C4626E50041FD51 /* SocialManager.swift */,
 				B021803E1C46273D0041FD51 /* AnalyticsManager.swift */,
@@ -677,6 +689,7 @@
 				B0217F671C45CB610041FD51 /* Main.storyboard in Resources */,
 				B02180A01C464C690041FD51 /* ITCAvantGardeGothicPro-DemiOblique.otf in Resources */,
 				B0D40DB71C465C6400CDC8DD /* Compose.storyboard in Resources */,
+				B0DEBBA01C47980D00390317 /* Deposit.storyboard in Resources */,
 				B02180A31C464C690041FD51 /* ITCAvantGardeGothicPro-Medium.otf in Resources */,
 				B021809E1C464C690041FD51 /* ITCAvantGardeGothicPro-BookOblique.otf in Resources */,
 				B021802F1C45F5FB0041FD51 /* Root.storyboard in Resources */,
@@ -759,6 +772,7 @@
 				B0D40DC21C46671500CDC8DD /* MultilineTextInputTableCell.swift in Sources */,
 				B0D40DC61C4680B600CDC8DD /* ComposeTVC.swift in Sources */,
 				B02180031C45E5DF0041FD51 /* UIView+SwiftAppearance.m in Sources */,
+				B0DEBB9C1C477C5100390317 /* PFPrivateUser.swift in Sources */,
 				B021808A1C463D140041FD51 /* TextTableCell.swift in Sources */,
 				B0217FC81C45DDCB0041FD51 /* Extensions.swift in Sources */,
 				B02180271C45EFCA0041FD51 /* RootViewController.swift in Sources */,
@@ -771,6 +785,7 @@
 				B02180001C45E3310041FD51 /* NumberFormatter.swift in Sources */,
 				B0217FC61C45D6710041FD51 /* PFContest.swift in Sources */,
 				B021806D1C4628C50041FD51 /* MRWeakProxy.m in Sources */,
+				B0DEBBA21C47997D00390317 /* DepositTVC.swift in Sources */,
 				B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */,
 				B021802B1C45F39E0041FD51 /* R.generated.swift in Sources */,
 				B0217FFC1C45E3310041FD51 /* Decimals.swift in Sources */,
@@ -792,6 +807,7 @@
 				B0DEBB9A1C46952100390317 /* CacheManager.swift in Sources */,
 				B02180331C45F78B0041FD51 /* TitleImageButtonVC.swift in Sources */,
 				B02180251C45EE5E0041FD51 /* HexColor.swift in Sources */,
+				B0DEBB9E1C47959200390317 /* PaymentManager.swift in Sources */,
 				B0217FF91C45E3310041FD51 /* ColorFormatter.swift in Sources */,
 				B021806B1C4628C50041FD51 /* MRMessageInterceptor.m in Sources */,
 				B0D40DB91C465E8300CDC8DD /* TextFieldTableCell.swift in Sources */,

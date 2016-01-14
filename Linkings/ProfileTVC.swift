@@ -20,8 +20,8 @@ class ProfileTVC: UITableViewController {
     }
     
     var activityByType: [PFActivity.ActivityType : [PFActivity]]? //all activity to show
-    let activityTypeSegOrder = [PFActivity.ActivityType.Post, PFActivity.ActivityType.Upvote] //this order doesn't really matter, could be a set
-    var selectedActivityType = PFActivity.ActivityType.Post {
+    let activityTypeSegOrder = [PFActivity.ActivityType.Entry, PFActivity.ActivityType.Upvote] //this order doesn't really matter, could be a set
+    var selectedActivityType = PFActivity.ActivityType.Entry {
         didSet {
             if selectedActivityType != oldValue {
                 tableView.reloadData()
@@ -36,6 +36,7 @@ class ProfileTVC: UITableViewController {
     enum UserInfoType: Int {
         case Username
         case Cash
+        case AddCash
     }
 
     //MARK: - Basics
@@ -84,7 +85,7 @@ class ProfileTVC: UITableViewController {
         }
         switch section {
         case .UserInfo:
-            return UserInfoType.Cash.rawValue + 1
+            return UserInfoType.AddCash.rawValue + 1
         case .Activity:
             if let activityShowing = activityByType?[selectedActivityType] {
                 return activityShowing.count
@@ -103,7 +104,7 @@ class ProfileTVC: UITableViewController {
         
         switch section {
         case .UserInfo:
-            let textCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.usernameCellSimple)!
+            let textCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profileTextCellSimple)!
             configureTextCell(textCell, forRowAtIndexPath: indexPath)
             cell = textCell
         case .Activity:
@@ -114,19 +115,62 @@ class ProfileTVC: UITableViewController {
     }
     
     func configureTextCell(cell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        cell.title.textColor = UIColor.veryDarkGrayShoebox()
         guard let userInfoType = UserInfoType(rawValue: indexPath.row) else {
+            cell.title.text = " " //so it doesn't kill auto layout
             return
         }
+        
+        let name = userDisplaying?.facebookName
+        var cashBalanceText = "Loading balance..."
+        if let privateUser = userDisplaying?.privateUser where privateUser.dataAvailable {
+            let balance = privateUser.cashBalance ?? 0
+            cashBalanceText = "CASH VALUE: " + balance.format(Currency.USD)
+        }
+
         switch userInfoType {
         case .Username:
-            cell.title.text = userDisplaying?.facebookName
+            cell.title.text = name
         case .Cash:
-            cell.title.text = "CASH VALUE: $1,729"
+            cell.title.text = cashBalanceText
+        case .AddCash:
+            cell.title.text = "ADD CASH"
+            cell.title.textColor = UIColor.green1976()
+        }
+    }
+    
+    //MARK: - UITableViewDelegate
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else {
+            return
+        }
+        
+        switch section {
+        case .UserInfo:
+            guard let userInfoType = UserInfoType(rawValue: indexPath.row) else {
+                return
+            }
+            switch userInfoType {
+            case .AddCash:
+                performSegueWithIdentifier(R.segue.profileTVC.showDeposit, sender: self)
+            default: break
+            }
+        default: break
         }
     }
     
     //MARK: - Fetch
     func fetchProfile() {
         
+        PFCloud.callFunctionInBackground("fetchFullUser", withParameters: nil) { (object, error) -> Void in
+            if let user = object as? PFUser, let privateUser = user.privateUser where error == nil {
+                self.userDisplaying = user
+                log.debug("private user \(privateUser)")
+                self.reloadDataSoftly()
+            } else {
+                log.error("Error fetching my user, result \(object), error: \(error)")
+            }
+        }
     }
 }

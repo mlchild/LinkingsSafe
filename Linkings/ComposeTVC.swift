@@ -207,7 +207,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         }
         
         view.endEditing(true)
-        PFActivity.newPostInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (success, error) -> Void in
+        PFActivity.newEntryInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (success, error) -> Void in
             if success && error == nil {
                 MRProgressOverlayView.showSuccessWithStatus("Posted new hotness!")
                 NSNotificationCenter.defaultCenter().postNotificationName(Constants.NSNotification.FetchDataChanged, object: nil)

@@ -18,5 +18,6 @@ class ImageTableCell: DetailTextTableCell {
 class PostTableCell: ImageTableCell {
     @IBOutlet weak var upvoteCountLabel: UILabel!
     @IBOutlet weak var upvoteButton: IndexedButton!
+    @IBOutlet weak var urlHostSlugLabel: UILabel!
 }
 
