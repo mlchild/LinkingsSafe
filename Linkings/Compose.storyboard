@@ -74,6 +74,40 @@
                                     <outlet property="textView" destination="tDn-2Y-OvC" id="9BT-Yo-cqa"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Finish Text Cell Simple" rowHeight="56" id="Uvd-kP-yVq" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="231.5" width="600" height="56"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvd-kP-yVq" id="ik5-a8-eZg">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="55.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Post link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lrt-I5-Iai">
+                                            <rect key="frame" x="20" y="12" width="560" height="33"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="24"/>
+                                            <color key="textColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lrt-I5-Iai" firstAttribute="leading" secondItem="ik5-a8-eZg" secondAttribute="leading" constant="20" id="8n9-87-l9S"/>
+                                        <constraint firstItem="lrt-I5-Iai" firstAttribute="centerY" secondItem="ik5-a8-eZg" secondAttribute="centerY" id="Arg-eE-bYk"/>
+                                        <constraint firstAttribute="bottom" secondItem="lrt-I5-Iai" secondAttribute="bottom" constant="19.5" id="ObK-oW-Caw"/>
+                                        <constraint firstAttribute="bottom" secondItem="lrt-I5-Iai" secondAttribute="bottom" constant="10.5" id="fTF-zh-NQs"/>
+                                        <constraint firstItem="lrt-I5-Iai" firstAttribute="top" secondItem="ik5-a8-eZg" secondAttribute="top" constant="12" id="gQA-l1-1PT"/>
+                                        <constraint firstAttribute="trailing" secondItem="lrt-I5-Iai" secondAttribute="trailing" constant="20" id="rCh-Bt-Yfu"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Arg-eE-bYk"/>
+                                            <exclude reference="ObK-oW-Caw"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="title" destination="lrt-I5-Iai" id="xW8-o9-ElW"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kND-ct-bwm" id="PTw-D6-dNd"/>

@@ -87,6 +87,14 @@
 		B02180A21C464C690041FD51 /* ITCAvantGardeGothicPro-ExtraLightOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = B02180981C464C690041FD51 /* ITCAvantGardeGothicPro-ExtraLightOblique.otf */; };
 		B02180A31C464C690041FD51 /* ITCAvantGardeGothicPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B02180991C464C690041FD51 /* ITCAvantGardeGothicPro-Medium.otf */; };
 		B02180A41C464C690041FD51 /* ITCAvantGardeGothicPro-MediumOblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = B021809A1C464C690041FD51 /* ITCAvantGardeGothicPro-MediumOblique.otf */; };
+		B052408A1C4A61FA00FA9A71 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240881C4A61FA00FA9A71 /* MZTimerLabel.m */; };
+		B052409D1C4A638000FA9A71 /* DTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B052408F1C4A638000FA9A71 /* DTConstants.m */; };
+		B052409E1C4A638000FA9A71 /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240911C4A638000FA9A71 /* DTError.m */; };
+		B052409F1C4A638000FA9A71 /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240931C4A638000FA9A71 /* DTTimePeriod.m */; };
+		B05240A01C4A638000FA9A71 /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240951C4A638000FA9A71 /* DTTimePeriodChain.m */; };
+		B05240A11C4A638000FA9A71 /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240971C4A638000FA9A71 /* DTTimePeriodCollection.m */; };
+		B05240A21C4A638000FA9A71 /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240991C4A638000FA9A71 /* DTTimePeriodGroup.m */; };
+		B05240A31C4A638000FA9A71 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */; };
 		B0D40DB71C465C6400CDC8DD /* Compose.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D40DB61C465C6400CDC8DD /* Compose.storyboard */; };
 		B0D40DB91C465E8300CDC8DD /* TextFieldTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */; };
 		B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DBC1C4662A200CDC8DD /* NSString+ValidURL.m */; };
@@ -225,6 +233,23 @@
 		B02180991C464C690041FD51 /* ITCAvantGardeGothicPro-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ITCAvantGardeGothicPro-Medium.otf"; sourceTree = "<group>"; };
 		B021809A1C464C690041FD51 /* ITCAvantGardeGothicPro-MediumOblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ITCAvantGardeGothicPro-MediumOblique.otf"; sourceTree = "<group>"; };
 		B02180A51C464CB10041FD51 /* Linkings-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Linkings-Bridging-Header.h"; sourceTree = "<group>"; };
+		B05240871C4A61FA00FA9A71 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
+		B05240881C4A61FA00FA9A71 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
+		B052408D1C4A638000FA9A71 /* DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTools.h; sourceTree = "<group>"; };
+		B052408E1C4A638000FA9A71 /* DTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTConstants.h; sourceTree = "<group>"; };
+		B052408F1C4A638000FA9A71 /* DTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTConstants.m; sourceTree = "<group>"; };
+		B05240901C4A638000FA9A71 /* DTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTError.h; sourceTree = "<group>"; };
+		B05240911C4A638000FA9A71 /* DTError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTError.m; sourceTree = "<group>"; };
+		B05240921C4A638000FA9A71 /* DTTimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriod.h; sourceTree = "<group>"; };
+		B05240931C4A638000FA9A71 /* DTTimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriod.m; sourceTree = "<group>"; };
+		B05240941C4A638000FA9A71 /* DTTimePeriodChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodChain.h; sourceTree = "<group>"; };
+		B05240951C4A638000FA9A71 /* DTTimePeriodChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodChain.m; sourceTree = "<group>"; };
+		B05240961C4A638000FA9A71 /* DTTimePeriodCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodCollection.h; sourceTree = "<group>"; };
+		B05240971C4A638000FA9A71 /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodCollection.m; sourceTree = "<group>"; };
+		B05240981C4A638000FA9A71 /* DTTimePeriodGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodGroup.h; sourceTree = "<group>"; };
+		B05240991C4A638000FA9A71 /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodGroup.m; sourceTree = "<group>"; };
+		B052409A1C4A638000FA9A71 /* NSDate+DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateTools.h"; sourceTree = "<group>"; };
+		B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
 		B0D40DB61C465C6400CDC8DD /* Compose.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Compose.storyboard; sourceTree = "<group>"; };
 		B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableCell.swift; sourceTree = "<group>"; };
 		B0D40DBB1C4662A200CDC8DD /* NSString+ValidURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidURL.h"; sourceTree = "<group>"; };
@@ -371,6 +396,8 @@
 		B0217FAA1C45CEC90041FD51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B052408B1C4A638000FA9A71 /* DateTools */,
+				B05240851C4A61FA00FA9A71 /* MZTimerLabel */,
 				B0D40DBE1C4662AA00CDC8DD /* NSString+ValidURL */,
 				B02180841C4634990041FD51 /* FontBlaster.swift */,
 				B021802A1C45F39E0041FD51 /* R.generated.swift */,
@@ -543,6 +570,37 @@
 				B02180891C463D140041FD51 /* TextTableCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		B05240851C4A61FA00FA9A71 /* MZTimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B05240871C4A61FA00FA9A71 /* MZTimerLabel.h */,
+				B05240881C4A61FA00FA9A71 /* MZTimerLabel.m */,
+			);
+			path = MZTimerLabel;
+			sourceTree = "<group>";
+		};
+		B052408B1C4A638000FA9A71 /* DateTools */ = {
+			isa = PBXGroup;
+			children = (
+				B052408D1C4A638000FA9A71 /* DateTools.h */,
+				B052408E1C4A638000FA9A71 /* DTConstants.h */,
+				B052408F1C4A638000FA9A71 /* DTConstants.m */,
+				B05240901C4A638000FA9A71 /* DTError.h */,
+				B05240911C4A638000FA9A71 /* DTError.m */,
+				B05240921C4A638000FA9A71 /* DTTimePeriod.h */,
+				B05240931C4A638000FA9A71 /* DTTimePeriod.m */,
+				B05240941C4A638000FA9A71 /* DTTimePeriodChain.h */,
+				B05240951C4A638000FA9A71 /* DTTimePeriodChain.m */,
+				B05240961C4A638000FA9A71 /* DTTimePeriodCollection.h */,
+				B05240971C4A638000FA9A71 /* DTTimePeriodCollection.m */,
+				B05240981C4A638000FA9A71 /* DTTimePeriodGroup.h */,
+				B05240991C4A638000FA9A71 /* DTTimePeriodGroup.m */,
+				B052409A1C4A638000FA9A71 /* NSDate+DateTools.h */,
+				B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */,
+			);
+			path = DateTools;
 			sourceTree = "<group>";
 		};
 		B0D40DBA1C465E8E00CDC8DD /* Views */ = {
@@ -767,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B02180351C45F7BD0041FD51 /* LoginVC.swift in Sources */,
+				B05240A21C4A638000FA9A71 /* DTTimePeriodGroup.m in Sources */,
 				B021806C1C4628C50041FD51 /* MRMethodCopier.m in Sources */,
 				B021808C1C463E130041FD51 /* ContestTVC.swift in Sources */,
 				B0D40DC21C46671500CDC8DD /* MultilineTextInputTableCell.swift in Sources */,
@@ -779,11 +838,14 @@
 				B02180871C463A640041FD51 /* ImageTableCell.swift in Sources */,
 				B0D40DC41C467B1300CDC8DD /* ProfileTVC.swift in Sources */,
 				B0217FCB1C45DF3F0041FD51 /* AppearanceManager.swift in Sources */,
+				B05240A01C4A638000FA9A71 /* DTTimePeriodChain.m in Sources */,
 				B0217FF71C45E3310041FD51 /* AddressExtensions.swift in Sources */,
 				B021805A1C4628670041FD51 /* MRIconView.m in Sources */,
+				B05240A31C4A638000FA9A71 /* NSDate+DateTools.m in Sources */,
 				B021808E1C463FB20041FD51 /* ConstantsLinkings.swift in Sources */,
 				B02180001C45E3310041FD51 /* NumberFormatter.swift in Sources */,
 				B0217FC61C45D6710041FD51 /* PFContest.swift in Sources */,
+				B05240A11C4A638000FA9A71 /* DTTimePeriodCollection.m in Sources */,
 				B021806D1C4628C50041FD51 /* MRWeakProxy.m in Sources */,
 				B0DEBBA21C47997D00390317 /* DepositTVC.swift in Sources */,
 				B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */,
@@ -796,6 +858,7 @@
 				B021803F1C46273D0041FD51 /* AnalyticsManager.swift in Sources */,
 				B021805E1C4628670041FD51 /* MRStopButton.m in Sources */,
 				B0217FC41C45D6690041FD51 /* PFActivity.swift in Sources */,
+				B052409F1C4A638000FA9A71 /* DTTimePeriod.m in Sources */,
 				B0D40DC01C46646900CDC8DD /* IndexPathable.swift in Sources */,
 				B021805C1C4628670041FD51 /* MRProgressOverlayView.m in Sources */,
 				B02180581C4628670041FD51 /* MRActivityIndicatorView.m in Sources */,
@@ -804,6 +867,7 @@
 				B02180621C4628A20041FD51 /* MRProgressOverlayView+Shortcuts.m in Sources */,
 				B0217FFB1C45E3310041FD51 /* Currency.swift in Sources */,
 				B0217FC21C45D6200041FD51 /* PFPost.swift in Sources */,
+				B052409E1C4A638000FA9A71 /* DTError.m in Sources */,
 				B0DEBB9A1C46952100390317 /* CacheManager.swift in Sources */,
 				B02180331C45F78B0041FD51 /* TitleImageButtonVC.swift in Sources */,
 				B02180251C45EE5E0041FD51 /* HexColor.swift in Sources */,
@@ -811,10 +875,12 @@
 				B0217FF91C45E3310041FD51 /* ColorFormatter.swift in Sources */,
 				B021806B1C4628C50041FD51 /* MRMessageInterceptor.m in Sources */,
 				B0D40DB91C465E8300CDC8DD /* TextFieldTableCell.swift in Sources */,
+				B052409D1C4A638000FA9A71 /* DTConstants.m in Sources */,
 				B0217FF81C45E3310041FD51 /* AddressFormatter.swift in Sources */,
 				B021805D1C4628670041FD51 /* MRProgressView.m in Sources */,
 				B0217FFA1C45E3310041FD51 /* Constants.swift in Sources */,
 				B021803D1C4626E50041FD51 /* SocialManager.swift in Sources */,
+				B052408A1C4A61FA00FA9A71 /* MZTimerLabel.m in Sources */,
 				B02180851C4634990041FD51 /* FontBlaster.swift in Sources */,
 				B02180561C4628670041FD51 /* MRBlurView.m in Sources */,
 				B021805B1C4628670041FD51 /* MRNavigationBarProgressView.m in Sources */,

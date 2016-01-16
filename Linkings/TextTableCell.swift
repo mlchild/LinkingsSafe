@@ -15,3 +15,12 @@ class TextTableCell: UITableViewCell {
 class DetailTextTableCell: TextTableCell {
     @IBOutlet weak var subtitle: UILabel!
 }
+
+class ContestTitleCell: TextTableCell {
+    @IBOutlet weak var countdownLabel: MZTimerLabel!
+    @IBOutlet weak var countdownCaption: UILabel!
+    @IBOutlet weak var entryCountLabel: UILabel!
+    @IBOutlet weak var entryCountCaption: UILabel!
+    @IBOutlet weak var prizeLabel: UILabel!
+    @IBOutlet weak var prizeCaption: UILabel!
+}

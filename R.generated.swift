@@ -91,7 +91,9 @@ struct R {
   }
   
   struct reuseIdentifier {
+    static var contestTitleCell: ReuseIdentifier<ContestTitleCell> { return ReuseIdentifier(identifier: "Contest Title Cell") }
     static var depositTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Text Cell Simple") }
+    static var finishTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Finish Text Cell Simple") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
     static var profileTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple") }

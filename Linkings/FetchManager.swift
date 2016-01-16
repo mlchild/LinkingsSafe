@@ -8,18 +8,21 @@
 
 import Foundation
 
+typealias PFActivityArrayResultBlock = (activity: [PFActivity]?, error: NSError?) -> ()
+typealias PFPostArrayResultBlock = (posts: [PFPost]?, error: NSError?) -> ()
+typealias PFContestResultBlock = (contest: PFContest?, error: NSError?) -> ()
+typealias PFActivityResultBlock = (activity: PFActivity?, error: NSError?) -> ()
+
+
 class FetchManager {
-    
-    typealias PFActivityArrayResultBlock = (activity: [PFActivity]?, error: NSError?) -> ()
-    typealias PFContestResultBlock = (contest: PFContest?, error: NSError?) -> ()
     
     //MARK: - Higher level functions
     
-    class func fetchPostsOnCurrentContest(page: Int = 0, completion: PFActivityArrayResultBlock) {
-        fetchActivityOnContest(.Entries, contestCategory: .Current, page: page, completion: completion)
+    class func fetchPostsOnCurrentContest(page: Int = 0, completion: PFPostArrayResultBlock) {
+        fetchPostsOnContest(ContestCategory.Current, page: page, completion: completion)
     }
-    class func fetchPostsOnContest(contestId: String, page: Int = 0, completion: PFActivityArrayResultBlock) {
-        fetchActivityOnContest(.Entries, contestCategory: .ContestId(id: contestId), page: page, completion: completion)
+    class func fetchPostsOnContest(contestId: String, page: Int = 0, completion: PFPostArrayResultBlock) {
+        fetchPostsOnContest(ContestCategory.ContestId(id: contestId), page: page, completion: completion)
     }
     
     class func fetchMyUpvotesOnCurrentContest(completion: PFActivityArrayResultBlock) {
@@ -32,7 +35,7 @@ class FetchManager {
     //MARK: - All activity fetch function
     enum ActivityCategory {
         case MyUpvotes
-        case Entries
+        //case Entries //moved to separate posts function
     }
     enum ContestCategory {
         case Current
@@ -49,10 +52,10 @@ class FetchManager {
         switch activityCategory {
         case .MyUpvotes:
             functionName = "fetchUpvotesByUserFor"
-        case .Entries:
-            functionName = "fetchEntryActivityFor"
-            params["skip"] = page * pageLength
-            params["limit"] = pageLength
+//        case .Entries:
+//            functionName = "fetchEntryActivityFor"
+//            params["skip"] = page * pageLength
+//            params["limit"] = pageLength
         }
         switch contestCategory {
         case .Current:
@@ -71,6 +74,31 @@ class FetchManager {
                 return
             }
             completion(activity: postActivity, error: nil)
+        }
+    }
+    
+    private class func fetchPostsOnContest(contestCategory: ContestCategory, page: Int = 0, completion: PFPostArrayResultBlock) {
+        
+        var functionName = "fetchPostsFor"
+        var params = [String: AnyObject]()
+        
+        switch contestCategory {
+        case .Current:
+            functionName += "CurrentContest"
+        case .ContestId(let contestId):
+            functionName += "Contest"
+            params["contestId"] = contestId
+        }
+        //let adjustedParams: [String: AnyObject]?  = params.isEmpty ? nil : params
+        
+        PFCloud.callFunctionInBackground(functionName, withParameters: params) { (result, error) -> Void in
+            log.debug("fetch posts for contest \(contestCategory) result \(result)")
+            guard let posts = result as? [PFPost] where error == nil else {
+                log.error("Error fetching posts for contest \(contestCategory) : \(error)")
+                completion(posts: nil, error: error)
+                return
+            }
+            completion(posts: posts, error: nil)
         }
     }
     
