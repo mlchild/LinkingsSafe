@@ -14,6 +14,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         case URL
         case Title
         case Subtitle
+        case Finish
         
         static func typeForIndexPath(indexPath: NSIndexPath, layout: [[PostInfoType]]) -> PostInfoType? {
             guard indexPath.section < layout.count else {
@@ -27,7 +28,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         }
     }
     
-    let layout = [[PostInfoType.URL], [PostInfoType.Title, PostInfoType.Subtitle]]
+    let layout = [[PostInfoType.URL], [PostInfoType.Title, PostInfoType.Subtitle], [PostInfoType.Finish]]
     
     var newPostInfo = [PostInfoType: String]()
     //ask whether to cancel
@@ -38,7 +39,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     //MARK: - Basics
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Post"
+        title = "New Post"
         
         tableView.estimatedRowHeight = 66
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -47,8 +48,8 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     }
     
     func setupNavButtons() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "donePressed")
-        navigationItem.rightBarButtonItem = doneButton
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "donePressed")
+//        navigationItem.rightBarButtonItem = doneButton
         
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelPressed")
         navigationItem.leftBarButtonItem = cancelButton
@@ -59,6 +60,14 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
             navigationItem.rightBarButtonItem?.enabled = true
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let firstCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
+            becomeFirstResponderInTextCell(firstCell)
         }
     }
     
@@ -95,6 +104,8 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
             let textViewCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.multilineTextCell)!
             configureTextViewCell(textViewCell, forRowAtIndexPath: indexPath)
             cell = textViewCell
+        case .Finish:
+            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.finishTextCellSimple)!
         }
     
         return cell
@@ -116,7 +127,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         switch rowInfoType {
         case .URL:
             cell.textField.text = newPostInfo[.URL]
-            cell.textField.attributedPlaceholder = NSAttributedString(string: "Link to share", attributes: placeholderAttributes)
+            cell.textField.attributedPlaceholder = NSAttributedString(string: "link.to.share.com", attributes: placeholderAttributes)
             cell.textField.keyboardType = UIKeyboardType.URL
             cell.textField.autocorrectionType = .No
             cell.textField.autocapitalizationType = .None
@@ -143,16 +154,26 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     
     //MARK: - UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-            becomeFirstResponderInTextCell(cell)
+        guard let rowType = PostInfoType.typeForIndexPath(indexPath, layout: layout) else {
+            return
         }
+        switch rowType {
+        case .Title, .Subtitle, .URL:
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                becomeFirstResponderInTextCell(cell)
+            }
+        case .Finish:
+            donePressed()
+        }
+        
     }
+    
     
     //MARK: - UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let indexedTF = textField as? IndexedTextField,
-            let ip = indexedTF.indexPath where self.tableView(tableView, numberOfRowsInSection: ip.section) > ip.row + 1,
-            let nextCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: ip.row + 1, inSection: ip.section)) {
+            let ip = indexedTF.indexPath,
+            let nextCell = tableView.nextCellForIndexPath(ip)  {
                 
                 becomeFirstResponderInTextCell(nextCell)
         }
@@ -207,14 +228,30 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         }
         
         view.endEditing(true)
-        PFActivity.newEntryInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (success, error) -> Void in
-            if success && error == nil {
-                MRProgressOverlayView.showSuccessWithStatus("Posted new hotness!")
-                NSNotificationCenter.defaultCenter().postNotificationName(Constants.NSNotification.FetchDataChanged, object: nil)
-                self.dismissViewControllerAnimated(true, completion: nil)
+        MRProgressOverlayView.showOverlayAddedTo(MRProgressOverlayView.sharedView(), title: "Posting...", mode: .Indeterminate, animated: true)
+        
+        PFActivity.newEntryInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (entry, error) -> Void in
+            MRProgressOverlayView.dismissAllOverlaysForView(MRProgressOverlayView.sharedView(), animated: true)
+            if let newEntry = entry where error == nil {
+                if let newEntryPost = newEntry.post {
+                    newEntryPost.upvotePressed({ (success, upvoteError) -> Void in
+                        self.postSuccess()
+                        if let voteError = upvoteError {
+                            log.error("Error upvoting new post \(voteError)")
+                        }
+                    })
+                } else {
+                    self.postSuccess()
+                }
             } else {
-                MRProgressOverlayView.showErrorWithStatus("Error posting, maybe try again")
+                MRProgressOverlayView.showErrorWithStatus("Error posting, maybe try again", inView: MRProgressOverlayView.sharedView(), afterDelay: 0.4)
             }
         }
+    }
+    
+    func postSuccess() {
+        MRProgressOverlayView.showSuccessWithStatus("Posted new hotness!", inView: MRProgressOverlayView.sharedView(), afterDelay: 0.4)
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NSNotification.FetchDataChanged, object: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

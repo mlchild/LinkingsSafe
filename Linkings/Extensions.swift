@@ -242,8 +242,32 @@ extension UITableViewController {
                 self.tableView.reloadData()
             })
         } else {
-            tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+            })
         }
+    }
+}
+
+extension UITableView {
+    
+    func nextCell(cell: UITableViewCell) -> UITableViewCell? {
+        guard let ip = indexPathForCell(cell) else { return nil }
+        return nextCellForIndexPath(ip)
+    }
+    
+    func nextCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell? {
+        guard let nextIP = nextIndexPath(indexPath) else { return nil }
+        return cellForRowAtIndexPath(nextIP)
+    }
+    
+    func nextIndexPath(indexPath: NSIndexPath) -> NSIndexPath? {
+        if numberOfRowsInSection(indexPath.section) > indexPath.row + 1 {
+            return NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+        } else if numberOfSections > indexPath.section + 1 && numberOfRowsInSection(indexPath.section + 1) > 0 {
+            return NSIndexPath(forRow: 0, inSection: indexPath.section + 1)
+        }
+        return nil
     }
 }
 
@@ -283,6 +307,10 @@ extension String {
         }
         
         return url
+    }
+    
+    func removeDecimal() -> String {
+        return componentsSeparatedByString(".").first!
     }
 }
 

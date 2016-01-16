@@ -10,7 +10,9 @@ import Foundation
 import SafariServices
 
 class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
+    //TODO: photo on swipe rigth?
     
+    var contest: PFContest?
     var posts = [PFPost]()
     
     var disabledUpvotePaths = Set([NSIndexPath]())
@@ -19,6 +21,7 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     var shouldRefreshOnAppear = false
 
     enum Section: Int {
+        case Title
         case Posts
     }
     
@@ -31,9 +34,9 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         fetchPosts()
         refreshControl?.addTarget(self, action: "fetchPosts", forControlEvents: .ValueChanged)
         
-        tableView.rowHeight = 102
-//        tableView.estimatedRowHeight = 88
-//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.rowHeight = 102
+        tableView.estimatedRowHeight = 140
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchDataChanged", name: Constants.NSNotification.FetchDataChanged, object: nil)
@@ -60,11 +63,15 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     //MARK: - UITableViewDataSource
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return Section.Posts.rawValue + 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        guard let sectionType = Section(rawValue: section) else { return 0 }
+        switch sectionType {
+        case .Title: return contest != nil ? 1 : 0
+        case .Posts: return posts.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -76,6 +83,10 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         
         var cell = UITableViewCell()
         switch section {
+        case .Title:
+            let titleCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.contestTitleCell)!
+            configureTitleCell(titleCell, forRowAtIndexPath: indexPath)
+            cell = titleCell
         case .Posts:
             let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCell)!
             configurePostCell(postCell, forRowAtIndexPath: indexPath)
@@ -85,33 +96,78 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         return cell
     }
     
+    func configureTitleCell(titleCell: ContestTitleCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let start = contest?.startTime, end = contest?.endTime, let entries = contest?.contestEntryCount, let prizes = contest?.totalPrize else {
+            return
+        }
+        titleCell.title.text = start.formattedDateWithStyle(.MediumStyle)
+        configureCountdownLabel(titleCell.countdownLabel, endTime: end)
+        titleCell.entryCountLabel.text = "\(entries)"
+        titleCell.prizeLabel.text = prizes.format(Currency.USD)
+    }
+    
+    func configureCountdownLabel(countdownLabel: MZTimerLabel, endTime: NSDate) {
+        if endTime.secondsUntil() > 0 && !countdownLabel.counting {
+            countdownLabel.timerType = MZTimerLabelTypeTimer
+            countdownLabel.setCountDownTime(endTime.secondsUntil())
+            countdownLabel.startWithEndingBlock({ (countTime) -> Void in
+                //self.configureCountdownLabel(countdownLabel) //restart, perhaps reload?
+            })
+        } else {
+            countdownLabel.text = nil
+        }
+    }
+    
     func configurePostCell(postCell: PostTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         guard let post = postForIndexPath(indexPath) else {
             return
         }
         
-        postCell.title.text = post.title
+        //Title/text
+        postCell.title.text = post.title //TODO: crazy width constraint on label allows for self-sizing height to work, for some reason
         postCell.subtitle.text = post.subtitle
         
-        var hostName = post.postURL?.host
-        if let host = hostName where host.hasPrefix("www.") {
-            hostName = (host as NSString).substringFromIndex(4)
-        }
-        postCell.urlHostSlugLabel.text = hostName
-        
-        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : "XXX"
-        postCell.upvoteButton.indexPath = indexPath
-        
+        //Upvotes
         if CacheManager.sharedCache.iUpvoted(post: post) {
             postCell.mainImageView.image = R.image.upvoted
         } else {
             postCell.mainImageView.image = R.image.upvoteLarge
         }
         postCell.mainImageView.setTemplateColor(UIColor.darkGrayShoebox()) //has to be after setting image
+        
+        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : nil
+        postCell.upvoteButton.indexPath = indexPath
+        
+        //url + player name (w/prize)
+        var hostName = post.postURL?.host ?? ""
+        if hostName.hasPrefix("www.") {
+            hostName = (hostName as NSString).substringFromIndex(4)
+        }
+        let posterName = post.user?.username
+        
+        var prizeText = ""
+        if let prize = post.postPrize where prize > 0 {
+            var prizeCurrencyString = prize.format(Currency.USD)
+            if prize >= 10 { prizeCurrencyString = prizeCurrencyString.removeDecimal() }
+            prizeText = " (💰\(prizeCurrencyString))"
+        }
+//        postCell.prizeLabel.text = prizeText
+
+        postCell.urlHostSlugLabel.text = (hostName ?? "") + (posterName != nil ? " via \(posterName!)\(prizeText)" : "")
     }
     
     //MARK: - UITableViewDelegate
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        guard let section = Section(rawValue: indexPath.section) else {
+            return UITableViewAutomaticDimension
+        }
+        switch section {
+        case .Title: return 76
+        default: return UITableViewAutomaticDimension
+        }
+    }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         guard let post = postForIndexPath(indexPath), let postURL = post.postURL else {
@@ -140,18 +196,23 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     //MARK: - Fetch Data
     func fetchPosts() {
-        FetchManager.fetchPostsOnCurrentContest { (activity, error) -> () in
-            guard let postActivity = activity where error == nil else {
-                log.error("Error fetching post activity \(error)")
+        FetchManager.fetchPostsOnCurrentContest { (posts, error) -> () in
+            guard let postsToShow = posts where error == nil else {
+                log.error("Error fetching posts \(error)")
                 MRProgressOverlayView.showErrorWithStatus("Error fetching posts")
                 self.refreshControl?.endRefreshing()
                 return
             }
             
-            let newPosts = postActivity.flatMap({ $0.post }).sort({ $0.postScore > $1.postScore })
+            let newPosts: [PFPost] = postsToShow.sort({ $0.postScore > $1.postScore })
             if self.posts != newPosts {
                 self.posts = newPosts
                 self.reloadDataSoftly()
+            }
+            
+            if let contest = newPosts.first?.contest where contest.dataAvailable && self.contest != contest {
+                self.contest = contest
+                log.debug("new current contest displaying \(self.contest)")
             }
             
             self.fetchMyUpvotes()

@@ -10,6 +10,15 @@
         <mutableArray key="ITCAvantGardeGothicPro-Bold.otf">
             <string>ITCAvantGardeGothicPro-Bold</string>
             <string>ITCAvantGardeGothicPro-Bold</string>
+            <string>ITCAvantGardeGothicPro-Bold</string>
+            <string>ITCAvantGardeGothicPro-Bold</string>
+            <string>ITCAvantGardeGothicPro-Bold</string>
+            <string>ITCAvantGardeGothicPro-Bold</string>
+        </mutableArray>
+        <mutableArray key="ITCAvantGardeGothicPro-Book.otf">
+            <string>ITCAvantGardeGothicPro-Book</string>
+            <string>ITCAvantGardeGothicPro-Book</string>
+            <string>ITCAvantGardeGothicPro-Book</string>
         </mutableArray>
         <mutableArray key="ITCAvantGardeGothicPro-Demi.otf">
             <string>ITCAvantGardeGothicPro-Demi</string>
@@ -28,58 +37,135 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="104" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="414" height="104"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Contest Title Cell" rowHeight="75" id="Ct3-C9-bjE" customClass="ContestTitleCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="414" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNP-CT-zQx" id="iG2-Mw-JRT">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="103.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ct3-C9-bjE" id="eNq-9I-08O">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="74.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGm-dm-9q7">
-                                            <rect key="frame" x="20" y="10" width="62" height="62"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qxk-NP-MSx">
+                                            <rect key="frame" x="20" y="14" width="374" height="47"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvE-II-pug" customClass="IndexedButton" customModule="Linkings" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
-                                                    <connections>
-                                                        <action selector="upvotePressed:" destination="9aI-qf-2X6" eventType="touchUpInside" id="jEG-VH-Mri"/>
-                                                    </connections>
-                                                </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote Large" translatesAutoresizingMaskIntoConstraints="NO" id="KGB-yC-Bze">
-                                                    <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="U9s-Bv-yeN"/>
-                                                    </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="U9s-Bv-yeN"/>
-                                                        </mask>
-                                                    </variation>
-                                                </imageView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="January 28, 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tf3-zr-axf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="36"/>
+                                                    <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yIc-yc-UPV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="47"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="NmF-gb-u4V">
+                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="47"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14:03:07" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xju-gA-M9g" customClass="MZTimerLabel">
+                                                                    <rect key="frame" x="14" y="0.0" width="97" height="30"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Book" family="ITC Avant Garde Gothic Pro" pointSize="25"/>
+                                                                    <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV5-I4-Jmk">
+                                                                    <rect key="frame" x="29" y="32" width="67" height="15"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="12"/>
+                                                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-AN-IZg">
+                                                            <rect key="frame" x="125" y="0.0" width="125" height="47"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,045" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qej-3D-5Fn">
+                                                                    <rect key="frame" x="32" y="0.0" width="63" height="30"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Book" family="ITC Avant Garde Gothic Pro" pointSize="25"/>
+                                                                    <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entries" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mec-od-w8i">
+                                                                    <rect key="frame" x="43" y="32" width="40" height="15"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="12"/>
+                                                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="5Sg-Ag-va4">
+                                                            <rect key="frame" x="250" y="0.0" width="125" height="47"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$940" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpf-N9-e2E">
+                                                                    <rect key="frame" x="35" y="0.0" width="56" height="30"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Book" family="ITC Avant Garde Gothic Pro" pointSize="25"/>
+                                                                    <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prizes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Xp-gpX">
+                                                                    <rect key="frame" x="45" y="32" width="35" height="15"/>
+                                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="12"/>
+                                                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qxk-NP-MSx" firstAttribute="top" secondItem="eNq-9I-08O" secondAttribute="top" constant="14" id="5DS-Zz-8Dx"/>
+                                        <constraint firstItem="qxk-NP-MSx" firstAttribute="leading" secondItem="eNq-9I-08O" secondAttribute="leading" constant="20" id="8jt-nI-VDs"/>
+                                        <constraint firstItem="qxk-NP-MSx" firstAttribute="centerY" secondItem="eNq-9I-08O" secondAttribute="centerY" id="XsP-rg-mgI"/>
+                                        <constraint firstAttribute="trailing" secondItem="qxk-NP-MSx" secondAttribute="trailing" constant="20" id="uIG-g9-JWg"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="5DS-Zz-8Dx"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="countdownCaption" destination="dV5-I4-Jmk" id="UCP-zO-oCm"/>
+                                    <outlet property="countdownLabel" destination="Xju-gA-M9g" id="TyX-BW-v64"/>
+                                    <outlet property="entryCountCaption" destination="mec-od-w8i" id="3gU-8x-MEp"/>
+                                    <outlet property="entryCountLabel" destination="qej-3D-5Fn" id="ctJ-a1-8ar"/>
+                                    <outlet property="prizeCaption" destination="te9-Xp-gpX" id="t5z-XI-AhZ"/>
+                                    <outlet property="prizeLabel" destination="Gpf-N9-e2E" id="hy1-ad-Gur"/>
+                                    <outlet property="title" destination="tf3-zr-axf" id="aUu-mI-sST"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post Cell" rowHeight="142" id="VNP-CT-zQx" customClass="PostTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="167" width="414" height="142"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNP-CT-zQx" id="iG2-Mw-JRT">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="141.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvE-II-pug" customClass="IndexedButton" customModule="Linkings" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="10" width="52" height="52"/>
+                                            <connections>
+                                                <action selector="upvotePressed:" destination="9aI-qf-2X6" eventType="touchUpInside" id="jEG-VH-Mri"/>
+                                            </connections>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote Large" translatesAutoresizingMaskIntoConstraints="NO" id="KGB-yC-Bze">
+                                            <rect key="frame" x="20" y="10" width="52" height="52"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="KGB-yC-Bze" secondAttribute="trailing" id="2b7-y8-moK"/>
-                                                <constraint firstAttribute="bottom" secondItem="TvE-II-pug" secondAttribute="bottom" id="A9W-BB-P3Q"/>
-                                                <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="QAK-4r-wKM"/>
-                                                <constraint firstItem="TvE-II-pug" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="QsY-Tr-uQL"/>
-                                                <constraint firstAttribute="bottom" secondItem="KGB-yC-Bze" secondAttribute="bottom" id="ZDh-Wo-pZF"/>
-                                                <constraint firstAttribute="height" constant="44" id="l2g-S1-0WS"/>
-                                                <constraint firstItem="TvE-II-pug" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" id="mW4-HI-PkL"/>
-                                                <constraint firstAttribute="trailing" secondItem="TvE-II-pug" secondAttribute="trailing" id="me2-Ql-ogp"/>
-                                                <constraint firstAttribute="width" secondItem="uGm-dm-9q7" secondAttribute="height" multiplier="1:1" id="xEx-US-I6U"/>
-                                                <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="yZm-j8-w6c"/>
+                                                <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="3zg-Sg-5om"/>
+                                                <constraint firstAttribute="width" secondItem="KGB-yC-Bze" secondAttribute="height" multiplier="1:1" id="U9s-Bv-yeN"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="l2g-S1-0WS"/>
+                                                    <exclude reference="U9s-Bv-yeN"/>
                                                 </mask>
                                             </variation>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="402" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
-                                            <rect key="frame" x="20" y="72" width="62" height="20.5"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="4.8k" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="deZ-xo-F2x">
+                                            <rect key="frame" x="25.5" y="62" width="41" height="23"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="AUi-2V-yFp"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="19"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
@@ -88,75 +174,111 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-B3-bur">
-                                            <rect key="frame" x="96" y="16" width="298" height="51.5"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTHING'S GONNA CHANGE MY WORLD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG3-JK-4Gw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="298" height="18"/>
-                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="15"/>
-                                                    <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-lR-Dph">
-                                                    <rect key="frame" x="0.0" y="20" width="298" height="31.5"/>
-                                                    <string key="text">Always looking for the most exciting things to talk abt here @onUnmute but this one hurts. RIP  David Bowie 🙏 #😢 Ok,so no making fun for being so late here but can we #unmute about #MakingAMurderer?? Not a shred of DNA in the garage or trailer?? #crazy</string>
-                                                    <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Demi" family="ITC Avant Garde Gothic Pro" pointSize="13"/>
-                                                    <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unmuteapp.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-8D-yQc">
-                                            <rect key="frame" x="96" y="77" width="298" height="14.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTHING'S GONNA CHANGE MY WORLD" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bG3-JK-4Gw">
+                                            <rect key="frame" x="86" y="14" width="308" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="298" id="BOf-Az-xSI"/>
+                                                <constraint firstAttribute="width" constant="308" id="Mfr-ay-eYY"/>
+                                                <constraint firstAttribute="width" constant="298" id="P3A-a9-J4u"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="15"/>
+                                            <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="BOf-Az-xSI"/>
+                                                    <exclude reference="P3A-a9-J4u"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always looking for the most exciting things to talk abt here @onUnmute but this one hurts. RIP  David Bowie 🙏 #😢 " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT4-lR-Dph">
+                                            <rect key="frame" x="86" y="54" width="308" height="47"/>
+                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Demi" family="ITC Avant Garde Gothic Pro" pointSize="13"/>
+                                            <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unmuteapp.com via millenial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-8D-yQc">
+                                            <rect key="frame" x="86" y="113" width="308" height="14.5"/>
                                             <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="12"/>
                                             <color key="textColor" red="0.79607843140000001" green="0.79607843140000001" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="💰$32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dn6-7p-oSU">
+                                            <rect key="frame" x="25.5" y="87" width="41" height="10"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="g21-eg-OJb"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="8"/>
+                                            <color key="textColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="g21-eg-OJb"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="trailing" constant="14" id="5Aq-eZ-f9V"/>
+                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="trailing" secondItem="bG3-JK-4Gw" secondAttribute="trailing" id="1zh-vE-Phj"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="14" id="3Hk-r5-Th1"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="9" id="5qZ-ea-3UK"/>
-                                        <constraint firstItem="Ey4-B3-bur" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="top" constant="6" id="8lZ-wb-jzr"/>
-                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="leading" secondItem="uGm-dm-9q7" secondAttribute="leading" id="AZa-Kk-xV9"/>
-                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="trailing" secondItem="uGm-dm-9q7" secondAttribute="trailing" id="Foz-Ua-iaf"/>
+                                        <constraint firstAttribute="trailing" secondItem="bG3-JK-4Gw" secondAttribute="trailing" constant="20" id="8a2-IR-HUc"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="leading" secondItem="KGB-yC-Bze" secondAttribute="trailing" constant="14" id="Dg7-r4-NP9"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="10" id="HHA-pN-exc"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="leading" secondItem="deZ-xo-F2x" secondAttribute="trailing" constant="14" id="J67-oW-4ZK"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="centerX" secondItem="KGB-yC-Bze" secondAttribute="centerX" id="JfE-c5-npR"/>
+                                        <constraint firstAttribute="bottom" secondItem="BaF-8D-yQc" secondAttribute="bottom" constant="12" id="Jj4-TP-bAT"/>
+                                        <constraint firstItem="Dn6-7p-oSU" firstAttribute="top" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="2" id="K5f-Em-cwg"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="centerX" secondItem="KGB-yC-Bze" secondAttribute="centerX" id="LnN-4C-7K3"/>
                                         <constraint firstAttribute="bottom" secondItem="BaF-8D-yQc" secondAttribute="bottom" constant="12" id="OnE-Dp-7wM"/>
-                                        <constraint firstItem="uGm-dm-9q7" firstAttribute="top" secondItem="iG2-Mw-JRT" secondAttribute="top" constant="10" id="Un6-eP-veX"/>
-                                        <constraint firstItem="uGm-dm-9q7" firstAttribute="leading" secondItem="iG2-Mw-JRT" secondAttribute="leading" constant="20" id="XgU-um-Lfl"/>
-                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="top" secondItem="Ey4-B3-bur" secondAttribute="bottom" constant="8" id="mhh-xb-elI"/>
+                                        <constraint firstAttribute="bottom" secondItem="BaF-8D-yQc" secondAttribute="bottom" constant="14" id="SGH-Q9-JZ4"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="top" secondItem="deZ-xo-F2x" secondAttribute="top" constant="6" id="Sxc-5N-ez3"/>
+                                        <constraint firstAttribute="bottom" secondItem="BaF-8D-yQc" secondAttribute="bottom" constant="12" id="T3e-Op-22P"/>
+                                        <constraint firstItem="Dn6-7p-oSU" firstAttribute="trailing" secondItem="deZ-xo-F2x" secondAttribute="trailing" id="UHj-iD-hX9"/>
+                                        <constraint firstItem="Dn6-7p-oSU" firstAttribute="leading" secondItem="deZ-xo-F2x" secondAttribute="leading" id="VJD-ZE-Zgg"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="trailing" secondItem="TvE-II-pug" secondAttribute="trailing" id="Y1j-20-ZfF"/>
+                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="top" secondItem="KGB-yC-Bze" secondAttribute="bottom" id="ZCk-Df-NE5"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="TvE-II-pug" secondAttribute="leading" id="a7F-H4-7oj"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="leading" secondItem="gT4-lR-Dph" secondAttribute="leading" id="dSZ-li-u5V"/>
+                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="leading" secondItem="bG3-JK-4Gw" secondAttribute="leading" id="e85-5E-C7b"/>
+                                        <constraint firstItem="bG3-JK-4Gw" firstAttribute="trailing" secondItem="gT4-lR-Dph" secondAttribute="trailing" id="eQY-KM-7bh"/>
+                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="top" secondItem="gT4-lR-Dph" secondAttribute="bottom" constant="12" id="hiQ-Gw-e3S"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="leading" secondItem="iG2-Mw-JRT" secondAttribute="leading" constant="20" id="kHH-P1-AA6"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="mx1-Wz-oK3"/>
-                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="leading" secondItem="Ey4-B3-bur" secondAttribute="leading" id="oIq-9h-WFz"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="width" secondItem="iG2-Mw-JRT" secondAttribute="width" multiplier="40:320" id="ogK-pk-3us"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="11" id="pTu-me-hlJ"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="bottom" secondItem="TvE-II-pug" secondAttribute="bottom" id="pW5-Cs-hcL"/>
                                         <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="15" id="rqQ-Cg-nBM"/>
-                                        <constraint firstItem="deZ-xo-F2x" firstAttribute="top" secondItem="uGm-dm-9q7" secondAttribute="bottom" id="sew-o9-Ift"/>
-                                        <constraint firstItem="BaF-8D-yQc" firstAttribute="trailing" secondItem="Ey4-B3-bur" secondAttribute="trailing" id="zfq-1y-mFS"/>
+                                        <constraint firstItem="gT4-lR-Dph" firstAttribute="top" secondItem="bG3-JK-4Gw" secondAttribute="bottom" constant="4" id="y9g-NX-Jbj"/>
+                                        <constraint firstItem="KGB-yC-Bze" firstAttribute="top" secondItem="TvE-II-pug" secondAttribute="top" id="zpg-eB-mgg"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="5qZ-ea-3UK"/>
+                                            <exclude reference="JfE-c5-npR"/>
                                             <exclude reference="mx1-Wz-oK3"/>
                                             <exclude reference="pTu-me-hlJ"/>
                                             <exclude reference="rqQ-Cg-nBM"/>
-                                            <exclude reference="mhh-xb-elI"/>
+                                            <exclude reference="J67-oW-4ZK"/>
+                                            <exclude reference="Sxc-5N-ez3"/>
+                                            <exclude reference="Jj4-TP-bAT"/>
+                                            <exclude reference="OnE-Dp-7wM"/>
+                                            <exclude reference="T3e-Op-22P"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="uGm-dm-9q7" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="48:320" id="TjF-3d-gRX"/>
-                                    <constraint firstItem="uGm-dm-9q7" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="88:320" id="aja-Z1-fez"/>
                                     <constraint firstAttribute="bottom" secondItem="deZ-xo-F2x" secondAttribute="bottom" constant="10" id="b9N-1G-jqb"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ey4-B3-bur" secondAttribute="trailing" constant="20" id="cMf-Pl-42o"/>
-                                    <constraint firstItem="KGB-yC-Bze" firstAttribute="width" secondItem="VNP-CT-zQx" secondAttribute="width" multiplier="44:320" id="h43-jE-GSR"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="h43-jE-GSR"/>
-                                        <exclude reference="aja-Z1-fez"/>
                                         <exclude reference="b9N-1G-jqb"/>
                                     </mask>
                                 </variation>
                                 <connections>
                                     <outlet property="mainImageView" destination="KGB-yC-Bze" id="qqS-re-V2q"/>
+                                    <outlet property="prizeLabel" destination="Dn6-7p-oSU" id="UDU-mV-RNd"/>
                                     <outlet property="subtitle" destination="gT4-lR-Dph" id="x1x-ck-sXh"/>
                                     <outlet property="title" destination="bG3-JK-4Gw" id="ttN-7g-kd5"/>
                                     <outlet property="upvoteButton" destination="TvE-II-pug" id="160-Ui-BIH"/>

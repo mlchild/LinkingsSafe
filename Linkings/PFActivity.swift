@@ -17,7 +17,7 @@ class PFActivity: PFObject, PFSubclassing {
     @NSManaged private(set) var post: PFPost?
     @NSManaged private(set) var contest: PFContest?
     
-    @NSManaged private(set) var text: String?
+    @NSManaged private(set) var details: [NSObject: AnyObject]?
     @NSManaged private(set) var toUser: PFUser?
     
     @NSManaged private var cost: NSNumber?
@@ -50,10 +50,10 @@ class PFActivity: PFObject, PFSubclassing {
     }
     
     //MARK: - High Level Convenience
-    class func newEntryInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFBooleanResultBlock) {
+    class func newEntryInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFActivityResultBlock) {
         
         guard urlString.validURL(httpOnly: true) != nil else {
-            completion(false, Error.InvalidURL as NSError)
+            completion(activity: nil, error: Error.InvalidURL as NSError)
             return
         }
         
@@ -61,10 +61,12 @@ class PFActivity: PFObject, PFSubclassing {
         params["subtitle"] = subtitle
         
         PFCloud.callFunctionInBackground("newEntryInCurrentContest", withParameters: params) { (object, error) -> Void in
-            if let postError = error {
-                log.error("Error posting params \(params): \(postError)")
+            guard let newEntry = object as? PFActivity where error == nil else {
+                log.error("Error posting new entry \(params): \(error)")
+                completion(activity: nil, error: error)
+                return
             }
-            completion(error == nil, error)
+            completion(activity: newEntry, error: nil)
         }
     }
     
@@ -84,14 +86,14 @@ class PFActivity: PFObject, PFSubclassing {
     convenience init(type: ActivityType,
         post: PFPost?,
         contest: PFContest?,
-        text: String? = nil,
+        details: [String: AnyObject]? = nil,
         toUser: PFUser? = nil) throws {
             
             self.init()
             self.type = type.rawValue
             self.post = post
             self.contest = contest
-            self.text = text
+            self.details = details
             self.toUser = toUser
             
             guard let currentUser = PFUser.currentUser() else {

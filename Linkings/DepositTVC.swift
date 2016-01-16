@@ -91,8 +91,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         }
         switch rowType {
         case .DepositAmount(let amount):
-            let amountString = amount.format(Currency.USD)
-            amountCell.title.text = amountString.componentsSeparatedByString(".").first //no decimal
+            amountCell.title.text = amount.format(Currency.USD).removeDecimal()
         default:
             log.error("wrong row type for amount cell \(rowType) at ip \(indexPath)")
         }

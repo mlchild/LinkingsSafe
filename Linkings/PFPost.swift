@@ -12,11 +12,14 @@ class PFPost: PFObject, PFSubclassing {
     
     //MARK: - Parse Properties
     @NSManaged private(set) var user: PFUser?
+    @NSManaged private(set) var contest: PFContest?
     @NSManaged private var url: String?
     @NSManaged private(set) var title: String?
     @NSManaged private(set) var subtitle: String?
     @NSManaged private var upvoteCount: NSNumber?
-    @NSManaged private var score: NSNumber?
+    @NSManaged private var displayScore: NSNumber?
+    @NSManaged private var cost: NSNumber?
+    @NSManaged private var prize: NSNumber?
     
     var upvotes: Int? {
         if let adjustedUpvotes = upvoteCount as? Int {
@@ -27,8 +30,16 @@ class PFPost: PFObject, PFSubclassing {
     var tempUpvoteAdjustment = 0
     
     var postScore: Int? {
-        return score as? Int
+        return displayScore as? Int
     }
+    
+    var postCost: Int? {
+        return cost as? Int
+    }
+    var postPrize: Double? {
+        return prize as? Double
+    }
+
     var postURL: NSURL? {
         guard let urlString = url, let validURL = urlString.validURL(httpOnly: true) else {
             log.error("invalid url for post \(url)")
