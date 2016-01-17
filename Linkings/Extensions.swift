@@ -228,7 +228,7 @@ extension UIColor {
 }
 
 extension UIImageView {
-    func setTemplateColor(color: UIColor) {
+    func setTemplateColor(color: UIColor?) {
         image = image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         tintColor = color
     }

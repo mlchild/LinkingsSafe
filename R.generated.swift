@@ -78,6 +78,7 @@ struct R {
   }
   
   struct image {
+    static var comment: UIImage? { return UIImage(named: "Comment", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var facebook: UIImage? { return UIImage(named: "Facebook", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var profile: UIImage? { return UIImage(named: "Profile", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var profileTab: UIImage? { return UIImage(named: "Profile Tab", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
@@ -96,6 +97,8 @@ struct R {
     static var finishTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Finish Text Cell Simple") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
+    static var postCellProfile: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile") }
+    static var profileActivityTypeSegCell: ReuseIdentifier<SegButtonCell> { return ReuseIdentifier(identifier: "Profile Activity Type Seg Cell") }
     static var profileTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
     static var userInfoCellComplex: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "User Info Cell Complex") }
@@ -189,6 +192,8 @@ struct R {
       
       static func validateImages() {
         assert(UIImage(named: "Profile Tab") != nil, "[R.swift] Image named 'Profile Tab' is used in storyboard 'Profile', but couldn't be loaded.")
+        assert(UIImage(named: "Comment") != nil, "[R.swift] Image named 'Comment' is used in storyboard 'Profile', but couldn't be loaded.")
+        assert(UIImage(named: "Upvote Large") != nil, "[R.swift] Image named 'Upvote Large' is used in storyboard 'Profile', but couldn't be loaded.")
       }
       
       static func validateViewControllers() {
