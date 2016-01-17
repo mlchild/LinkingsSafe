@@ -34,7 +34,6 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         fetchPosts()
         refreshControl?.addTarget(self, action: "fetchPosts", forControlEvents: .ValueChanged)
         
-//        tableView.rowHeight = 102
         tableView.estimatedRowHeight = 140
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
@@ -125,37 +124,8 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
             return
         }
         
-        //Title/text
-        postCell.title.text = post.title //TODO: crazy width constraint on label allows for self-sizing height to work, for some reason
-        postCell.subtitle.text = post.subtitle
-        
-        //Upvotes
-        if CacheManager.sharedCache.iUpvoted(post: post) {
-            postCell.mainImageView.image = R.image.upvoted
-        } else {
-            postCell.mainImageView.image = R.image.upvoteLarge
-        }
-        postCell.mainImageView.setTemplateColor(UIColor.darkGrayShoebox()) //has to be after setting image
-        
-        postCell.upvoteCountLabel.text = post.upvotes != nil ? "\(post.upvotes!)" : nil
-        postCell.upvoteButton.indexPath = indexPath
-        
-        //url + player name (w/prize)
-        var hostName = post.postURL?.host ?? ""
-        if hostName.hasPrefix("www.") {
-            hostName = (hostName as NSString).substringFromIndex(4)
-        }
-        let posterName = post.user?.username
-        
-        var prizeText = ""
-        if let prize = post.postPrize where prize > 0 {
-            var prizeCurrencyString = prize.format(Currency.USD)
-            if prize >= 10 { prizeCurrencyString = prizeCurrencyString.removeDecimal() }
-            prizeText = " (💰\(prizeCurrencyString))"
-        }
-//        postCell.prizeLabel.text = prizeText
-
-        postCell.urlHostSlugLabel.text = (hostName ?? "") + (posterName != nil ? " via \(posterName!)\(prizeText)" : "")
+        postCell.upvoteButton.indexPath = indexPath //has to be in ip knowledgeable function
+        postCell.configureWithPost(post)
     }
     
     //MARK: - UITableViewDelegate

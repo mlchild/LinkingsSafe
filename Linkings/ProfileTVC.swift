@@ -19,7 +19,9 @@ class ProfileTVC: UITableViewController {
         return userDisplaying?.objectId == PFUser.currentUser()?.objectId
     }
     
-    var activityByType: [PFActivity.ActivityType : [PFActivity]]? //all activity to show
+    var posts = [PFPost]()
+    var upvotes = [PFActivity]()
+    
     let activityTypeSegOrder = [PFActivity.ActivityType.Entry, PFActivity.ActivityType.Upvote] //this order doesn't really matter, could be a set
     var selectedActivityType = PFActivity.ActivityType.Entry {
         didSet {
@@ -31,6 +33,7 @@ class ProfileTVC: UITableViewController {
     
     enum Section: Int {
         case UserInfo
+        case ActivitySeg
         case Activity
     }
     enum UserInfoType: Int {
@@ -86,11 +89,15 @@ class ProfileTVC: UITableViewController {
         switch section {
         case .UserInfo:
             return UserInfoType.AddCash.rawValue + 1
+        case .ActivitySeg:
+            return upvotes.count > 0 ? 1 : 0
         case .Activity:
-            if let activityShowing = activityByType?[selectedActivityType] {
-                return activityShowing.count
-            } else {
-                return 0
+            switch selectedActivityType {
+            case .Upvote:
+                return upvotes.count
+            case .Entry:
+                return posts.count
+            default: return 0
             }
         }
     }
@@ -107,8 +114,14 @@ class ProfileTVC: UITableViewController {
             let textCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profileTextCellSimple)!
             configureTextCell(textCell, forRowAtIndexPath: indexPath)
             cell = textCell
+        case .ActivitySeg:
+            let segCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profileActivityTypeSegCell)!
+            configureActivitySegCell(segCell)
+            cell = segCell
         case .Activity:
-            break
+            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellProfile)!
+            configurePostCell(postCell, forRowAtIndexPath: indexPath)
+            cell = postCell
         }
 
         return cell
@@ -140,6 +153,45 @@ class ProfileTVC: UITableViewController {
         }
     }
     
+    func configureActivitySegCell(segCell: SegButtonCell) {
+        
+        segCell.firstButtonView.setupWithTitle("\(posts.count)",
+            action: { self.selectedActivityType = .Entry },
+            image: R.image.comment,
+            selected: selectedActivityType == .Entry)
+        
+        segCell.secondButtonView.setupWithTitle("\(upvotes.count)",
+            action: { self.selectedActivityType = .Upvote },
+            image: R.image.upvote,
+            selected: selectedActivityType == .Upvote)
+    }
+    
+    func configurePostCell(postCell: PostTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        var post: PFPost?
+        switch selectedActivityType {
+        case .Entry:
+            guard posts.count > indexPath.row else {
+                return
+            }
+            post = posts[indexPath.row]
+        case .Upvote:
+            guard upvotes.count > indexPath.row else {
+                return
+            }
+            post = upvotes[indexPath.row].post
+        default: break
+        }
+        
+        guard let postToShow = post else {
+            log.error("No post for indexPath \(indexPath), activity mode \(selectedActivityType), posts \(posts), upvotes \(upvotes)")
+            return
+        }
+        
+        postCell.upvoteButton.indexPath = indexPath //has to be in ip knowledgeable function
+        postCell.configureWithPost(postToShow)
+    }
+    
     //MARK: - UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let section = Section(rawValue: indexPath.section) else {
@@ -168,9 +220,32 @@ class ProfileTVC: UITableViewController {
                 self.userDisplaying = user
                 log.debug("private user \(privateUser)")
                 self.reloadDataSoftly()
+                self.fetchPastActivity()
             } else {
                 log.error("Error fetching my user, result \(object), error: \(error)")
             }
+        }
+    }
+    
+    func fetchPastActivity() {
+        FetchManager.fetchMyPostsOnPastContests { (posts, postError) -> () in
+            guard let userPosts = posts where postError == nil else {
+                log.error("Error fetching my posts \(postError)")
+                MRProgressOverlayView.showErrorWithStatus("Error fetching user activity")
+                return
+            }
+            self.posts = userPosts
+            
+            FetchManager.fetchMyUpvotesOnPastContests(completion: { (upvotes, upvoteError) -> () in
+                if let userUpvotes = upvotes where upvoteError == nil {
+                    self.upvotes = userUpvotes
+                } else {
+                    log.error("Error fetching my upvotes \(upvoteError)")
+                    MRProgressOverlayView.showErrorWithStatus("Error fetching user activity")
+                    return
+                }
+                self.reloadDataSoftly() //reload either way, don't use guard
+            })
         }
     }
 }

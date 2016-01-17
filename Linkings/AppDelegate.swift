@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         //Logger
-        log.setup(.Debug, showLogIdentifier: false, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: true, showLineNumbers: true, showDate: true, writeToFile: nil, fileLogLevel: .Debug)
+        log.setup(.Debug, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: false, showFileNames: true, showLineNumbers: true, showDate: true, writeToFile: nil, fileLogLevel: .Debug)
 
         return true
     }

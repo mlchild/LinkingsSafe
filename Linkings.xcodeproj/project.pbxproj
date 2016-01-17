@@ -95,6 +95,8 @@
 		B05240A11C4A638000FA9A71 /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240971C4A638000FA9A71 /* DTTimePeriodCollection.m */; };
 		B05240A21C4A638000FA9A71 /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B05240991C4A638000FA9A71 /* DTTimePeriodGroup.m */; };
 		B05240A31C4A638000FA9A71 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */; };
+		B05240A51C4B122800FA9A71 /* SegButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05240A41C4B122800FA9A71 /* SegButtonCell.swift */; };
+		B05240A71C4B127600FA9A71 /* ButtonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05240A61C4B127600FA9A71 /* ButtonImageView.swift */; };
 		B0D40DB71C465C6400CDC8DD /* Compose.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D40DB61C465C6400CDC8DD /* Compose.storyboard */; };
 		B0D40DB91C465E8300CDC8DD /* TextFieldTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */; };
 		B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DBC1C4662A200CDC8DD /* NSString+ValidURL.m */; };
@@ -250,6 +252,8 @@
 		B05240991C4A638000FA9A71 /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodGroup.m; sourceTree = "<group>"; };
 		B052409A1C4A638000FA9A71 /* NSDate+DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateTools.h"; sourceTree = "<group>"; };
 		B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
+		B05240A41C4B122800FA9A71 /* SegButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegButtonCell.swift; sourceTree = "<group>"; };
+		B05240A61C4B127600FA9A71 /* ButtonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonImageView.swift; sourceTree = "<group>"; };
 		B0D40DB61C465C6400CDC8DD /* Compose.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Compose.storyboard; sourceTree = "<group>"; };
 		B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableCell.swift; sourceTree = "<group>"; };
 		B0D40DBB1C4662A200CDC8DD /* NSString+ValidURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidURL.h"; sourceTree = "<group>"; };
@@ -336,11 +340,11 @@
 				B02180A51C464CB10041FD51 /* Linkings-Bridging-Header.h */,
 				B0217F611C45CB610041FD51 /* AppDelegate.swift */,
 				B0217FC71C45DDCB0041FD51 /* Extensions.swift */,
+				B0217FB91C45D1F80041FD51 /* Storyboards */,
 				B0217FC91C45DF100041FD51 /* Managers */,
 				B0217FB81C45D1EC0041FD51 /* VCs */,
 				B0D40DBA1C465E8E00CDC8DD /* Views */,
 				B02180881C463CE70041FD51 /* Cells */,
-				B0217FB91C45D1F80041FD51 /* Storyboards */,
 				B0217F681C45CB610041FD51 /* Assets.xcassets */,
 				B0217F6D1C45CB610041FD51 /* Info.plist */,
 				B0217FBA1C45D34D0041FD51 /* Linkings.entitlements */,
@@ -564,6 +568,7 @@
 		B02180881C463CE70041FD51 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B05240A41C4B122800FA9A71 /* SegButtonCell.swift */,
 				B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */,
 				B0D40DC11C46671500CDC8DD /* MultilineTextInputTableCell.swift */,
 				B02180861C463A640041FD51 /* ImageTableCell.swift */,
@@ -606,6 +611,7 @@
 		B0D40DBA1C465E8E00CDC8DD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B05240A61C4B127600FA9A71 /* ButtonImageView.swift */,
 				B0D40DBF1C46646900CDC8DD /* IndexPathable.swift */,
 			);
 			name = Views;
@@ -837,11 +843,13 @@
 				B02180271C45EFCA0041FD51 /* RootViewController.swift in Sources */,
 				B02180871C463A640041FD51 /* ImageTableCell.swift in Sources */,
 				B0D40DC41C467B1300CDC8DD /* ProfileTVC.swift in Sources */,
+				B05240A51C4B122800FA9A71 /* SegButtonCell.swift in Sources */,
 				B0217FCB1C45DF3F0041FD51 /* AppearanceManager.swift in Sources */,
 				B05240A01C4A638000FA9A71 /* DTTimePeriodChain.m in Sources */,
 				B0217FF71C45E3310041FD51 /* AddressExtensions.swift in Sources */,
 				B021805A1C4628670041FD51 /* MRIconView.m in Sources */,
 				B05240A31C4A638000FA9A71 /* NSDate+DateTools.m in Sources */,
+				B05240A71C4B127600FA9A71 /* ButtonImageView.swift in Sources */,
 				B021808E1C463FB20041FD51 /* ConstantsLinkings.swift in Sources */,
 				B02180001C45E3310041FD51 /* NumberFormatter.swift in Sources */,
 				B0217FC61C45D6710041FD51 /* PFContest.swift in Sources */,

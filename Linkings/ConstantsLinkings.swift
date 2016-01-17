@@ -8,6 +8,9 @@
 
 import Foundation
 
+public typealias BlankBlock = () -> ()
+
+
 struct Constants {
     struct NSNotification {
         static let LocalDataChanged = "localDataChanged"

@@ -53,7 +53,7 @@ class PFActivity: PFObject, PFSubclassing {
     class func newEntryInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFActivityResultBlock) {
         
         guard urlString.validURL(httpOnly: true) != nil else {
-            completion(activity: nil, error: Error.InvalidURL as NSError)
+            completion(activity: nil, activityError: Error.InvalidURL as NSError)
             return
         }
         
@@ -63,10 +63,10 @@ class PFActivity: PFObject, PFSubclassing {
         PFCloud.callFunctionInBackground("newEntryInCurrentContest", withParameters: params) { (object, error) -> Void in
             guard let newEntry = object as? PFActivity where error == nil else {
                 log.error("Error posting new entry \(params): \(error)")
-                completion(activity: nil, error: error)
+                completion(activity: nil, activityError: error)
                 return
             }
-            completion(activity: newEntry, error: nil)
+            completion(activity: newEntry, activityError: nil)
         }
     }
     
