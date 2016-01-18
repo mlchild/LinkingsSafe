@@ -4,14 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="ITCAvantGardeGothicPro-Bold.otf">
-            <string>ITCAvantGardeGothicPro-Bold</string>
-        </mutableArray>
-        <mutableArray key="ITCAvantGardeGothicPro-Medium.otf">
-            <string>ITCAvantGardeGothicPro-Medium</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--ComposeTVC-->
         <scene sceneID="HM5-Qd-BPV">
@@ -32,7 +24,7 @@
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Website" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GI1-Yx-47r" customClass="IndexedTextField" customModule="Linkings" customModuleProvider="target">
                                             <rect key="frame" x="20" y="12" width="570" height="29"/>
                                             <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Bold" family="ITC Avant Garde Gothic Pro" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
@@ -48,7 +40,7 @@
                                     <outlet property="textField" destination="GI1-Yx-47r" id="gL5-Wr-wew"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Multiline Text Cell" rowHeight="66" id="70p-lO-8g0" customClass="MultilineTextInputTableCell" customModule="Linkings" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Multiline Text Cell" rowHeight="66" id="70p-lO-8g0" customClass="MultilineTextInputTableCell" customModule="Linkings" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="165.5" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="70p-lO-8g0" id="ckq-XZ-ZiG">
@@ -58,7 +50,7 @@
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor " translatesAutoresizingMaskIntoConstraints="NO" id="tDn-2Y-OvC">
                                             <rect key="frame" x="15" y="4" width="577" height="58"/>
                                             <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="ITCAvantGardeGothicPro-Medium" family="ITC Avant Garde Gothic Pro" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>

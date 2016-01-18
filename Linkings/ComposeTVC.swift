@@ -10,6 +10,8 @@ import Foundation
 
 class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelegate {
     
+    var contestForEntry: PFContest?
+    
     enum PostInfoType: String {
         case URL
         case Title
@@ -92,11 +94,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         }
         
         switch rowInfoType {
-        case .URL:
-            let textFieldCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.textFieldCell)!
-            configureTextFieldCell(textFieldCell, forRowAtIndexPath: indexPath)
-            cell = textFieldCell
-        case .Title:
+        case .URL, .Title:
             let textFieldCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.textFieldCell)!
             configureTextFieldCell(textFieldCell, forRowAtIndexPath: indexPath)
             cell = textFieldCell
@@ -181,6 +179,15 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        saveTextFromTextField(textField)
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        saveTextFromTextField(textField)
+        return true
+    }
+    
+    func saveTextFromTextField(textField: UITextField) {
         if let indexedTF = textField as? IndexedTextField,
             let ip = indexedTF.indexPath,
             let infoType = PostInfoType.typeForIndexPath(ip, layout: layout) where textField.text != newPostInfo[infoType] {
@@ -206,12 +213,12 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     
     //MARK: - Presses
     func cancelPressed() {
-        view.endEditing(true)
         
         if postInProgress {
             let areYouSure = UIAlertController(title: "Delete post?", message: "You're working on a masterpiece. Do you want to delete it?", preferredStyle: UIAlertControllerStyle.Alert)
             areYouSure.addAction(UIAlertAction(title: "Keep editing", style: UIAlertActionStyle.Default, handler:nil))
             areYouSure.addAction(UIAlertAction(title: "Delete it", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                self.view.endEditing(true)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }))
             presentViewController(areYouSure, animated: true, completion: nil)
@@ -221,8 +228,8 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     }
     
     func donePressed() {
-        guard let urlString = newPostInfo[.URL], let title = newPostInfo[.Title] else {
-            log.error("Missing new post info \(newPostInfo)")
+        guard let contest = contestForEntry, let urlString = newPostInfo[.URL], let title = newPostInfo[.Title] else {
+            log.error("Missing new post info \(newPostInfo) in contest \(contestForEntry)")
             MRProgressOverlayView.showErrorWithStatus("Missing post info")
             return
         }
@@ -230,7 +237,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         view.endEditing(true)
         MRProgressOverlayView.showOverlayAddedTo(MRProgressOverlayView.sharedView(), title: "Posting...", mode: .Indeterminate, animated: true)
         
-        PFActivity.newEntryInCurrentContest(urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (entry, error) -> Void in
+        PFActivity.newEntryForContest(contest, urlString: urlString, title: title, subtitle: newPostInfo[.Subtitle]) { (entry, error) -> Void in
             MRProgressOverlayView.dismissAllOverlaysForView(MRProgressOverlayView.sharedView(), animated: true)
             if let newEntry = entry where error == nil {
                 if let newEntryPost = newEntry.post {

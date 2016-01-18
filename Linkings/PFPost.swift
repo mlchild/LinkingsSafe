@@ -17,6 +17,7 @@ class PFPost: PFObject, PFSubclassing {
     @NSManaged private(set) var title: String?
     @NSManaged private(set) var subtitle: String?
     @NSManaged private var upvoteCount: NSNumber?
+    @NSManaged private var upvoteCountRank: NSNumber?
     @NSManaged private var displayScore: NSNumber?
     @NSManaged private var cost: NSNumber?
     @NSManaged private var prize: NSNumber?
@@ -29,15 +30,22 @@ class PFPost: PFObject, PFSubclassing {
     }
     var tempUpvoteAdjustment = 0
     
+    var upvoteRank: Int? { return upvoteCountRank as? Int }
+    
     var postScore: Int? {
         return displayScore as? Int
     }
     
-    var postCost: Int? {
-        return cost as? Int
+    var postCostInCents: Int? { return cost as? Int }
+    var postCostInDollars: Double? {
+        guard let costInCents = postCostInCents else { return nil }
+        return Double(costInCents) / 100
     }
-    var postPrize: Double? {
-        return prize as? Double
+    
+    var postPrizeInCents: Int? { return prize as? Int }
+    var postPrizeInDollars: Double? {
+        guard let prizeInCents = postPrizeInCents else { return nil }
+        return Double(prizeInCents) / 100
     }
 
     var postURL: NSURL? {

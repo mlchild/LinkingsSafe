@@ -283,6 +283,30 @@ extension UITableViewCell {
             return table as? UITableView
         }
     }
+    
+    func configureStandardSeparatorInTableView(tableView: UITableView, atIndexPath indexPath: NSIndexPath) {
+        if indexPath.row != tableView.numberOfRowsInSection(indexPath.section) - 1 {
+            separatorWithInset(20)
+        } else {
+            fullWidthSeparator() //last row
+        }
+    }
+    
+    func fullWidthSeparator() {
+        preservesSuperviewLayoutMargins = false
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
+    }
+    
+    func separatorWithInset(inset: CGFloat) {
+        preservesSuperviewLayoutMargins = false
+        separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)
+        layoutMargins = UIEdgeInsetsZero
+    }
+    
+    func hideSeparators(inView view: UIView) {
+        separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(view.bounds)/2.0, 0, CGRectGetWidth(view.bounds)/2.0)
+    }
 }
 
 //MARK: - Foundation

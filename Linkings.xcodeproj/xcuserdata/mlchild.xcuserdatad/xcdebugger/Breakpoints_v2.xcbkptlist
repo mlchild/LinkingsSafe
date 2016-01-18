@@ -89,46 +89,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linkings/FetchManager.swift"
-            timestampString = "474688225.648002"
+            filePath = "Linkings/ContestTVC.swift"
+            timestampString = "474686532.643928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "fetchActivityOnContest(_:contestCategory:page:completion:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Linkings.FetchManager.(fetchActivityOnContest in _9A024302C240EB89F05DD16603D818F8) (Linkings.FetchManager.Type)(Linkings.FetchManager.ActivityCategory, contestCategory : Linkings.FetchManager.ContestCategory, page : Swift.Int, completion : (activity : Swift.Optional&lt;Swift.Array&lt;Linkings.PFActivity&gt;&gt;, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Linkings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mlchild/Dropbox%20(Volley%20Inc.)/Developer/Linkings/Linkings/FetchManager.swift"
-                  timestampString = "474423727.277296"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "928">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Linkings.FetchManager.((fetchActivityOnContest in _9A024302C240EB89F05DD16603D818F8) (Linkings.FetchManager.Type) -&gt; (Linkings.FetchManager.ActivityCategory, contestCategory : Linkings.FetchManager.ContestCategory, page : Swift.Int, completion : (activity : Swift.Optional&lt;Swift.Array&lt;Linkings.PFActivity&gt;&gt;, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "Linkings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mlchild/Dropbox%20(Volley%20Inc.)/Developer/Linkings/Linkings/FetchManager.swift"
-                  timestampString = "474423727.277453"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -137,13 +105,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linkings/ContestTVC.swift"
-            timestampString = "474686532.643928"
+            filePath = "Linkings/ComposeTVC.swift"
+            timestampString = "474811658.598626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "viewDidAppear(_:)"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "donePressed()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Linkings/DepositTVC.swift"
+            timestampString = "474813679.359057"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "saveTextFromTextField(_:showError:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

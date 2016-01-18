@@ -9,12 +9,15 @@
 import Foundation
 import Stripe
 
-class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDelegate {
+class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDelegate, UITextFieldDelegate {
     
     var depositInProgress: Double?
+    var customDepositAmount: Double?
     
     enum RowType {
+        case Header(title: String?)
         case DepositAmount(Double)
+        case OtherDepositAmount
         case PaymentMethod
         case Finish
         
@@ -29,7 +32,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
             return sectionLayout[indexPath.row]
         }
     }
-    let layout: [[RowType]] = [[.DepositAmount(5), .DepositAmount(10)], [.Finish]]
+    let layout: [[RowType]] = [[.Header(title: "Deposit Amount".uppercaseString)], [.DepositAmount(5), .DepositAmount(10), .OtherDepositAmount], [.Header(title: nil)], [.Finish]]
     
     //MARK: - Basics
     override func viewDidLoad() {
@@ -38,6 +41,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         
         tableView.estimatedRowHeight = 66
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
         
         setupNavButtons()
     }
@@ -68,23 +72,43 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         }
         
         switch rowInfoType {
+        case .Header(let title):
+            let headerCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.sectionHeaderTextCellDeposit)!
+            configureHeaderCell(headerCell, title: title)
+            cell = headerCell
         case .DepositAmount:
             let amountCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.depositTextCellSimple)!
             configureDepositAmountCell(amountCell, forRowAtIndexPath: indexPath)
             cell = amountCell
+        case .OtherDepositAmount:
+            let otherTextFieldCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.textFieldCellDeposit)!
+            configureOtherAmountCell(otherTextFieldCell, forRowAtIndexPath: indexPath)
+            cell = otherTextFieldCell
         case .PaymentMethod:
             return cell
         case .Finish:
-            let finishCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.depositTextCellSimple)!
+            let finishCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.depositButtonCell)!
             configureFinishCell(finishCell, forRowAtIndexPath: indexPath)
             cell = finishCell
         }
         
+        cell.configureStandardSeparatorInTableView(tableView, atIndexPath: indexPath)
         return cell
     }
     
+    func configureHeaderCell(headerCell: TextTableCell, title: String?) {
+        headerCell.title.text = title
+        headerCell.selectionStyle = .None
+    }
+    
     func configureDepositAmountCell(amountCell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        amountCell.selectionStyle = .Default
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.green1976()
+        amountCell.selectedBackgroundView = selectedView
+        
+        amountCell.title.highlightedTextColor =  UIColor.whiteShoebox()
+        
         guard let rowType = RowType.typeForIndexPath(indexPath, layout: layout) else {
             log.error("no row type for deposit amount cell")
             return
@@ -97,8 +121,29 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         }
     }
     
+    func configureOtherAmountCell(textFieldCell: TextFieldTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        textFieldCell.textField.delegate = self
+        textFieldCell.textField.indexPath = indexPath
+        textFieldCell.textField.returnKeyType = UIReturnKeyType.Done
+        
+        var placeholderAttributes = textFieldCell.textField.attributedPlaceholder?.attributesAtIndex(0, effectiveRange: nil)
+        placeholderAttributes?[NSForegroundColorAttributeName] = UIColor.veryLightGrayShoebox()
+        
+        let selectedView = UIView()
+        selectedView.backgroundColor = UIColor.green1976()
+        textFieldCell.selectedBackgroundView = selectedView
+        
+        textFieldCell.textField.textColor = textFieldCell.selected ? UIColor.lightGrayShoebox() : UIColor.veryLightGrayShoebox()
+        
+        textFieldCell.textField.text = customDepositAmount != nil ? "$\(Int(customDepositAmount!))" : nil
+        textFieldCell.textField.attributedPlaceholder = NSAttributedString(string: "Other Amount", attributes: placeholderAttributes)
+        textFieldCell.textField.keyboardType = UIKeyboardType.NumberPad
+    }
+    
     func configureFinishCell(finishCell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
         finishCell.title.text = "DEPOSIT"
+        finishCell.title.textColor = UIColor.green1976()
         finishCell.selectionStyle = .None
     }
     
@@ -111,16 +156,81 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         switch rowType {
         case .DepositAmount(let amount):
             depositInProgress = amount
-        case .PaymentMethod:
-            break
-        case .Finish:
-            guard let depositAmount = depositInProgress else {
-                MRProgressOverlayView.showErrorWithStatus("No deposit selected")
-                return
+            view.endEditing(true)
+        case .OtherDepositAmount:
+            if let textFieldCell = tableView.cellForRowAtIndexPath(indexPath) as? TextFieldTableCell {
+                textFieldCell.textField.becomeFirstResponder()
             }
-            
-            PaymentManager.requestApplePayForItem(PaidItem(title: "Linkings Deposit", cost: depositAmount), presenter: self)
+        default:
+            view.endEditing(true)
         }
+    }
+    
+    //WARNING: reload at old index paths to make sure they deselect
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        tableView.indexPathsForSelectedRows?.forEach({ tableView.deselectRowAtIndexPath($0, animated: true) }) //make sure to deselect text field cell
+        return indexPath
+    }
+    
+    //MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(textField: UITextField) {
+        guard let indexedTF = textField as? IndexedTextField,
+            let ip = indexedTF.indexPath,
+            let textFieldCell = tableView.cellForRowAtIndexPath(ip) else  {
+                log.error("No cell for selected textField \(textField)")
+                return
+        }
+        textFieldCell.selected = true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        depositPressed(textField)
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        saveTextFromTextField(textField.text, showError: true)
+       
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            if let indexedTF = textField as? IndexedTextField,
+                let ip = indexedTF.indexPath,
+                let _ = self.tableView.cellForRowAtIndexPath(ip) as? TextFieldTableCell {
+                    self.tableView.reloadRowsAtIndexPaths([ip], withRowAnimation: .None)
+            }
+        })
+
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text {
+            let newText = (text as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            saveTextFromTextField(newText, showError: false)
+        }
+        return true
+    }
+    
+    func saveTextFromTextField(text: String?, showError: Bool) {
+        guard let depositText = text where depositText.characters.count > 0 else {
+            return
+        }
+        
+        guard let depositAmount = Double(depositText) else {
+            log.error("Textfield text invalid \(depositText)")
+            if showError {
+                MRProgressOverlayView.showErrorWithStatus("Invalid deposit amount")
+            }
+            return
+        }
+        
+//        guard let indexedTF = textField as? IndexedTextField,
+//            let ip = indexedTF.indexPath,
+//            let textFieldCell = tableView.cellForRowAtIndexPath(ip) else  {
+//                log.error("No cell for saved textField \(textField)")
+//        }
+        
+        customDepositAmount = depositAmount
+        depositInProgress = customDepositAmount
     }
     
     //MARK: - PKPaymentAuth Delegate
@@ -158,6 +268,15 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
     }
     
     //MARK: - Presses
+    @IBAction func depositPressed(sender: AnyObject) {
+        guard let depositAmount = depositInProgress else {
+            MRProgressOverlayView.showErrorWithStatus("No deposit selected")
+            return
+        }
+        
+        PaymentManager.requestApplePayForItem(PaidItem(title: "Linkings Deposit", cost: depositAmount), presenter: self)
+    }
+    
     func cancelPressed() {
         view.endEditing(true)
         
