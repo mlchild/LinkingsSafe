@@ -12,8 +12,10 @@ class PFPrivateUser: PFObject, PFSubclassing {
     
     @NSManaged private var balance: NSNumber?
     
-    var cashBalance: Double? {
-        return balance as? Double
+    var cashBalanceInCents: Int? { return balance as? Int }
+    var cashBalanceInDollars: Double? {
+        guard let balanceInCents = cashBalanceInCents else { return nil }
+        return Double(balanceInCents) / 100
     }
     
     //MARK: - Parse Necessities

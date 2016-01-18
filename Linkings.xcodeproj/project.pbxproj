@@ -97,6 +97,8 @@
 		B05240A31C4A638000FA9A71 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */; };
 		B05240A51C4B122800FA9A71 /* SegButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05240A41C4B122800FA9A71 /* SegButtonCell.swift */; };
 		B05240A71C4B127600FA9A71 /* ButtonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05240A61C4B127600FA9A71 /* ButtonImageView.swift */; };
+		B0922E591C4CC4C60045F624 /* PostTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0922E581C4CC4C60045F624 /* PostTableCell.swift */; };
+		B0922E5B1C4CF6CB0045F624 /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B0922E5A1C4CF6CB0045F624 /* DateTools.bundle */; };
 		B0D40DB71C465C6400CDC8DD /* Compose.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D40DB61C465C6400CDC8DD /* Compose.storyboard */; };
 		B0D40DB91C465E8300CDC8DD /* TextFieldTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */; };
 		B0D40DBD1C4662A200CDC8DD /* NSString+ValidURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D40DBC1C4662A200CDC8DD /* NSString+ValidURL.m */; };
@@ -254,6 +256,8 @@
 		B052409B1C4A638000FA9A71 /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
 		B05240A41C4B122800FA9A71 /* SegButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegButtonCell.swift; sourceTree = "<group>"; };
 		B05240A61C4B127600FA9A71 /* ButtonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonImageView.swift; sourceTree = "<group>"; };
+		B0922E581C4CC4C60045F624 /* PostTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableCell.swift; sourceTree = "<group>"; };
+		B0922E5A1C4CF6CB0045F624 /* DateTools.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DateTools.bundle; sourceTree = "<group>"; };
 		B0D40DB61C465C6400CDC8DD /* Compose.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Compose.storyboard; sourceTree = "<group>"; };
 		B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableCell.swift; sourceTree = "<group>"; };
 		B0D40DBB1C4662A200CDC8DD /* NSString+ValidURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidURL.h"; sourceTree = "<group>"; };
@@ -568,6 +572,7 @@
 		B02180881C463CE70041FD51 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B0922E581C4CC4C60045F624 /* PostTableCell.swift */,
 				B05240A41C4B122800FA9A71 /* SegButtonCell.swift */,
 				B0D40DB81C465E8300CDC8DD /* TextFieldTableCell.swift */,
 				B0D40DC11C46671500CDC8DD /* MultilineTextInputTableCell.swift */,
@@ -589,6 +594,7 @@
 		B052408B1C4A638000FA9A71 /* DateTools */ = {
 			isa = PBXGroup;
 			children = (
+				B0922E5A1C4CF6CB0045F624 /* DateTools.bundle */,
 				B052408D1C4A638000FA9A71 /* DateTools.h */,
 				B052408E1C4A638000FA9A71 /* DTConstants.h */,
 				B052408F1C4A638000FA9A71 /* DTConstants.m */,
@@ -764,6 +770,7 @@
 				B021809F1C464C690041FD51 /* ITCAvantGardeGothicPro-Demi.otf in Resources */,
 				B021809C1C464C690041FD51 /* ITCAvantGardeGothicPro-BoldOblique.otf in Resources */,
 				B02180A11C464C690041FD51 /* ITCAvantGardeGothicPro-ExtraLight.otf in Resources */,
+				B0922E5B1C4CF6CB0045F624 /* DateTools.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,6 +897,7 @@
 				B021803D1C4626E50041FD51 /* SocialManager.swift in Sources */,
 				B052408A1C4A61FA00FA9A71 /* MZTimerLabel.m in Sources */,
 				B02180851C4634990041FD51 /* FontBlaster.swift in Sources */,
+				B0922E591C4CC4C60045F624 /* PostTableCell.swift in Sources */,
 				B02180561C4628670041FD51 /* MRBlurView.m in Sources */,
 				B021805B1C4628670041FD51 /* MRNavigationBarProgressView.m in Sources */,
 				B02180591C4628670041FD51 /* MRCircularProgressView.m in Sources */,

@@ -83,11 +83,11 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         var cell = UITableViewCell()
         switch section {
         case .Title:
-            let titleCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.contestTitleCell)!
+            let titleCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.contestTitleCellAvenir)!
             configureTitleCell(titleCell, forRowAtIndexPath: indexPath)
             cell = titleCell
         case .Posts:
-            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCell)!
+            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellAvenir)!
             configurePostCell(postCell, forRowAtIndexPath: indexPath)
             cell = postCell
         }
@@ -97,7 +97,7 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     func configureTitleCell(titleCell: ContestTitleCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        guard let start = contest?.startTime, end = contest?.endTime, let entries = contest?.contestEntryCount, let prizes = contest?.totalPrize else {
+        guard let start = contest?.startTime, end = contest?.endTime, let entries = contest?.contestEntryCount, let prizes = contest?.totalPrizeInDollars else {
             return
         }
         titleCell.title.text = start.formattedDateWithStyle(.MediumStyle)
@@ -112,6 +112,7 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
             countdownLabel.setCountDownTime(endTime.secondsUntil())
             countdownLabel.startWithEndingBlock({ (countTime) -> Void in
                 //self.configureCountdownLabel(countdownLabel) //restart, perhaps reload?
+                self.fetchPosts()
             })
         } else {
             countdownLabel.text = nil
@@ -166,24 +167,62 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     //MARK: - Fetch Data
     func fetchPosts() {
-        FetchManager.fetchPostsOnCurrentContest { (posts, error) -> () in
-            guard let postsToShow = posts where error == nil else {
+        FetchManager.fetchAllPostsOnCurrentContest { (posts, error) -> () in
+            guard let newPosts = posts where error == nil else {
                 log.error("Error fetching posts \(error)")
                 MRProgressOverlayView.showErrorWithStatus("Error fetching posts")
                 self.refreshControl?.endRefreshing()
                 return
             }
             
-            let newPosts: [PFPost] = postsToShow.sort({ $0.postScore > $1.postScore })
-            if self.posts != newPosts {
-                self.posts = newPosts
-                self.reloadDataSoftly()
+            self.posts = newPosts //okay if empty
+            
+            guard let contest = newPosts.first?.contest where contest.dataAvailable else {
+                log.debug("No posts or error getting contest from posts \(newPosts)")
+                self.fetchCurrentContest()
+                return
+            }
+            self.saveContest(contest)
+        }
+    }
+    
+    func fetchCurrentContest() {
+        FetchManager.currentContest { (contest, contestError) -> () in
+            guard let currentContest = contest else {
+                log.error("Error fetching contest \(contestError)")
+                self.contest = nil
+                self.refreshControl?.endRefreshing()
+                return
+            }
+            self.saveContest(currentContest)
+        }
+    }
+    
+    func saveContest(contest: PFContest) {
+        guard let contestId = contest.objectId else {
+            log.error("No contest id \(contest)")
+            self.refreshControl?.endRefreshing()
+            return
+        }
+        if self.contest != contest {
+            self.contest = contest
+            log.debug("new current contest displaying \(self.contest)")
+        }
+        self.fetchMyPosts(contestId: contestId)
+    }
+    
+    func fetchMyPosts(contestId contestId: String) { //in case not on page 1
+        FetchManager.fetchMyPostsOnContest(contestId) { (posts, error) -> () in
+            guard let myPosts = posts where error == nil else {
+                log.error("Error fetching my posts \(error)")
+                MRProgressOverlayView.showErrorWithStatus("Error fetching posts")
+                self.refreshControl?.endRefreshing()
+                return
             }
             
-            if let contest = newPosts.first?.contest where contest.dataAvailable && self.contest != contest {
-                self.contest = contest
-                log.debug("new current contest displaying \(self.contest)")
-            }
+            let myNewPosts = myPosts.filter({ !self.posts.contains($0) })
+            self.posts += myNewPosts
+
             
             self.fetchMyUpvotes()
         }
@@ -198,13 +237,15 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
                 return
             }
             
-            let changedPosts = CacheManager.sharedCache.cacheMyActivity(upvoteActivity)
-            for post in changedPosts {
-                if let postIndex = self.posts.indexOf(post),
-                    let postCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue)) as? PostTableCell {
-                        self.configurePostCell(postCell, forRowAtIndexPath: NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue))
-                }
-            }
+            let _ = CacheManager.sharedCache.cacheMyActivity(upvoteActivity) //changed activity
+            self.reloadDataSoftly()
+            
+//            for post in changedPosts {
+//                if let postIndex = self.posts.indexOf(post),
+//                    let postCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue)) as? PostTableCell {
+//                        self.configurePostCell(postCell, forRowAtIndexPath: NSIndexPath(forRow: postIndex, inSection: Section.Posts.rawValue))
+//                }
+//            }
         }
     }
     
@@ -228,5 +269,31 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
         })
         configurePostCell(postCell, forRowAtIndexPath: ip) //synchronous update before async update
         
+    }
+    @IBAction func composePressed(sender: AnyObject) {
+        
+        guard let _ = contest else {
+            MRProgressOverlayView.showErrorWithStatus("Contest not loaded")
+            return
+        }
+        
+        performSegueWithIdentifier(R.segue.contestTVC.compose, sender: self)
+    }
+    
+    //MARK - Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let segueIdentifier = segue.identifier else {
+            log.error("No segue identifier \(segue)")
+            return
+        }
+        
+        if let nav = segue.destinationViewController as? UINavigationController where segueIdentifier == R.segue.contestTVC.compose.identifier,
+            let composeVC = nav.viewControllers.first as? ComposeTVC {
+            guard let contestToEnter = contest else {
+                MRProgressOverlayView.showErrorWithStatus("Contest not loaded")
+                return
+            }
+            composeVC.contestForEntry = contestToEnter
+        }
     }
 }

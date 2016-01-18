@@ -17,8 +17,14 @@ class MultilineTextInputTableCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet var textView: UITextView!
 
     var delegate: TextViewCellDelegate?
-    var trueText: String?
     var placeholder = ""
+    var trueText: String? {
+        didSet {
+            if let newText = trueText {
+                delegate?.textViewCellUpdated(newText)
+            }
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -82,7 +88,6 @@ class MultilineTextInputTableCell: UITableViewCell, UITextViewDelegate {
     
     func textViewDidEndEditing(textView: UITextView) {
         setupText()
-        delegate?.textViewCellUpdated(textString)
     }
     
     func textViewDidChange(textView: UITextView) {

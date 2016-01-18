@@ -29,4 +29,5 @@ enum Error: ErrorType {
     case UserPermissionsInadequate
     case IndexOutOfRange
     case InvalidURL
+    case InvalidActivityType
 }

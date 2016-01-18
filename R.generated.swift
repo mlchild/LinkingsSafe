@@ -22,6 +22,7 @@ struct R {
   }
   
   struct file {
+    static var dateToolsBundle: NSURL? { return _R.hostingBundle?.URLForResource("DateTools", withExtension: "bundle") }
     static var iTCAvantGardeGothicProBoldObliqueOtf: NSURL? { return _R.hostingBundle?.URLForResource("ITCAvantGardeGothicPro-BoldOblique", withExtension: "otf") }
     static var iTCAvantGardeGothicProBoldOtf: NSURL? { return _R.hostingBundle?.URLForResource("ITCAvantGardeGothicPro-Bold", withExtension: "otf") }
     static var iTCAvantGardeGothicProBookObliqueOtf: NSURL? { return _R.hostingBundle?.URLForResource("ITCAvantGardeGothicPro-BookOblique", withExtension: "otf") }
@@ -85,6 +86,7 @@ struct R {
     static var upvote: UIImage? { return UIImage(named: "Upvote", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoteLarge: UIImage? { return UIImage(named: "Upvote Large", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoted: UIImage? { return UIImage(named: "Upvoted", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var upvotedBorder: UIImage? { return UIImage(named: "Upvoted Border", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
   }
   
   struct nib {
@@ -92,19 +94,31 @@ struct R {
   }
   
   struct reuseIdentifier {
-    static var contestTitleCell: ReuseIdentifier<ContestTitleCell> { return ReuseIdentifier(identifier: "Contest Title Cell") }
+    static var contestTitleCellAvenir: ReuseIdentifier<ContestTitleCell> { return ReuseIdentifier(identifier: "Contest Title Cell Avenir") }
+    static var contestTitleCellITC: ReuseIdentifier<ContestTitleCell> { return ReuseIdentifier(identifier: "Contest Title Cell ITC") }
+    static var depositButtonCell: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Button Cell") }
     static var depositTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Text Cell Simple") }
     static var finishTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Finish Text Cell Simple") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
-    static var postCell: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell") }
-    static var postCellProfile: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile") }
+    static var postCellAvenir: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Avenir") }
+    static var postCellITC: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell ITC") }
+    static var postCellProfileAvenir: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile Avenir") }
+    static var postCellProfileITC: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile ITC") }
     static var profileActivityTypeSegCell: ReuseIdentifier<SegButtonCell> { return ReuseIdentifier(identifier: "Profile Activity Type Seg Cell") }
     static var profileTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple") }
+    static var profileTextCellSimpleITC: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple ITC") }
+    static var sectionHeaderTextCell: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Section Header Text Cell") }
+    static var sectionHeaderTextCellDeposit: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Section Header Text Cell Deposit") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
+    static var textFieldCellDeposit: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell Deposit") }
     static var userInfoCellComplex: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "User Info Cell Complex") }
   }
   
   struct segue {
+    struct contestTVC {
+      static var compose: StoryboardSegueIdentifier<UIStoryboardSegue, ContestTVC, UIViewController> { return StoryboardSegueIdentifier(identifier: "compose") }
+    }
+    
     struct loginVC {
       static var showMain: StoryboardSegueIdentifier<UIStoryboardSegue, LoginVC, UIViewController> { return StoryboardSegueIdentifier(identifier: "showMain") }
     }

@@ -9,13 +9,79 @@
         <scene sceneID="tWF-EO-sZF">
             <objects>
                 <tableViewController id="UoU-G8-JGL" customClass="DepositTVC" customModule="Linkings" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="HgL-jB-IYJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HgL-jB-IYJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Section Header Text Cell Deposit" rowHeight="54" id="XBB-XK-67f" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="54"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XBB-XK-67f" id="Cih-EO-bcr">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="53.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YOUR ACTIVITY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="48N-Rx-7ag">
+                                            <rect key="frame" x="20" y="32" width="560" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="12"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="leading" secondItem="Cih-EO-bcr" secondAttribute="leading" constant="20" id="A4i-xc-1og"/>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="centerY" secondItem="Cih-EO-bcr" secondAttribute="centerY" id="Gqx-y5-Jj5"/>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="top" secondItem="Cih-EO-bcr" secondAttribute="top" constant="9" id="HDH-di-MJm"/>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="top" secondItem="Cih-EO-bcr" secondAttribute="top" constant="19.5" id="HHl-gD-WlX"/>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="top" secondItem="Cih-EO-bcr" secondAttribute="top" constant="4.5" id="KVo-Q2-zeN"/>
+                                        <constraint firstAttribute="bottom" secondItem="48N-Rx-7ag" secondAttribute="bottom" constant="5" id="QNF-Bq-UBw"/>
+                                        <constraint firstAttribute="bottom" secondItem="48N-Rx-7ag" secondAttribute="bottom" constant="19.5" id="Ss9-8f-ANu"/>
+                                        <constraint firstItem="48N-Rx-7ag" firstAttribute="top" secondItem="Cih-EO-bcr" secondAttribute="top" constant="32" id="k6T-kE-PLF"/>
+                                        <constraint firstAttribute="trailing" secondItem="48N-Rx-7ag" secondAttribute="trailing" constant="20" id="lXh-kB-3wM"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Ss9-8f-ANu"/>
+                                            <exclude reference="HDH-di-MJm"/>
+                                            <exclude reference="KVo-Q2-zeN"/>
+                                            <exclude reference="Gqx-y5-Jj5"/>
+                                            <exclude reference="HHl-gD-WlX"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="title" destination="48N-Rx-7ag" id="tVU-xc-I5g"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Text Field Cell Deposit" rowHeight="100" id="MaZ-zx-lPk" customClass="TextFieldTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MaZ-zx-lPk" id="eVn-Sx-Uc8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other Amount" textAlignment="center" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dqk-0p-gtb" customClass="IndexedTextField" customModule="Linkings" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="12" width="570" height="76.5"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="44"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Dqk-0p-gtb" firstAttribute="top" secondItem="eVn-Sx-Uc8" secondAttribute="top" constant="12" id="6au-iL-NIY"/>
+                                        <constraint firstItem="Dqk-0p-gtb" firstAttribute="leading" secondItem="eVn-Sx-Uc8" secondAttribute="leading" constant="20" id="BIe-mD-stA"/>
+                                        <constraint firstAttribute="trailing" secondItem="Dqk-0p-gtb" secondAttribute="trailing" constant="10" id="GEU-ga-kRo"/>
+                                        <constraint firstAttribute="bottom" secondItem="Dqk-0p-gtb" secondAttribute="bottom" constant="11" id="eQz-OI-Ne7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="textField" destination="Dqk-0p-gtb" id="UPu-fy-1FH"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Deposit Text Cell Simple" rowHeight="100" id="IYl-HP-lAj" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="246" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IYl-HP-lAj" id="ewI-Ta-T2e">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
@@ -44,6 +110,48 @@
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="title" destination="z19-NE-Jgr" id="9Hq-Ch-vxV"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Deposit Button Cell" rowHeight="100" id="zDe-0P-W1r" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="346" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zDe-0P-W1r" id="ooj-hL-wcf">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16i-hX-0Az">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <connections>
+                                                <action selector="depositPressed:" destination="UoU-G8-JGL" eventType="touchUpInside" id="uMs-Fx-DVb"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="jameswilsterman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B0T-oj-u6J">
+                                            <rect key="frame" x="20" y="19.5" width="560" height="60.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="44"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="16i-hX-0Az" secondAttribute="trailing" id="30l-11-T9A"/>
+                                        <constraint firstAttribute="bottom" secondItem="B0T-oj-u6J" secondAttribute="bottom" constant="19.5" id="48d-cy-cDH"/>
+                                        <constraint firstAttribute="bottom" secondItem="16i-hX-0Az" secondAttribute="bottom" id="4Hw-TV-6sI"/>
+                                        <constraint firstItem="16i-hX-0Az" firstAttribute="leading" secondItem="ooj-hL-wcf" secondAttribute="leading" id="Dnz-TQ-wON"/>
+                                        <constraint firstItem="B0T-oj-u6J" firstAttribute="leading" secondItem="ooj-hL-wcf" secondAttribute="leading" constant="20" id="ULt-OS-zsR"/>
+                                        <constraint firstItem="16i-hX-0Az" firstAttribute="top" secondItem="ooj-hL-wcf" secondAttribute="top" id="cL9-fh-bS4"/>
+                                        <constraint firstItem="B0T-oj-u6J" firstAttribute="centerY" secondItem="ooj-hL-wcf" secondAttribute="centerY" id="dh3-jH-pG7"/>
+                                        <constraint firstAttribute="trailing" secondItem="B0T-oj-u6J" secondAttribute="trailing" constant="20" id="flf-EF-BGs"/>
+                                        <constraint firstItem="B0T-oj-u6J" firstAttribute="top" secondItem="ooj-hL-wcf" secondAttribute="top" constant="19.5" id="h3a-JL-W2h"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="dh3-jH-pG7"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="title" destination="B0T-oj-u6J" id="qVh-hB-yTs"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

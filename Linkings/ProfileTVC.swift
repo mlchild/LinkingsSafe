@@ -33,6 +33,7 @@ class ProfileTVC: UITableViewController {
     
     enum Section: Int {
         case UserInfo
+        case ActivityHeader
         case ActivitySeg
         case Activity
     }
@@ -89,8 +90,8 @@ class ProfileTVC: UITableViewController {
         switch section {
         case .UserInfo:
             return UserInfoType.AddCash.rawValue + 1
-        case .ActivitySeg:
-            return upvotes.count > 0 ? 1 : 0
+        case .ActivityHeader, .ActivitySeg:
+            return 1
         case .Activity:
             switch selectedActivityType {
             case .Upvote:
@@ -114,37 +115,43 @@ class ProfileTVC: UITableViewController {
             let textCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profileTextCellSimple)!
             configureTextCell(textCell, forRowAtIndexPath: indexPath)
             cell = textCell
+        case .ActivityHeader:
+            let headerCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.sectionHeaderTextCell)!
+            headerCell.title.text = "Your Activity".uppercaseString
+            cell = headerCell
         case .ActivitySeg:
             let segCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.profileActivityTypeSegCell)!
             configureActivitySegCell(segCell)
             cell = segCell
         case .Activity:
-            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellProfile)!
+            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellProfileAvenir)!
             configurePostCell(postCell, forRowAtIndexPath: indexPath)
             cell = postCell
         }
 
+        cell.configureStandardSeparatorInTableView(tableView, atIndexPath: indexPath)
         return cell
     }
     
     func configureTextCell(cell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         cell.title.textColor = UIColor.veryDarkGrayShoebox()
+        
         guard let userInfoType = UserInfoType(rawValue: indexPath.row) else {
             cell.title.text = " " //so it doesn't kill auto layout
             return
         }
         
-        let name = userDisplaying?.facebookName
+        let name = userDisplaying?.username ?? "anonymous"
         var cashBalanceText = "Loading balance..."
         if let privateUser = userDisplaying?.privateUser where privateUser.dataAvailable {
-            let balance = privateUser.cashBalance ?? 0
-            cashBalanceText = "CASH VALUE: " + balance.format(Currency.USD)
+            let balance = privateUser.cashBalanceInDollars ?? 0
+            cashBalanceText = "BALANCE: " + balance.format(Currency.USD)
         }
 
         switch userInfoType {
         case .Username:
-            cell.title.text = name
+            cell.title.text = "\(name)"
         case .Cash:
             cell.title.text = cashBalanceText
         case .AddCash:
@@ -189,7 +196,7 @@ class ProfileTVC: UITableViewController {
         }
         
         postCell.upvoteButton.indexPath = indexPath //has to be in ip knowledgeable function
-        postCell.configureWithPost(postToShow)
+        postCell.configureWithPost(postToShow, showTimeAgo: true)
     }
     
     //MARK: - UITableViewDelegate
@@ -219,7 +226,6 @@ class ProfileTVC: UITableViewController {
             if let user = object as? PFUser, let privateUser = user.privateUser where error == nil {
                 self.userDisplaying = user
                 log.debug("private user \(privateUser)")
-                self.reloadDataSoftly()
                 self.fetchPastActivity()
             } else {
                 log.error("Error fetching my user, result \(object), error: \(error)")
@@ -236,8 +242,9 @@ class ProfileTVC: UITableViewController {
             }
             self.posts = userPosts
             
-            FetchManager.fetchMyUpvotesOnPastContests(completion: { (upvotes, upvoteError) -> () in
+            FetchManager.fetchMyUpvotesOnPastContests({ (upvotes, upvoteError) -> () in
                 if let userUpvotes = upvotes where upvoteError == nil {
+                    CacheManager.sharedCache.cacheMyActivity(userUpvotes)
                     self.upvotes = userUpvotes
                 } else {
                     log.error("Error fetching my upvotes \(upvoteError)")

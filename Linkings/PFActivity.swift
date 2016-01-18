@@ -50,17 +50,19 @@ class PFActivity: PFObject, PFSubclassing {
     }
     
     //MARK: - High Level Convenience
-    class func newEntryInCurrentContest(urlString: String, title: String, subtitle: String?, completion: PFActivityResultBlock) {
+    class func newEntryForContest(contest: PFContest, urlString: String, title: String, subtitle: String?, completion: PFActivityResultBlock) {
         
         guard urlString.validURL(httpOnly: true) != nil else {
             completion(activity: nil, activityError: Error.InvalidURL as NSError)
             return
         }
         
-        var params = ["url" : urlString, "title" : title]
+        var params: [String: AnyObject] = ["url" : urlString, "title" : title]
         params["subtitle"] = subtitle
+        params["contestId"] = contest.objectId
+        params["cost"] = contest.contestEntryCostInCents
         
-        PFCloud.callFunctionInBackground("newEntryInCurrentContest", withParameters: params) { (object, error) -> Void in
+        PFCloud.callFunctionInBackground("newEntryForContest", withParameters: params) { (object, error) -> Void in
             guard let newEntry = object as? PFActivity where error == nil else {
                 log.error("Error posting new entry \(params): \(error)")
                 completion(activity: nil, activityError: error)

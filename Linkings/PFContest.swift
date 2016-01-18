@@ -21,9 +21,19 @@ class PFContest: PFObject, PFSubclassing {
     @NSManaged private var prizeSum: NSNumber?
     @NSManaged private var prizeTier: NSNumber?
     
-    var contestEntryCost: Double? { return entryCost as? Double }
+    var contestEntryCostInCents: Int? { return entryCost as? Int }
+    var contestEntryCostInDollars: Double? {
+        guard let costInCents = contestEntryCostInCents else { return nil }
+        return Double(costInCents) / 100
+    }
+    
     var contestEntryCount: Int? { return entryCount as? Int }
-    var totalPrize: Double? { return prizeSum as? Double }
+    
+    var totalPrizeInCents: Int? { return prizeSum as? Int }
+    var totalPrizeInDollars: Double? {
+        guard let prizeInCents = totalPrizeInCents else { return nil }
+        return Double(prizeInCents) / 100
+    }
     var prizeCutoffPercentage: Double? { return prizeTier as? Double }
     
     enum ContestType: String {
