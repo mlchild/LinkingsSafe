@@ -414,6 +414,9 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgj-0x-ooF" customClass="IndexedButton" customModule="Linkings" customModuleProvider="target">
                                             <rect key="frame" x="20" y="10" width="52" height="52"/>
+                                            <connections>
+                                                <action selector="upvotePressed:" destination="9aI-qf-2X6" eventType="touchUpInside" id="SNP-4w-fMh"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upvote Large" translatesAutoresizingMaskIntoConstraints="NO" id="eTG-zR-xFQ">
                                             <rect key="frame" x="20" y="10" width="52" height="52"/>

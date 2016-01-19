@@ -47,6 +47,7 @@ class PFActivity: PFObject, PFSubclassing {
         case Entry = "entry"
         case Upvote = "upvote"
         case Deposit = "deposit"
+        case Win = "win"
     }
     
     //MARK: - High Level Convenience

@@ -80,13 +80,16 @@ struct R {
   
   struct image {
     static var comment: UIImage? { return UIImage(named: "Comment", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var deposit: UIImage? { return UIImage(named: "Deposit", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var facebook: UIImage? { return UIImage(named: "Facebook", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var profile: UIImage? { return UIImage(named: "Profile", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var profileTab: UIImage? { return UIImage(named: "Profile Tab", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var transferArrows: UIImage? { return UIImage(named: "Transfer Arrows", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvote: UIImage? { return UIImage(named: "Upvote", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoteLarge: UIImage? { return UIImage(named: "Upvote Large", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvoted: UIImage? { return UIImage(named: "Upvoted", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
     static var upvotedBorder: UIImage? { return UIImage(named: "Upvoted Border", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
+    static var win: UIImage? { return UIImage(named: "Win", inBundle: _R.hostingBundle, compatibleWithTraitCollection: nil) }
   }
   
   struct nib {
@@ -98,19 +101,22 @@ struct R {
     static var contestTitleCellITC: ReuseIdentifier<ContestTitleCell> { return ReuseIdentifier(identifier: "Contest Title Cell ITC") }
     static var depositButtonCell: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Button Cell") }
     static var depositTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Deposit Text Cell Simple") }
+    static var finishTextCellGreen: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Finish Text Cell Green") }
     static var finishTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Finish Text Cell Simple") }
     static var multilineTextCell: ReuseIdentifier<MultilineTextInputTableCell> { return ReuseIdentifier(identifier: "Multiline Text Cell") }
     static var postCellAvenir: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Avenir") }
     static var postCellITC: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell ITC") }
-    static var postCellProfileAvenir: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile Avenir") }
+    static var postCellProfile: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile") }
     static var postCellProfileITC: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Post Cell Profile ITC") }
     static var profileActivityTypeSegCell: ReuseIdentifier<SegButtonCell> { return ReuseIdentifier(identifier: "Profile Activity Type Seg Cell") }
     static var profileTextCellSimple: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple") }
     static var profileTextCellSimpleITC: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Profile Text Cell Simple ITC") }
     static var sectionHeaderTextCell: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Section Header Text Cell") }
+    static var sectionHeaderTextCellCompose: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Section Header Text Cell Compose") }
     static var sectionHeaderTextCellDeposit: ReuseIdentifier<TextTableCell> { return ReuseIdentifier(identifier: "Section Header Text Cell Deposit") }
     static var textFieldCell: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell") }
     static var textFieldCellDeposit: ReuseIdentifier<TextFieldTableCell> { return ReuseIdentifier(identifier: "Text Field Cell Deposit") }
+    static var transferCellProfile: ReuseIdentifier<PostTableCell> { return ReuseIdentifier(identifier: "Transfer Cell Profile") }
     static var userInfoCellComplex: ReuseIdentifier<UITableViewCell> { return ReuseIdentifier(identifier: "User Info Cell Complex") }
   }
   
@@ -208,6 +214,7 @@ struct R {
         assert(UIImage(named: "Profile Tab") != nil, "[R.swift] Image named 'Profile Tab' is used in storyboard 'Profile', but couldn't be loaded.")
         assert(UIImage(named: "Comment") != nil, "[R.swift] Image named 'Comment' is used in storyboard 'Profile', but couldn't be loaded.")
         assert(UIImage(named: "Upvote Large") != nil, "[R.swift] Image named 'Upvote Large' is used in storyboard 'Profile', but couldn't be loaded.")
+        assert(UIImage(named: "Deposit") != nil, "[R.swift] Image named 'Deposit' is used in storyboard 'Profile', but couldn't be loaded.")
       }
       
       static func validateViewControllers() {

@@ -9,13 +9,13 @@
         <scene sceneID="HM5-Qd-BPV">
             <objects>
                 <tableViewController id="kND-ct-bwm" customClass="ComposeTVC" customModule="Linkings" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aJ3-cU-vbe">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aJ3-cU-vbe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Text Field Cell" rowHeight="52" id="mdu-jT-O9j" customClass="TextFieldTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="52"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mdu-jT-O9j" id="smT-RY-bcq">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="51.5"/>
@@ -41,7 +41,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Multiline Text Cell" rowHeight="66" id="70p-lO-8g0" customClass="MultilineTextInputTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="165.5" width="600" height="66"/>
+                                <rect key="frame" x="0.0" y="144" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="70p-lO-8g0" id="ckq-XZ-ZiG">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
@@ -66,8 +66,8 @@
                                     <outlet property="textView" destination="tDn-2Y-OvC" id="9BT-Yo-cqa"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Finish Text Cell Simple" rowHeight="56" id="Uvd-kP-yVq" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="231.5" width="600" height="56"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Finish Text Cell Green" rowHeight="56" id="Uvd-kP-yVq" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="210" width="600" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvd-kP-yVq" id="ik5-a8-eZg">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="55.5"/>
@@ -98,6 +98,73 @@
                                 <color key="backgroundColor" red="0.43921568630000002" green="0.6705882353" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="title" destination="lrt-I5-Iai" id="xW8-o9-ElW"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Finish Text Cell Simple" rowHeight="100" id="fKc-2v-VYv" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="266" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fKc-2v-VYv" id="VWE-4I-4KX">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="jameswilsterman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bUC-8E-T5P">
+                                            <rect key="frame" x="20" y="19.5" width="560" height="60.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="40"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bUC-8E-T5P" firstAttribute="leading" secondItem="VWE-4I-4KX" secondAttribute="leading" constant="20" id="5Lm-tP-Yeh"/>
+                                        <constraint firstItem="bUC-8E-T5P" firstAttribute="centerY" secondItem="VWE-4I-4KX" secondAttribute="centerY" id="Owp-Za-U0E"/>
+                                        <constraint firstAttribute="trailing" secondItem="bUC-8E-T5P" secondAttribute="trailing" constant="20" id="oYk-qM-f8K"/>
+                                        <constraint firstAttribute="bottom" secondItem="bUC-8E-T5P" secondAttribute="bottom" constant="19.5" id="xEP-Aw-sfQ"/>
+                                        <constraint firstItem="bUC-8E-T5P" firstAttribute="top" secondItem="VWE-4I-4KX" secondAttribute="top" constant="19.5" id="xx8-Kz-bBc"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="title" destination="bUC-8E-T5P" id="eh5-Fk-FeP"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Section Header Text Cell Compose" rowHeight="54" id="gq9-2p-1kU" customClass="TextTableCell" customModule="Linkings" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="366" width="600" height="54"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gq9-2p-1kU" id="AL1-c5-Pic">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="53.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YOUR ACTIVITY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hV6-Ys-cPm">
+                                            <rect key="frame" x="20" y="32" width="560" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="12"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="top" secondItem="AL1-c5-Pic" secondAttribute="top" constant="19.5" id="2lm-ew-lqX"/>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="centerY" secondItem="AL1-c5-Pic" secondAttribute="centerY" id="9yE-hv-uSV"/>
+                                        <constraint firstAttribute="bottom" secondItem="hV6-Ys-cPm" secondAttribute="bottom" constant="5" id="FFG-JW-MEL"/>
+                                        <constraint firstAttribute="trailing" secondItem="hV6-Ys-cPm" secondAttribute="trailing" constant="20" id="PIo-BQ-T8S"/>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="top" secondItem="AL1-c5-Pic" secondAttribute="top" constant="32" id="Plh-xt-8L1"/>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="top" secondItem="AL1-c5-Pic" secondAttribute="top" constant="4.5" id="Qso-4O-ogp"/>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="top" secondItem="AL1-c5-Pic" secondAttribute="top" constant="9" id="XFt-Bw-Uvi"/>
+                                        <constraint firstItem="hV6-Ys-cPm" firstAttribute="leading" secondItem="AL1-c5-Pic" secondAttribute="leading" constant="20" id="b76-ps-PlO"/>
+                                        <constraint firstAttribute="bottom" secondItem="hV6-Ys-cPm" secondAttribute="bottom" constant="19.5" id="xTH-ge-Vf2"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="xTH-ge-Vf2"/>
+                                            <exclude reference="XFt-Bw-Uvi"/>
+                                            <exclude reference="Qso-4O-ogp"/>
+                                            <exclude reference="9yE-hv-uSV"/>
+                                            <exclude reference="2lm-ew-lqX"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="title" destination="hV6-Ys-cPm" id="JvH-oW-nFZ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

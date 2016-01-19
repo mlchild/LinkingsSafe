@@ -64,4 +64,44 @@ class PostTableCell: ImageTableCell {
 //        urlHostSlugLabel.text = (hostName ?? "") + (posterName != nil ? " via \(posterName!)\(prizeText)" : "")
 
     }
+    
+    func configureWithTransaction(transaction: PFActivity) {
+        guard let transactionType = transaction.activityType else { return }
+        
+        var amountInCents: Double?
+        
+        switch transactionType {
+        case .Entry:
+            title.text = "Entry"
+            urlHostSlugLabel.text = " "
+            mainImageView.image = R.image.comment
+            amountInCents = transaction.details?["cost"] as? Double
+        case .Deposit:
+            title.text = "Deposit"
+            mainImageView.image = R.image.deposit
+            amountInCents = transaction.details?["amount"] as? Double
+            urlHostSlugLabel.text = "via Apple Pay"
+        case .Win:
+            title.text = "Winnings"
+            mainImageView.image = R.image.win
+            amountInCents = transaction.details?["prize"] as? Double
+            if let upvoteCount = transaction.details?["upvoteCount"] as? Int,
+                let upvoteCountRank = transaction.details?["upvoteCountRank"] as? Int {
+                    urlHostSlugLabel.text = "\(upvoteCountRank.format(General.Ordinal)) place: \(upvoteCount) upvote\(upvoteCount != 1 ? "s" : "")"
+            } else {
+                urlHostSlugLabel.text = " "
+            }
+        default: break
+        }
+        
+        subtitle.text = transaction.createdAt?.formattedDateWithStyle(.MediumStyle)
+        
+        if let amount = amountInCents {
+            upvoteCountLabel.text = (amount / 100).format(Currency.USD)
+        } else {
+            upvoteCountLabel.text = " "
+        }
+
+        mainImageView.setTemplateColor(UIColor.darkGrayShoebox()) //has to be after setting image
+    }
 }

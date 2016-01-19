@@ -38,11 +38,11 @@ class MultilineTextInputTableCell: UITableViewCell, UITextViewDelegate {
     func setupText() {
         if let text = trueText where text.characters.count > 0 {
             textString = text
-            textView.textColor = UIColor.veryDarkGrayShoebox()
+            textView.textColor = UIColor.darkGrayShoebox()
         } else {
             if textView.isFirstResponder() {
                 textString = ""
-                textView.textColor = UIColor.veryDarkGrayShoebox()
+                textView.textColor = UIColor.darkGrayShoebox()
             } else {
                 textString = placeholder
                 textView.textColor = UIColor.veryLightGrayShoebox()

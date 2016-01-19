@@ -134,7 +134,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         selectedView.backgroundColor = UIColor.green1976()
         textFieldCell.selectedBackgroundView = selectedView
         
-        textFieldCell.textField.textColor = textFieldCell.selected ? UIColor.lightGrayShoebox() : UIColor.veryLightGrayShoebox()
+        textFieldCell.textField.textColor = textFieldCell.selected ? UIColor.lightGrayShoebox() : UIColor.darkGrayShoebox()
         
         textFieldCell.textField.text = customDepositAmount != nil ? "$\(Int(customDepositAmount!))" : nil
         textFieldCell.textField.attributedPlaceholder = NSAttributedString(string: "Other Amount", attributes: placeholderAttributes)
@@ -144,7 +144,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
     func configureFinishCell(finishCell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
         finishCell.title.text = "DEPOSIT"
         finishCell.title.textColor = UIColor.green1976()
-        finishCell.selectionStyle = .None
+        finishCell.selectionStyle = .Default
     }
     
     //MARK: - UITableViewDelegate
@@ -166,11 +166,23 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
         }
     }
     
-    //WARNING: reload at old index paths to make sure they deselect
+
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         tableView.indexPathsForSelectedRows?.forEach({ tableView.deselectRowAtIndexPath($0, animated: true) }) //make sure to deselect text field cell
         return indexPath
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        guard let rowType = RowType.typeForIndexPath(indexPath, layout: layout) else {
+            return 0
+        }
+        
+        switch rowType {
+        case .OtherDepositAmount: return 100
+        default: return UITableViewAutomaticDimension
+        }
+    }
+    
     
     //MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -181,6 +193,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
                 return
         }
         textFieldCell.selected = true
+        tableView.indexPathsForSelectedRows?.forEach({ tableView.deselectRowAtIndexPath($0, animated: true) }) //make sure to deselect text field cell
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -215,7 +228,7 @@ class DepositTVC: UITableViewController, PKPaymentAuthorizationViewControllerDel
             return
         }
         
-        guard let depositAmount = Double(depositText) else {
+        guard let strippedText = depositText.componentsSeparatedByString("$").last, let depositAmount = Double(strippedText) else {
             log.error("Textfield text invalid \(depositText)")
             if showError {
                 MRProgressOverlayView.showErrorWithStatus("Invalid deposit amount")
