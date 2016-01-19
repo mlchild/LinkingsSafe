@@ -8,10 +8,21 @@
 
 import Foundation
 
+//MARK: - Constants
 typealias PFActivityArrayResultBlock = (activity: [PFActivity]?, activityError: NSError?) -> ()
 typealias PFPostArrayResultBlock = (posts: [PFPost]?, postError: NSError?) -> ()
 typealias PFContestResultBlock = (contest: PFContest?, contestError: NSError?) -> ()
 typealias PFActivityResultBlock = (activity: PFActivity?, activityError: NSError?) -> ()
+
+enum ActivityCategory {
+    case MyPosts //JUST FOR PROFILE VIEW, use posts function here
+    case MyUpvotes
+    case MyTransactions
+}
+enum PostType {
+    case MyPosts
+    case AllPosts
+}
 
 
 class FetchManager {
@@ -43,17 +54,12 @@ class FetchManager {
         fetchActivity(.MyUpvotes, contestCategory: .PastContests, completion: completion)
     }
     
-    
+    //transactions
+    class func fetchMyTransactions(page: Int = 0, completion: PFActivityArrayResultBlock) {
+        fetchActivity(.MyTransactions, completion: completion)
+    }
     
     //MARK: - All activity fetch function
-    enum ActivityType {
-        case MyUpvotes
-    }
-    enum PostType {
-        case MyPosts
-        case AllPosts
-    }
-    
     enum ContestCategory {
         case Current
         case ContestId(id: String)
@@ -71,37 +77,52 @@ class FetchManager {
         }
     }
     static let pageLength = 100
-
-    private class func fetchActivity(activityCategory: ActivityType, contestCategory: ContestCategory, page: Int = 0, completion: PFActivityArrayResultBlock) {
-        
-        //function name
-        var functionName: String
-        
-        switch activityCategory {
-        case .MyUpvotes:
-            functionName = "fetchUpvotesByUserFor"
-        }
-        
-        functionName += contestCategory.functionSuffix()
-        
-        //params
-        var params = [String: AnyObject]()
-        switch contestCategory {
-        case .ContestId(let contestId): params["contestId"] = contestId
-        default: break
-        }
-        
-        //call
-        PFCloud.callFunctionInBackground(functionName, withParameters: params) { (result, error) -> Void in
-            log.debug("fetch \(activityCategory) activity for contest \(contestCategory) result \(result)")
-            guard let postActivity = result as? [PFActivity] where error == nil else {
-                log.error("Error fetching \(activityCategory) activity for contest \(contestCategory) : \(error)")
-                completion(activity: nil, activityError: error)
+    
+    
+    private class func fetchActivity(activityCategory: ActivityCategory,
+        contestCategory: ContestCategory? = nil,
+        page: Int = 0,
+        completion: PFActivityArrayResultBlock) {
+            
+            var functionName: String
+            var params = [String: AnyObject]()
+            
+            //activity type
+            switch activityCategory {
+            case .MyUpvotes:
+                functionName = "fetchUpvotesByUserFor"
+            case .MyTransactions:
+                functionName = "fetchTransactionsByUser"
+                params["limit"] = pageLength
+                params["skip"] = page * pageLength
+            default:
+                log.error("No function for category \(activityCategory)")
+                completion(activity: nil, activityError: Error.InvalidActivityType as NSError)
                 return
             }
-            completion(activity: postActivity, activityError: nil)
-        }
+            
+            //contest type (if applicable)
+            if let contestType = contestCategory {
+                functionName += contestType.functionSuffix()
+                
+                switch contestType {
+                case .ContestId(let contestId): params["contestId"] = contestId
+                default: break
+                }
+            }
+            
+            //call
+            PFCloud.callFunctionInBackground(functionName, withParameters: params) { (result, error) -> Void in
+                log.debug("fetch \(activityCategory) activity for contest \(contestCategory) result \(result)")
+                guard let postActivity = result as? [PFActivity] where error == nil else {
+                    log.error("Error fetching \(activityCategory) activity for contest \(contestCategory) : \(error)")
+                    completion(activity: nil, activityError: error)
+                    return
+                }
+                completion(activity: postActivity, activityError: nil)
+            }
     }
+
     
     private class func fetchPosts(postType: PostType, contestCategory: ContestCategory, page: Int = 0, completion: PFPostArrayResultBlock) {
         

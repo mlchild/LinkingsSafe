@@ -24,6 +24,7 @@ class AppearanceManager {
         UIBarButtonItem.my_appearanceWhenContainedIn(UIToolbar.self).setTitleTextAttributes([
             NSFontAttributeName : UIFont.avenirNextBold(size: 14.0),
             NSForegroundColorAttributeName : UIColor.green1976Opaque()], forState: UIControlState.Normal)
+        UIBarButtonItem.my_appearanceWhenContainedIn(UIToolbar.self).tintColor = UIColor.green1976Opaque()
         
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName : UIFont.avenirNextBold(size: 20.0),

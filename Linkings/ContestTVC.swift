@@ -12,8 +12,13 @@ import SafariServices
 class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
     //TODO: photo on swipe rigth?
     
-    var contest: PFContest?
     var posts = [PFPost]()
+    var contest: PFContest? {
+        didSet {
+            newContest = true
+        }
+    }
+    var newContest = false
     
     var disabledUpvotePaths = Set([NSIndexPath]())
     
@@ -238,7 +243,12 @@ class ContestTVC: UITableViewController, SFSafariViewControllerDelegate {
             }
             
             let _ = CacheManager.sharedCache.cacheMyActivity(upvoteActivity) //changed activity
-            self.reloadDataSoftly()
+            if self.newContest {
+                self.reloadDataSoftly()
+                self.newContest = false
+            } else {
+                self.reloadDataSoftly(Section.Posts.rawValue, indexPaths: nil)
+            }
             
 //            for post in changedPosts {
 //                if let postIndex = self.posts.indexOf(post),

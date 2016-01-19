@@ -235,15 +235,23 @@ extension UIImageView {
 }
 
 extension UITableViewController {
-    func reloadDataSoftly() {
+    func reloadDataSoftly(section: Int? = nil, indexPaths: [NSIndexPath]? = nil) {
+        
+        var reloadClosure: BlankBlock = { self.tableView.reloadData() }
+        if let sectionToReload = section {
+            reloadClosure = { self.tableView.reloadSections(NSIndexSet(index: sectionToReload), withRowAnimation: .None) }
+        } else if let ipsToReload = indexPaths {
+            reloadClosure = { self.tableView.reloadRowsAtIndexPaths(ipsToReload, withRowAnimation: .None) }
+        }
+        
         if let spinner = refreshControl {
             spinner.endRefreshing()
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.4 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-                self.tableView.reloadData()
+                reloadClosure()
             })
         } else {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
+                reloadClosure()
             })
         }
     }

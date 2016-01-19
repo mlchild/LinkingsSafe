@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SafariServices
 
-class ProfileTVC: UITableViewController {
+class ProfileTVC: UITableViewController, SFSafariViewControllerDelegate {
     
     var shouldReloadOnAppear = false
     var shouldRefreshOnAppear = false
@@ -21,9 +22,9 @@ class ProfileTVC: UITableViewController {
     
     var posts = [PFPost]()
     var upvotes = [PFActivity]()
+    var transactions = [PFActivity]()
     
-    let activityTypeSegOrder = [PFActivity.ActivityType.Entry, PFActivity.ActivityType.Upvote] //this order doesn't really matter, could be a set
-    var selectedActivityType = PFActivity.ActivityType.Entry {
+    var selectedActivityType = ActivityCategory.MyPosts {
         didSet {
             if selectedActivityType != oldValue {
                 tableView.reloadData()
@@ -94,11 +95,12 @@ class ProfileTVC: UITableViewController {
             return 1
         case .Activity:
             switch selectedActivityType {
-            case .Upvote:
-                return upvotes.count
-            case .Entry:
+            case .MyPosts:
                 return posts.count
-            default: return 0
+            case .MyUpvotes:
+                return upvotes.count
+            case .MyTransactions:
+                return transactions.count
             }
         }
     }
@@ -124,9 +126,17 @@ class ProfileTVC: UITableViewController {
             configureActivitySegCell(segCell)
             cell = segCell
         case .Activity:
-            let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellProfileAvenir)!
-            configurePostCell(postCell, forRowAtIndexPath: indexPath)
-            cell = postCell
+            switch selectedActivityType {
+            case .MyPosts, .MyUpvotes:
+                let postCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.postCellProfile)!
+                configurePostCell(postCell, forRowAtIndexPath: indexPath)
+                cell = postCell
+            case .MyTransactions:
+                let transactionPostCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.transferCellProfile)!
+                configureTransactionCell(transactionPostCell, forRowAtIndexPath: indexPath)
+                cell = transactionPostCell
+            }
+            
         }
 
         cell.configureStandardSeparatorInTableView(tableView, atIndexPath: indexPath)
@@ -163,40 +173,49 @@ class ProfileTVC: UITableViewController {
     func configureActivitySegCell(segCell: SegButtonCell) {
         
         segCell.firstButtonView.setupWithTitle("\(posts.count)",
-            action: { self.selectedActivityType = .Entry },
+            action: { self.selectedActivityType = .MyPosts },
             image: R.image.comment,
-            selected: selectedActivityType == .Entry)
+            selected: selectedActivityType == .MyPosts)
         
         segCell.secondButtonView.setupWithTitle("\(upvotes.count)",
-            action: { self.selectedActivityType = .Upvote },
+            action: { self.selectedActivityType = .MyUpvotes },
             image: R.image.upvote,
-            selected: selectedActivityType == .Upvote)
+            selected: selectedActivityType == .MyUpvotes)
+        
+        segCell.thirdButtonView.setupWithTitle(" ",
+            action: { self.selectedActivityType = .MyTransactions },
+            image: R.image.transferArrows,
+            selected: selectedActivityType == .MyTransactions)
     }
     
     func configurePostCell(postCell: PostTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        var post: PFPost?
-        switch selectedActivityType {
-        case .Entry:
-            guard posts.count > indexPath.row else {
-                return
-            }
-            post = posts[indexPath.row]
-        case .Upvote:
-            guard upvotes.count > indexPath.row else {
-                return
-            }
-            post = upvotes[indexPath.row].post
-        default: break
-        }
-        
-        guard let postToShow = post else {
+        guard let postToShow = postForIndexPath(indexPath) else {
             log.error("No post for indexPath \(indexPath), activity mode \(selectedActivityType), posts \(posts), upvotes \(upvotes)")
             return
         }
         
         postCell.upvoteButton.indexPath = indexPath //has to be in ip knowledgeable function
         postCell.configureWithPost(postToShow, showTimeAgo: true)
+    }
+    
+    func configureTransactionCell(transactionCell: PostTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        guard transactions.count > indexPath.row else { return }
+        let transaction = transactions[indexPath.row]
+        
+        transactionCell.configureWithTransaction(transaction)
+    }
+    
+    func postForIndexPath(indexPath: NSIndexPath) -> PFPost? {
+        switch selectedActivityType {
+        case .MyPosts:
+            guard posts.count > indexPath.row else { return nil }
+            return posts[indexPath.row]
+        case .MyUpvotes:
+            guard upvotes.count > indexPath.row else { return nil }
+            return upvotes[indexPath.row].post
+        default: return nil
+        }
     }
     
     //MARK: - UITableViewDelegate
@@ -215,8 +234,29 @@ class ProfileTVC: UITableViewController {
                 performSegueWithIdentifier(R.segue.profileTVC.showDeposit, sender: self)
             default: break
             }
+        case .Activity:
+            if let post = postForIndexPath(indexPath) {
+                showPostInSafari(post)
+            }
         default: break
         }
+    }
+    
+    func showPostInSafari(post: PFPost) {
+        guard let postURL = post.postURL else {
+            log.error("Missing/invalid url \(post)")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(URL: postURL)
+        safariVC.delegate = self
+        presentViewController(safariVC, animated: true, completion: { log.debug("trying to present safari vc \(safariVC)") })
+        //radar: issue with swiping https://openradar.appspot.com/24011284
+
+    }
+    
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //MARK: - Fetch
@@ -226,14 +266,18 @@ class ProfileTVC: UITableViewController {
             if let user = object as? PFUser, let privateUser = user.privateUser where error == nil {
                 self.userDisplaying = user
                 log.debug("private user \(privateUser)")
-                self.fetchPastActivity()
+                self.fetchMyActivity()
             } else {
                 log.error("Error fetching my user, result \(object), error: \(error)")
             }
         }
     }
     
-    func fetchPastActivity() {
+    func fetchMyActivity() {
+        fetchMyPosts()
+    }
+    
+    func fetchMyPosts() {
         FetchManager.fetchMyPostsOnPastContests { (posts, postError) -> () in
             guard let userPosts = posts where postError == nil else {
                 log.error("Error fetching my posts \(postError)")
@@ -241,18 +285,34 @@ class ProfileTVC: UITableViewController {
                 return
             }
             self.posts = userPosts
-            
-            FetchManager.fetchMyUpvotesOnPastContests({ (upvotes, upvoteError) -> () in
-                if let userUpvotes = upvotes where upvoteError == nil {
-                    CacheManager.sharedCache.cacheMyActivity(userUpvotes)
-                    self.upvotes = userUpvotes
-                } else {
-                    log.error("Error fetching my upvotes \(upvoteError)")
-                    MRProgressOverlayView.showErrorWithStatus("Error fetching user activity")
-                    return
-                }
-                self.reloadDataSoftly() //reload either way, don't use guard
-            })
+            self.fetchMyUpvotes()
         }
+    }
+    
+    func fetchMyUpvotes() {
+        FetchManager.fetchMyUpvotesOnPastContests({ (upvotes, upvoteError) -> () in
+            guard let userUpvotes = upvotes where upvoteError == nil else  {
+                log.error("Error fetching my upvotes \(upvoteError)")
+                MRProgressOverlayView.showErrorWithStatus("Error fetching user activity")
+                return
+            }
+            CacheManager.sharedCache.cacheMyActivity(userUpvotes)
+            self.upvotes = userUpvotes
+            self.fetchMyTransactions()
+        })
+    }
+    
+    func fetchMyTransactions() {
+        FetchManager.fetchMyTransactions { (transactions, transactionError) -> () in
+            if let userTransactions = transactions where transactionError == nil {
+                self.transactions = userTransactions
+            } else {
+                log.error("Error fetching my transactions \(transactionError)")
+                MRProgressOverlayView.showErrorWithStatus("Error fetching user activity")
+                return
+            }
+            
+        }
+        self.reloadDataSoftly() //reload either way, don't use guard
     }
 }

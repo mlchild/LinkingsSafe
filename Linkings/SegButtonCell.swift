@@ -12,4 +12,5 @@ class SegButtonCell: UITableViewCell {
     
     @IBOutlet weak var firstButtonView: ButtonImageView!
     @IBOutlet weak var secondButtonView: ButtonImageView!
+    @IBOutlet weak var thirdButtonView: ButtonImageView!
 }

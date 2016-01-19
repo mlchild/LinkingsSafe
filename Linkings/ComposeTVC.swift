@@ -16,9 +16,15 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         case URL
         case Title
         case Subtitle
-        case Finish
+    }
+    
+    enum RowType {
+        case Header(title: String?)
+        case TextField(postInfoType: PostInfoType)
+        case TextView(postInfoType: PostInfoType)
+        case Button
         
-        static func typeForIndexPath(indexPath: NSIndexPath, layout: [[PostInfoType]]) -> PostInfoType? {
+        static func typeForIndexPath(indexPath: NSIndexPath, layout: [[RowType]]) -> RowType? {
             guard indexPath.section < layout.count else {
                 return nil
             }
@@ -30,7 +36,12 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         }
     }
     
-    let layout = [[PostInfoType.URL], [PostInfoType.Title, PostInfoType.Subtitle], [PostInfoType.Finish]]
+    let layout = [[RowType.Header(title: "Link")],
+        [RowType.TextField(postInfoType: .URL)],
+        [RowType.Header(title: "Info")],
+        [RowType.TextField(postInfoType: .Title), RowType.TextView(postInfoType: .Subtitle)],
+        [RowType.Header(title: nil)],
+        [.Button]]
     
     var newPostInfo = [PostInfoType: String]()
     //ask whether to cancel
@@ -41,10 +52,11 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     //MARK: - Basics
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "New Post"
+        title = "New Entry"
         
         tableView.estimatedRowHeight = 66
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
         
         setupNavButtons()
     }
@@ -89,28 +101,36 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
-        guard let rowInfoType = PostInfoType.typeForIndexPath(indexPath, layout: layout) else {
+        guard let rowType = RowType.typeForIndexPath(indexPath, layout: layout) else {
             return cell
         }
         
-        switch rowInfoType {
-        case .URL, .Title:
+        switch rowType {
+        case .Header(title: let title):
+            let headerCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.sectionHeaderTextCellCompose)!
+            headerCell.title.text = title?.uppercaseString
+            headerCell.selectionStyle = .None
+            cell = headerCell
+        case .TextField(postInfoType: let postInfoType):
             let textFieldCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.textFieldCell)!
-            configureTextFieldCell(textFieldCell, forRowAtIndexPath: indexPath)
+            configureTextFieldCell(textFieldCell, forPostInfoType: postInfoType, atIndexPath: indexPath)
             cell = textFieldCell
-        case .Subtitle:
+        case .TextView(postInfoType: let postInfoType):
             let textViewCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.multilineTextCell)!
-            configureTextViewCell(textViewCell, forRowAtIndexPath: indexPath)
+            configureTextViewCell(textViewCell, forPostInfoType: postInfoType, atIndexPath: indexPath)
             cell = textViewCell
-        case .Finish:
-            cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.finishTextCellSimple)!
+        case .Button:
+            let finishCell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.finishTextCellSimple)!
+            configureFinishCell(finishCell, forRowAtIndexPath: indexPath)
+            cell = finishCell
         }
     
+        cell.configureStandardSeparatorInTableView(tableView, atIndexPath: indexPath)
         return cell
     }
     
     //MARK: - Configure
-    func configureTextFieldCell(cell: TextFieldTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func configureTextFieldCell(cell: TextFieldTableCell, forPostInfoType postInfoType: PostInfoType, atIndexPath indexPath: NSIndexPath) {
         cell.textField.delegate = self
         cell.textField.indexPath = indexPath
         cell.textField.returnKeyType = UIReturnKeyType.Next
@@ -118,11 +138,8 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         var placeholderAttributes = cell.textField.attributedPlaceholder?.attributesAtIndex(0, effectiveRange: nil)
         placeholderAttributes?[NSForegroundColorAttributeName] = UIColor.veryLightGrayShoebox()
         
-        guard let rowInfoType = PostInfoType.typeForIndexPath(indexPath, layout: layout) else {
-            return
-        }
         
-        switch rowInfoType {
+        switch postInfoType {
         case .URL:
             cell.textField.text = newPostInfo[.URL]
             cell.textField.attributedPlaceholder = NSAttributedString(string: "link.to.share.com", attributes: placeholderAttributes)
@@ -140,7 +157,7 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
 
 
     }
-    func configureTextViewCell(cell: MultilineTextInputTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func configureTextViewCell(cell: MultilineTextInputTableCell, forPostInfoType postInfoType: PostInfoType, atIndexPath indexPath: NSIndexPath) {
         
         cell.delegate = self
         if let subtitle = newPostInfo[.Subtitle] where subtitle.characters.count > 0 && cell.trueText == nil {
@@ -150,18 +167,25 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
         cell.setupText()
     }
     
+    func configureFinishCell(finishCell: TextTableCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        finishCell.title.text = "POST"
+        finishCell.title.textColor = UIColor.green1976()
+        finishCell.selectionStyle = .Default
+    }
+    
     //MARK: - UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let rowType = PostInfoType.typeForIndexPath(indexPath, layout: layout) else {
+        guard let rowType = RowType.typeForIndexPath(indexPath, layout: layout) else {
             return
         }
         switch rowType {
-        case .Title, .Subtitle, .URL:
+        case .TextField(postInfoType: _), .TextView(postInfoType: _):
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 becomeFirstResponderInTextCell(cell)
             }
-        case .Finish:
+        case .Button:
             donePressed()
+        default: break
         }
         
     }
@@ -171,11 +195,22 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let indexedTF = textField as? IndexedTextField,
             let ip = indexedTF.indexPath,
-            let nextCell = tableView.nextCellForIndexPath(ip)  {
+            let cell = tableView.cellForRowAtIndexPath(ip),
+            let nextTextCell = nextTextCell(cell)  {
                 
-                becomeFirstResponderInTextCell(nextCell)
+                becomeFirstResponderInTextCell(nextTextCell)
         }
         return true
+    }
+    
+    func nextTextCell(cell: UITableViewCell) -> UITableViewCell? {
+        guard let nextCell = tableView.nextCell(cell) else {
+            return nil
+        }
+        guard nextCell is TextFieldTableCell || nextCell is MultilineTextInputTableCell else {
+            return nextTextCell(nextCell)
+        }
+        return nextCell
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -188,11 +223,19 @@ class ComposeTVC: UITableViewController, UITextFieldDelegate, TextViewCellDelega
     }
     
     func saveTextFromTextField(textField: UITextField) {
+        
         if let indexedTF = textField as? IndexedTextField,
             let ip = indexedTF.indexPath,
-            let infoType = PostInfoType.typeForIndexPath(ip, layout: layout) where textField.text != newPostInfo[infoType] {
-                newPostInfo[infoType] = textField.text
+            let rowType = RowType.typeForIndexPath(ip, layout: layout) {
+                switch rowType {
+                case .TextField(postInfoType: let postInfoType):
+                    if textField.text != newPostInfo[postInfoType] {
+                        newPostInfo[postInfoType] = textField.text
+                    }
+                default: break
+                }
         }
+        
     }
     
     func becomeFirstResponderInTextCell(textCell: UITableViewCell) {
